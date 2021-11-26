@@ -37,11 +37,23 @@ module.exports = mergeWithCustomize({
           publicPath: `${process.env.HOST_CLIENT}`,
         },
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[contenthash].[ext]",
+          esModule: false,
+        },
+      },
     ],
   },
   output: {
     clean: true,
     publicPath: `${process.env.HOST_CLIENT}/`,
+  },
+  output: {
+    clean: true,
+    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({
