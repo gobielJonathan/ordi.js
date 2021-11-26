@@ -1,23 +1,40 @@
-import fas from "fastify";
-import "./middleware/renderer";
+const path = require("path");
+const fastify = require("fastify")({ logger: true });
+const serveStatic = require("serve-static");
 
-const fastify = (function createFastify() {
-  return fas({ logger: true });
-})();
+const webpack = require("webpack");
 
-// fastify.register(rendererMiddleware);
+/**
+ * middleware
+ */
+const registerMiddleware = require("./middleware");
 
-fastify.get("/test", async (request, reply) => {
-  reply.code(200).send({ hello: "json" });
-});
+const webpackConfig = require(path.resolve(
+  process.cwd(),
+  "webpack/server/webpack.dev.js"
+));
 
-const start = async () => {
-  try {
+const compiler = webpack(webpackConfig);
+const { publicPath = "/" } = webpackConfig.output;
+
+try {
+  (async function () {
+    await fastify.register(require("fastify-express"));
+    await fastify.use(
+      require("webpack-dev-middleware")(compiler, {
+        publicPath,
+      })
+    );
+    await fastify.register(registerMiddleware);
+    // fastify.use("*", serveStatic(path.join(process.cwd(), "build", "client")));
+
+    fastify.setErrorHandler(function (error, request, reply) {
+      fastify.log.error(error);
+      reply.code(500).send("something wrong in backend, we will fix soon...");
+    });
     await fastify.listen(3001);
-    console.log("listening PORT 3001");
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-start();
+  })();
+} catch (error) {
+  fastify.log.error(error);
+  compiler.close();
+}

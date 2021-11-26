@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@beyond/webpack": [
+                "."
+            ],
+            "@beyond/client": [
+                "./src/client"
+            ],
+            "@beyond/server": [
+                "./src/server"
+            ]
+        }
+    }
+}

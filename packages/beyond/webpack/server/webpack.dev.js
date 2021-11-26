@@ -1,6 +1,7 @@
 const path = require("path");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const common = require("./webpack.config");
+const webpack = require("webpack");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -11,5 +12,4 @@ module.exports = mergeWithCustomize({
   module: {
     rules: [],
   },
-  devtool: "eval",
 });

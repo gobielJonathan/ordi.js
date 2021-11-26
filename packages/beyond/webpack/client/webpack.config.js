@@ -21,12 +21,24 @@ module.exports = {
         test: /\.(css)/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[contenthash].[ext]",
+          esModule: false,
+        },
+      },
     ],
   },
   resolve: {
     alias: {
       "@beyond": path.resolve(process.cwd(), "src", "client"),
     },
+  },
+  output: {
+    clean: true,
+    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({

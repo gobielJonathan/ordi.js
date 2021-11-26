@@ -5,6 +5,7 @@ const common = require("./webpack.config");
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
+    output: "append",
   }),
 })(common, {
   entry: path.resolve(process.cwd(), "src", "client", "index.js"),
@@ -22,5 +23,22 @@ module.exports = mergeWithCustomize({
     open: true,
     compress: true,
   },
-  devtool: "eval",
+  optimization: {
+    runtimeChunk: "single",
+    splitChunks: {
+      chunks: "all",
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendors: {
+          test: /node_modules/,
+          chunks: "initial",
+          filename: "vendors.[contenthash].js",
+          priority: 1,
+          maxInitialRequests: 2, // create only one vendor file
+          minChunks: 1,
+        },
+      },
+    },
+  },
 });

@@ -10,5 +10,5 @@ module.exports = mergeWithCustomize({
   module: {
     rules: [],
   },
-  devtool: "eval",
+  devtool: "source-map",
 });

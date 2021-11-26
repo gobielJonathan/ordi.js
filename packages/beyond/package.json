@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:client": "webpack serve --config ./webpack/client/webpack.dev.js",
-    "dev:server": "webpack serve --config ./webpack/server/webpack.dev.js",
+    "dev:server": "nodemon ./src/server/index.js",
     "build:client": "webpack --config ./webpack/client/webpack.prod.js",
     "build:server": "webpack --config ./webpack/server/webpack.prod.js",
     "build": "pnpm run build:client && pnpm run build:server"
@@ -26,20 +26,27 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.15",
     "style-loader": "^3.3.1",
     "typescript": "^4.5.2",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
+    "webpack-dev-middleware": "^5.2.2",
     "webpack-dev-server": "^4.6.0",
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.16.3",
     "fastify": "^3.24.0",
+    "fastify-express": "^0.3.3",
     "fastify-plugin": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
