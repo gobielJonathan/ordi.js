@@ -13,8 +13,7 @@
     "watch:server": "nodemon \"./build/server/main.js\" --watch \"./build/server\" 3002",
     "build:client": "webpack --config ./webpack/client/webpack.prod.js",
     "build:server": "webpack --config ./webpack/server/webpack.prod.js",
-    "build": "pnpm run build:client && pnpm run build:server",
-    "build:start": "npm-run-all --parallel  node "
+    "build": "pnpm run build:client && pnpm run build:server"
   },
   "repository": {
     "url": "https://github.com/gobielJonathan/beyond"
