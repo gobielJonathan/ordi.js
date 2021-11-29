@@ -22,5 +22,5 @@ module.exports = mergeWithCustomize({
         "X-Requested-With, content-type, Authorization",
     },
   },
-  devtool: "eval",
+  devtool: "eval-source-map",
 });

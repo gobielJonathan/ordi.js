@@ -10,7 +10,4 @@ module.exports = mergeWithCustomize({
   module: {
     rules: [],
   },
-  devServer: {
-    port: Number(process.env.PORT_SERVER),
-  },
 });

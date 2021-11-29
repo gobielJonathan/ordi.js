@@ -10,6 +10,12 @@
             "@beyond/webpack": [
                 "./webpack"
             ],
+            "@beyond/pages": [
+                "./src/client/pages"
+            ],
+            "@beyond/component": [
+                "./src/client/component"
+            ],
             "@beyond/client": [
                 "./src/client"
             ],

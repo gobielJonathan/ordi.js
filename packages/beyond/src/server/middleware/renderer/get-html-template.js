@@ -1,6 +1,8 @@
 import createScriptTag, { mainBundles } from "./scripts";
 
-export function getHeaders({ helmet = {} }) {
+const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
+
+export function getHeaders({ helmet = {}, extractor }) {
   return `
         <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +14,8 @@ export function getHeaders({ helmet = {} }) {
     ${helmet?.meta?.toString() ?? ""}
     ${helmet?.link?.toString() ?? ""}
     ${helmet?.script?.toString() ?? ""}
+    ${extractor?.getLinkTags()}
+    ${extractor?.getStyleTags()}
 </head>
 <body>
     <noscript>Please enable your javascript</noscript>
@@ -19,12 +23,14 @@ export function getHeaders({ helmet = {} }) {
     `;
 }
 
-export function getFooter() {
-  const scripts = mainBundles.map((src) => createScriptTag({ src })).join("");
+export function getFooter({ extractor, initialData = {} }) {
   return `
         </div>
 </body>
-${scripts}
+${extractor?.getScriptTags() ?? mainScripts}
+<script id="__BEYOND__DATA__">window.__BEYOND__DATA__=${JSON.stringify(
+    initialData
+  )}</script>
 </html>
     `;
 }

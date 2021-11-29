@@ -28,7 +28,7 @@ module.exports = mergeWithCustomize({
           chunks: "initial",
           filename: "vendors~main.js",
           priority: 1,
-          maxInitialRequests: 2, // create only one vendor file
+          maxInitialRequests: 2,
           minChunks: 1,
         },
       },

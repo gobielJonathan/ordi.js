@@ -4,6 +4,7 @@ const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
+const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -31,6 +32,7 @@ module.exports = mergeWithCustomize({
       runtime: true,
       filename: `../client/[contenthash].css`,
     }),
+    new LoadablePlugin(),
   ],
   module: {
     rules: [
@@ -52,6 +54,8 @@ module.exports = mergeWithCustomize({
             plugins: [
               "@babel/plugin-transform-modules-commonjs",
               "@babel/transform-runtime",
+              "@babel/plugin-syntax-dynamic-import",
+              "@loadable/babel-plugin",
             ],
             presets: [
               "@babel/preset-env",

@@ -7,9 +7,13 @@ const shared = require("../webpack.shared");
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
+    plugins: "append",
   }),
 })(shared, {
-  entry: path.resolve(process.cwd(), "src", "client", "index.js"),
+  entry: [
+    "@babel/polyfill",
+    path.resolve(process.cwd(), "src", "client", "index.js"),
+  ],
   module: {
     rules: [
       {
@@ -37,7 +41,7 @@ module.exports = mergeWithCustomize({
   },
   output: {
     clean: true,
-    publicPath: `${process.env.HOST_CLIENT}`,
+    publicPath: `${process.env.HOST_CLIENT}/`,
   },
   plugins: [
     new HtmlWebpackPlugin({

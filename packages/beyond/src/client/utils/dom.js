@@ -1,1 +1,1 @@
-export const canUseDom = () => !!window;
+export const canUseDom = () => !!globalThis.window;
