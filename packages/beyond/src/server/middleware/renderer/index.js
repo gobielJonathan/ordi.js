@@ -28,7 +28,7 @@ module.exports = function rendererMiddleware(fastify, opts, next) {
 
       if (component?.getServerSideProps) {
         let { props = null } = await component?.getServerSideProps(req);
-        console.log({ props });
+        //TODO: will be refactor
         /** if data from props, has async, resolve first */
         if (props) {
           for (const key in props) {
