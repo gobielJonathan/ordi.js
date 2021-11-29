@@ -1,7 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+const shared = require("../webpack.shared");
 
-module.exports = {
+module.exports = mergeWithCustomize({
+  customizeObject: customizeObject({
+    "module.rules": "append",
+  }),
+})(shared, {
+  entry: path.resolve(process.cwd(), "src", "client", "index.js"),
   module: {
     rules: [
       {
@@ -18,31 +26,23 @@ module.exports = {
         },
       },
       {
-        test: /\.(css)/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
         test: /\.(png|jpe?g|gif)$/i,
         loader: "file-loader",
         options: {
-          name: "[contenthash].[ext]",
-          esModule: false,
+          name: `[contenthash].[ext]`,
+          publicPath: `${process.env.HOST_CLIENT}`,
         },
       },
     ],
   },
-  resolve: {
-    alias: {
-      "@beyond": path.resolve(process.cwd(), "src", "client"),
-    },
-  },
   output: {
     clean: true,
-    publicPath: "/",
+    publicPath: `${process.env.HOST_CLIENT}`,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), "public", "index.html"),
     }),
+    new MiniCssExtractPlugin(),
   ],
-};
+});

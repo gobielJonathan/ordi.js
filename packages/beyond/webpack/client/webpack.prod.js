@@ -8,20 +8,13 @@ module.exports = mergeWithCustomize({
     output: "append",
   }),
 })(common, {
-  entry: path.resolve(process.cwd(), "src", "client", "index.js"),
+  mode: "production",
   output: {
     path: path.resolve(process.cwd(), "build", "client"),
-    filename: "[name].[contenthash].js",
+    filename: "[name].js",
   },
-  mode: "production",
   module: {
     rules: [],
-  },
-  devServer: {
-    port: 3000,
-    historyApiFallback: true,
-    open: true,
-    compress: true,
   },
   optimization: {
     runtimeChunk: "single",
@@ -33,7 +26,7 @@ module.exports = mergeWithCustomize({
         vendors: {
           test: /node_modules/,
           chunks: "initial",
-          filename: "vendors.[contenthash].js",
+          filename: "vendors~main.js",
           priority: 1,
           maxInitialRequests: 2, // create only one vendor file
           minChunks: 1,

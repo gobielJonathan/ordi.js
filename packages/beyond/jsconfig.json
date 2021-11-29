@@ -1,9 +1,14 @@
 {
+    "include": ["src/*", "webpack/*"],
+    "exclude": ["node_modules", "build"],
     "compilerOptions": {
         "baseUrl": ".",
+        "jsx": "react",
+        "checkJs": false,
+        "allowSyntheticDefaultImports": true,
         "paths": {
             "@beyond/webpack": [
-                "."
+                "./webpack"
             ],
             "@beyond/client": [
                 "./src/client"
