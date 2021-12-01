@@ -7,7 +7,7 @@ const { ChunkExtractor } = require("@loadable/server");
 const { StaticRouter, matchPath } = require("react-router-dom");
 const { default: routes } = require("@beyond/client/routes");
 const { isPromise } = require("@beyond/server/utils/sync");
-
+const { renderStylesToString } = require("@emotion/server");
 const statsFile = path.resolve(__dirname, "./loadable-stats.json");
 
 module.exports = function rendererMiddleware(fastify, opts, next) {
@@ -39,13 +39,15 @@ module.exports = function rendererMiddleware(fastify, opts, next) {
           Object.assign(result, props);
         }
       }
-      const body = renderToString(
-        extractor.collectChunks(
-          <HelmetProvider context={helmetContext}>
-            <StaticRouter context={routerContext} location={req.url}>
-              <Routes {...result} />
-            </StaticRouter>
-          </HelmetProvider>
+      const body = renderStylesToString(
+        renderToString(
+          extractor.collectChunks(
+            <HelmetProvider context={helmetContext}>
+              <StaticRouter context={routerContext} location={req.url}>
+                <Routes {...result} />
+              </StaticRouter>
+            </HelmetProvider>
+          )
         )
       );
 

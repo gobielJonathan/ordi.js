@@ -59,6 +59,15 @@ module.exports = mergeWithCustomize({
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), "public", "index.html"),
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      insert: function (linkTag) {
+        const preloadLinkTag = document.createElement("link");
+        preloadLinkTag.rel = "preload";
+        preloadLinkTag.as = "style";
+        preloadLinkTag.href = linkTag.href;
+        document.head.appendChild(preloadLinkTag);
+        document.head.appendChild(linkTag);
+      },
+    }),
   ],
 });
