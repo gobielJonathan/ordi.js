@@ -20,6 +20,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -30,12 +31,14 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              esModule: true,
+              esModule: false,
               modules: {
-                namedExport: true,
                 localIdentName: "css-[contenthash]",
               },
             },
+          },
+          {
+            loader: "postcss-loader",
           },
         ],
       },

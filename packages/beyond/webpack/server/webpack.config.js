@@ -30,7 +30,6 @@ module.exports = mergeWithCustomize({
     }),
     new MiniCssExtractPlugin({
       runtime: true,
-      filename: `../client/[contenthash].css`,
     }),
     new LoadablePlugin(),
   ],

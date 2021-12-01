@@ -37,16 +37,37 @@ module.exports = mergeWithCustomize({
           publicPath: `${process.env.HOST_CLIENT}`,
         },
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[contenthash].[ext]",
+          esModule: false,
+        },
+      },
     ],
   },
   output: {
     clean: true,
     publicPath: `${process.env.HOST_CLIENT}/`,
   },
+  output: {
+    clean: true,
+    publicPath: "/",
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), "public", "index.html"),
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      insert: function (linkTag) {
+        const preloadLinkTag = document.createElement("link");
+        preloadLinkTag.rel = "preload";
+        preloadLinkTag.as = "style";
+        preloadLinkTag.href = linkTag.href;
+        document.head.appendChild(preloadLinkTag);
+        document.head.appendChild(linkTag);
+      },
+    }),
   ],
 });
