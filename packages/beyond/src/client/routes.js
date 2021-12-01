@@ -1,15 +1,15 @@
-import Home from "@beyond/page/home/lazy";
-import Person from "@beyond/page/person/lazy";
+import Home from '@beyond/page/home/lazy';
+import Person from '@beyond/page/person/lazy';
 
 export default [
   {
     component: Home,
-    path: "/",
+    path: '/',
     exact: true,
   },
   {
     component: Person,
-    path: "/person",
+    path: '/person',
     exact: true,
   },
 ];

@@ -1,3 +1,3 @@
 export function isPromise(promise) {
-  return !!promise && typeof promise.then === "function";
+  return !!promise && typeof promise.then === 'function';
 }

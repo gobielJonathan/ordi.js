@@ -1,6 +1,6 @@
-import createScriptTag, { mainBundles } from "./scripts";
+import createScriptTag, { mainBundles } from './scripts';
 
-const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
+const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join('');
 
 export function getHeaders({ helmet = {}, extractor }) {
   return `
@@ -10,10 +10,10 @@ export function getHeaders({ helmet = {}, extractor }) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     ${helmet?.title?.toString() ?? ""}
-    ${helmet?.meta?.toString() ?? ""}
-    ${helmet?.link?.toString() ?? ""}
-    ${helmet?.script?.toString() ?? ""}
+     ${helmet?.title?.toString() ?? ''}
+    ${helmet?.meta?.toString() ?? ''}
+    ${helmet?.link?.toString() ?? ''}
+    ${helmet?.script?.toString() ?? ''}
     ${extractor?.getLinkTags()}
     ${extractor?.getStyleTags()}
 </head>
@@ -29,7 +29,7 @@ export function getFooter({ extractor, initialData = {} }) {
 </body>
 ${extractor?.getScriptTags() ?? mainScripts}
 <script id="__BEYOND__DATA__">window.__BEYOND__DATA__=${JSON.stringify(
-    initialData
+    initialData,
   )}</script>
 </html>
     `;

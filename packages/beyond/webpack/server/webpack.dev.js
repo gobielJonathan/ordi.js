@@ -1,12 +1,12 @@
-const { mergeWithCustomize, customizeObject } = require("webpack-merge");
-const common = require("./webpack.config");
+const { mergeWithCustomize, customizeObject } = require('webpack-merge');
+const common = require('./webpack.config');
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
-    "module.rules": "append",
+    'module.rules': 'append',
   }),
 })(common, {
-  mode: "development",
+  mode: 'development',
   module: {
     rules: [],
   },

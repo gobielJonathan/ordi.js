@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-export default () => {
+export default function Person() {
   return (
     <>
       <Helmet>
@@ -9,4 +9,4 @@ export default () => {
       <h1>testing from person</h1>
     </>
   );
-};
+}
