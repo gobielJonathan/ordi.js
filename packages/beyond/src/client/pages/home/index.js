@@ -22,11 +22,16 @@ export default function Home({ data = [] }) {
   );
 }
 
-Home.getServerSideProps = async (ctx) => {
-  const data = await Promise.resolve([1, 2, 3]);
+Home.getStaticProps = async (ctx) => {
+  const data = await Promise.resolve([
+    Math.random(),
+    Math.random(),
+    Math.random(),
+  ]);
   return {
     props: {
       data,
     },
+    revalidate: 1,
   };
 };
