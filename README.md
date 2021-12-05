@@ -22,31 +22,31 @@ This tool is very suitable to be used to shorten the project setting process and
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+ git clone https://github.com/gobielJonathan/beyond.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+ cd packages/beyond
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+ npm install
 ```
 
 Start the server
 
 ```bash
-  npm run start
+ npm run start
 ```
 
 
 ## Documentation
 
-[Documentation](https://linktodocumentation)
+[Documentation](https://github.com/gobielJonathan/beyond)
 
 
 ## Support
@@ -65,7 +65,22 @@ Please adhere to this project's `code of conduct`.
 
 ## Roadmap
 
-- Additional browser support
+This file provides an overview of the direction this project is heading. The roadmap is organized in steps that focus on a specific theme,for instance, UX.
 
-- Add more integrations
+#### [M1 - Basic Infrastructure](https://github.com/gobielJonathan/beyond)
 
+In this phase of the project the focus is on X, Y and Z. The expected features are:
+
+- Something the user can do.
+- Description of a feature.
+- Ability to save things.
+- Etc.
+
+#### [M2 - User Experience](https://github.com/gobielJonathan/beyond)
+
+In this phase of the project the focus is on A, B and C. The expected features are:
+
+- Something the user can do.
+- Description of a feature.
+- Ability to save things.
+- Etc.
