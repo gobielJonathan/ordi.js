@@ -1,6 +1,6 @@
 require("dotenv").config();
 const fastify = require("fastify")({ logger: !__DEV__ });
-const { _500 } = require("./template");
+import { _500 } from "./template";
 /**
  * middleware
  */

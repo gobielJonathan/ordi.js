@@ -52,7 +52,6 @@ module.exports = mergeWithCustomize({
     publicPath: `${process.env.HOST_CLIENT}/`,
   },
   output: {
-    clean: true,
     publicPath: "/",
   },
   plugins: [

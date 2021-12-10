@@ -6,8 +6,12 @@ module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
     output: "append",
+    output: "append",
   }),
 })(common, {
+  output: {
+    clean: true,
+  },
   mode: "production",
   output: {
     path: path.resolve(process.cwd(), "build", "client"),
