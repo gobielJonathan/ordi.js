@@ -1,11 +1,10 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { _404 } from "@beyond/component/error";
 import routes from "@beyond/client/routes";
-import { Redirect } from "react-router-dom";
 import { canUseDom } from "@beyond/client/utils/dom";
 
-export default (props) => {
-  //TODO: will be remove to HOC component app
+export default function Routes(props) {
+  // TODO: will be remove to HOC component app
   const initialData = canUseDom() ? window.__BEYOND__DATA__ : props;
 
   return (
@@ -22,4 +21,4 @@ export default (props) => {
       <Route component={_404} path="*" />
     </Switch>
   );
-};
+}

@@ -1,18 +1,18 @@
-export const mainBundles = ["main", "runtime", "vendors~main"];
+export const mainBundles = ['main', 'runtime', 'vendors~main'];
 
 export default function createScriptTag({
   src,
-  type = "",
+  type = '',
   nomodule = false,
   nonce,
 }) {
   if (src) {
-    const nonceString = nonce ? `nonce="${nonce}"` : "";
+    const nonceString = nonce ? `nonce="${nonce}"` : '';
     return `<script defer="defer" src="${process.env.HOST_CLIENT}/${src}.js" ${
-      type ? `type="${type}"` : ""
+      type ? `type="${type}"` : ''
     } ${
-      nomodule ? "nomodule" : ""
+      nomodule ? 'nomodule' : ''
     } crossorigin="anonymous" ${nonceString}></script>`;
   }
-  return "";
+  return '';
 }

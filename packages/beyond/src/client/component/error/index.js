@@ -1,5 +1,5 @@
-import loadable from "@loadable/component";
+import loadable from '@loadable/component';
 
-const _404 = loadable(() => import("./404"));
+const _404 = loadable(() => import('./404'));
 
 export { _404 };
