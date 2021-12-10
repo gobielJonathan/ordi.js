@@ -1,12 +1,6 @@
 import LRU from "lru-cache";
-import sizeOf from "object-sizeof";
 
-const LRUCache = new LRU({
-  max: 0,
-  length: (n) => {
-    return sizeOf(n);
-  },
-});
+const LRUCache = new LRU({ max: Infinity });
 
 export const get = (key) => {
   return LRUCache.get(key);
