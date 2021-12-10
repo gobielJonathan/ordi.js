@@ -1,5 +1,5 @@
-import loadable from '@loadable/component';
+import loadable from "@loadable/component";
 
-export default loadable(() => import('./index'), {
+export default loadable(() => import("./index"), {
   fallback: <h1>Loading</h1>,
 });

@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import Routes from '@beyond/component/routes';
-import './index.css';
-import { BrowserRouter } from 'react-router-dom';
-import { loadableReady } from '@loadable/component';
-import { canUseDom } from './utils/dom';
+import ReactDOM from "react-dom";
+import { HelmetProvider } from "react-helmet-async";
+import Routes from "@beyond/component/routes";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import { loadableReady } from "@loadable/component";
+import { canUseDom } from "./utils/dom";
 
 const app = (
   <HelmetProvider>
@@ -15,8 +14,9 @@ const app = (
   </HelmetProvider>
 );
 
-const renderer = (id) => (canUseDom()
-  ? ReactDOM.render(app, id)
-  : loadableReady(() => ReactDOM.hydrate(app, id)));
+const renderer = (id) =>
+  canUseDom()
+    ? ReactDOM.render(app, id)
+    : loadableReady(() => ReactDOM.hydrate(app, id));
 
-renderer(document.getElementById('__beyond'));
+renderer(document.getElementById("__beyond"));

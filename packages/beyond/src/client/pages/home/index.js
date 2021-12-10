@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useHistory } from "react-router-dom";
 import { styButton } from "./style";
 import style from "./index.css";
-
+import { array } from "prop-types";
 export default function Home({ data = [] }) {
   const history = useHistory();
 
@@ -22,7 +22,11 @@ export default function Home({ data = [] }) {
   );
 }
 
-Home.getStaticProps = async (ctx) => {
+Home.propTypes = {
+  data: array,
+};
+
+Home.getStaticProps = async () => {
   const data = await Promise.resolve([
     Math.random(),
     Math.random(),
