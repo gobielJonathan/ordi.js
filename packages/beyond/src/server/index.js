@@ -1,7 +1,6 @@
 require("dotenv").config();
-const path = require("path");
 const fastify = require("fastify")({ logger: !__DEV__ });
-
+const { _500 } = require("./template");
 /**
  * middleware
  */
@@ -10,14 +9,12 @@ try {
   (async function () {
     await fastify.register(registerMiddleware);
 
-    fastify.register(require("fastify-static"), {
-      root: path.join(__dirname, "..", "client"),
-      prefix: process.env.ASSET_PREFIX, // optional: default '/'
-    });
-
     fastify.setErrorHandler(function (error, request, reply) {
       fastify.log.error(error);
-      reply.code(500).send("something wrong in backend, we will fix soon...");
+      reply
+        .code(500)
+        .type("text/html")
+        .send(renderToString(<_500 message={error?.toString()} />));
     });
     await fastify.listen(Number(process.env.PORT_SERVER));
   })();
