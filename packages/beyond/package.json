@@ -24,7 +24,7 @@
   "author": "Gobiel",
   "workspaces": [],
   "engines": {
-    "node": ">=12.22.0"
+    "node": ">=14.0.0"
   },
   "license": "ISC",
   "devDependencies": {

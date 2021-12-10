@@ -15,18 +15,15 @@ module.exports = mergeWithCustomize({
   entry: path.resolve(process.cwd(), "src/server", "index.js"),
   output: {
     path: path.resolve(process.cwd(), "build/server"),
-    libraryTarget: "commonjs2",
-  },
-  externals: [nodeExternals()],
-  resolve: {
-    alias: {
-      "@beyond/client": path.resolve(process.cwd(), "src", "client"),
-      "@beyond/server": path.resolve(process.cwd(), "src", "server"),
+    library: {
+      type: "commonjs2",
     },
   },
+  externals: [nodeExternals()],
   plugins: [
     new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || "true")),
+      __DEV__: JSON.stringify(process.env.NODE_ENV === "development"),
+      __PROD__: JSON.stringify(process.env.NODE_ENV === "production"),
     }),
     new MiniCssExtractPlugin({
       runtime: true,

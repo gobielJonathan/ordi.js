@@ -1,101 +1,65 @@
-const path = require("path");
-const { renderToString } = require("react-dom/server");
-const { default: Routes } = require("@beyond/client/component/routes");
-const { getHeaders, getFooter } = require("./get-html-template");
-const { HelmetProvider } = require("react-helmet-async");
-const { ChunkExtractor } = require("@loadable/server");
-const { StaticRouter, matchPath } = require("react-router-dom");
-const { default: routes } = require("@beyond/client/routes");
-const { isPromise } = require("@beyond/server/utils/sync");
-const { IncrementalSSG } = require("../incremental");
-const { default: _500 } = require("@beyond/server/template/_500");
+import { renderToString } from "react-dom/server";
+import Incremental from "../incremental";
+import { _500, _404 } from "@beyond/server/template";
+import render from "../../shared/document";
+import { findRoute } from "../../shared/route";
 
-const statsFile = path.resolve(__dirname, "./loadable-stats.json");
+export default function rendererMiddleware(fastify, opts, next) {
+  const incremental = new Incremental();
 
-module.exports = function rendererMiddleware(fastify, opts, next) {
   fastify.get("*", async (req, reply) => {
     try {
-      /** if exists in incremental cache, it's i-ssg */
-      const [htmlCache, statusRegeneration] = IncrementalSSG.get(req);
+      const { matches, component } = findRoute(req.url);
+
+      if (!matches) {
+        reply
+          .code(404)
+          .type("text/html")
+          .send(renderToString(<_404 />));
+        return;
+      }
+
+      let isSSG = !!component?.getStaticProps;
+      let htmlCache = undefined;
+
+      if (isSSG) htmlCache = incremental.get(req);
+
       if (htmlCache) {
         reply
           .code(200)
-          .headers({ "x-render": "i-ssg" })
+          .headers({ "x-beyond-ssg": true })
           .type("text/html")
           .send(htmlCache);
-        if (!statusRegeneration) return;
+        return;
       }
 
-      let helmetContext = { helmet: {} };
-      let routerContext = {};
+      let routerProps = {};
 
-      const extractor = new ChunkExtractor({
-        statsFile,
-        publicPath: process.env.HOST_CLIENT,
-      });
-
-      const component =
-        routes?.find((data) => matchPath(req.url, data.path))?.component ?? {};
-
-      let result = {};
-      let incrementalTime = 0;
-
-      if (component?.getServerSideProps)
-        throw new Error("getServerSideProps not support revalidate");
-
-      if (component?.getServerSideProps || component?.getStaticProps) {
-        let getDataInitial =
-          component?.getServerSideProps || component?.getStaticProps;
-
-        let { props = null, revalidate = undefined } = await getDataInitial(
-          req
-        );
-
-        incrementalTime = revalidate;
-
-        //TODO: will be refactor
-        /** if data from props, has async, resolve first */
-        if (props) {
-          for (const key in props) {
-            const resolveData = props[key];
-            if (isPromise(resolveData)) props[key] = await resolveData();
-            props[key] = resolveData;
-          }
-          Object.assign(result, props);
-        }
-      }
-      const body = renderStylesToString(
-        renderToString(
-          extractor.collectChunks(
-            <HelmetProvider context={helmetContext}>
-              <StaticRouter context={routerContext} location={req.url}>
-                <Routes {...result} />
-              </StaticRouter>
-            </HelmetProvider>
-          )
-        )
-      );
-
-      let htmlState = {
-        helmet: helmetContext.helmet,
-        extractor,
-        initialData: result,
-      };
-
-      const bodyContent = `${getHeaders(htmlState)}${body}${getFooter(
-        htmlState
-      )}`;
-
-      let statusCode = Number(routerContext?.status ?? 200);
-
-      if (routerContext.url) {
-        reply.redirect(301, routerContext.url);
+      if (!isSSG && component?.getServerSideProps) {
+        let { props = {} } = await component.getServerSideProps(req);
+        routerProps = props;
       }
 
-      if (!!incrementalTime) {
-        IncrementalSSG.put(req, bodyContent, incrementalTime);
+      let revalidate = -1;
+      if (isSSG) {
+        let { props = {}, revalidate: _revalidate = -1 } =
+          await component.getStaticProps(req);
+        routerProps = props;
+        revalidate = _revalidate;
       }
-      reply.code(statusCode).type("text/html").send(bodyContent);
+
+      const { status, html, redirect } = render({ req, routerProps });
+
+      if (status === 301) {
+        reply.redirect(301, redirect);
+        return;
+      }
+
+      if (isSSG) {
+        incremental.set(req, html, revalidate);
+      }
+
+      reply.code(status).type("text/html").send(html);
     } catch (error) {
       fastify.log.error(error);
       reply
@@ -105,4 +69,4 @@ module.exports = function rendererMiddleware(fastify, opts, next) {
     }
   });
   next();
-};
+}
