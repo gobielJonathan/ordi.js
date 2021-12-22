@@ -26,15 +26,10 @@ Home.propTypes = {
   data: array,
 };
 
-Home.getStaticProps = async () => {
-  const data = await Promise.resolve([
-    Math.random(),
-    Math.random(),
-    Math.random(),
-  ]);
+Home.getStaticProps = async (ctx) => {
   return {
     props: {
-      data,
+      data: [1, 2, 3],
     },
     revalidate: 1,
   };
