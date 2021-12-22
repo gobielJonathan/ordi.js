@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
+const WebpackBar = require("webpackbar");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -34,7 +35,7 @@ module.exports = mergeWithCustomize({
         loader: "file-loader",
         options: {
           name: `[contenthash].[ext]`,
-          publicPath: `${process.env.HOST_CLIENT}`,
+          publicPath: process.env.HOST_CLIENT,
         },
       },
       {
@@ -51,13 +52,11 @@ module.exports = mergeWithCustomize({
     clean: true,
     publicPath: `${process.env.HOST_CLIENT}/`,
   },
-  output: {
-    publicPath: "/",
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(process.cwd(), "public", "index.html"),
     }),
+    new WebpackBar({ name: "client" }),
     new MiniCssExtractPlugin({
       insert: function (linkTag) {
         const preloadLinkTag = document.createElement("link");

@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
+const WebpackBar = require("webpackbar");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -29,6 +30,7 @@ module.exports = mergeWithCustomize({
       runtime: true,
     }),
     new LoadablePlugin(),
+    new WebpackBar({ name: "server", color: "#FFBD35" }),
   ],
   module: {
     rules: [
@@ -38,7 +40,7 @@ module.exports = mergeWithCustomize({
         options: {
           name: "[contenthash].[ext]",
           outputPath: `../client/`,
-          publicPath: `${process.env.HOST_CLIENT}`,
+          publicPath: process.env.HOST_CLIENT,
         },
       },
       {
