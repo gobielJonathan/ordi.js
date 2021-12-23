@@ -1,8 +1,8 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
 import { _500, _404 } from "@beyond/server/template";
-import render from "../../shared/document";
-import { findRoute } from "../../shared/route";
+import render from "./render";
+import { findRoute } from "@beyond/server/shared/route";
 
 export default function rendererMiddleware(fastify, opts, next) {
   const incremental = new Incremental();

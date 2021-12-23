@@ -1,7 +1,8 @@
-import { Switch, Route, Redirect } from "react-router-dom";
-import { _404 } from "@beyond/component/error";
-import routes from "@beyond/client/routes";
-import { canUseDom } from "@beyond/client/utils/dom";
+import { Switch, Route } from "react-router-dom";
+import { _404 } from "@beyond/default/error";
+import routes from "@beyond/default/routes";
+
+const canUseDom = () => typeof window != undefined;
 
 export default function Routes(props) {
   // TODO: will be remove to HOC component app
@@ -17,7 +18,6 @@ export default function Routes(props) {
           path={path}
         />
       ))}
-      <Redirect from="/fb" to="/ab" />
       <Route component={_404} path="*" />
     </Switch>
   );

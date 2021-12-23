@@ -1,11 +1,11 @@
 import { matchPath } from "react-router";
 import { removeURLParameter } from "../utils/url";
-import routes from "@beyond/client/routes";
+import routes from "@beyond/default/routes";
 
 export const findRoute = (url = "") => {
   let cleanURL = removeURLParameter(url);
-  let matches = undefined;
-  let component = undefined;
+  let matches;
+  let component;
 
   for (const route of routes) {
     if (matchPath(cleanURL, { path: route.path, exact: true })) {
