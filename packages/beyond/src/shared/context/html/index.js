@@ -6,9 +6,15 @@ export const HtmlContext = createContext({
   html: "",
 });
 
-export const HtmlProvider = ({ children, helmet, extractor, html }) => {
+export const HtmlProvider = ({
+  children,
+  helmet,
+  extractor,
+  html,
+  routerProps,
+}) => {
   return (
-    <HtmlContext.Provider value={{ helmet, extractor, html }}>
+    <HtmlContext.Provider value={{ helmet, extractor, html, routerProps }}>
       {children}
     </HtmlContext.Provider>
   );

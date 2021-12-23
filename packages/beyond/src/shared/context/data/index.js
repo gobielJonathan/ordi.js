@@ -1,9 +1,14 @@
+import { canUseDom } from "@beyond/utils/dom";
 import { createContext, useContext } from "react";
 
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children, data = {} }) => {
-  return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
+  const initialData = canUseDom() ? window.__BEYOND__DATA__ : data;
+
+  return (
+    <DataContext.Provider value={initialData}>{children}</DataContext.Provider>
+  );
 };
 
 export const useDataContext = () => {

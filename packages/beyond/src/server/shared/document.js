@@ -1,5 +1,4 @@
-import { useHtmlContext } from "@beyond/shared/context/html";
-import { useDataContext } from "@beyond/shared/context/data";
+import { useHtmlContext } from "@beyond/shared/context/html/index";
 
 const mainBundles = ["main", "runtime", "vendors~main"];
 
@@ -44,13 +43,17 @@ export const Head = () => {
 };
 
 export const Scripts = () => {
-  const { extractor } = useHtmlContext();
-  const data = useDataContext();
+  const { extractor, routerProps } = useHtmlContext();
   return (
     <>
-      <script id="__BEYOND__DATA__" type="application/json">
-        {JSON.stringify(data)}
-      </script>
+      <script
+        id="__BEYOND__DATA__"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.__BEYOND__DATA__=${JSON.stringify(routerProps)}
+        `,
+        }}
+      ></script>
       {extractor?.getScriptElements() ?? mainScripts}
     </>
   );
@@ -72,4 +75,10 @@ export const Document = () => {
       </body>
     </Html>
   );
+};
+
+export const Body = ({ children }) => {
+  const { helmet } = useHtmlContext();
+  const attr = helmet.bodyAttributes?.toComponent();
+  return <body {...attr}>{children}</body>;
 };
