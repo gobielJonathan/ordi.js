@@ -1,25 +1,24 @@
-const { mergeWithCustomize, customizeObject } = require('webpack-merge');
-const common = require('./webpack.config');
+const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+const common = require("./webpack.config");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
-    'module.rules': 'append',
+    "module.rules": "append",
   }),
 })(common, {
-  mode: 'development',
+  mode: "development",
   module: {
     rules: [],
   },
   devServer: {
     port: Number(process.env.PORT_CLIENT),
-    historyApiFallback: true,
     compress: true,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'X-Requested-With, content-type, Authorization',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
     },
   },
-  devtool: 'eval-source-map',
+  devtool: "eval-source-map",
 });

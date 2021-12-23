@@ -1,4 +1,4 @@
-export default function _404() {
+export default function _500({ message }) {
   return (
     <>
       <div
@@ -7,13 +7,9 @@ export default function _404() {
         }}
       >
         <h1 style={{ borderBottom: "1px solid", paddingBottom: "10px" }}>
-          404
+          500
         </h1>
-        <p>Page not Found</p>
-
-        <button onClick={() => window.location.assign(process.env.HOSTNAME)}>
-          Go Home
-        </button>
+        <code>{message}</code>
       </div>
     </>
   );

@@ -1,13 +1,13 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
-import { _500, _404 } from "@beyond/server/template";
-import render from "../../shared/document";
-import { findRoute } from "../../shared/route";
+import { _500, _404 } from "@beyond/default/error/index";
+import render from "./render";
+import { findRoute } from "@beyond/server/shared/route";
 
 export default function rendererMiddleware(fastify, opts, next) {
   const incremental = new Incremental();
 
-  fastify.get("*", async (req, reply) => {
+  fastify.get("/*", async (req, reply) => {
     try {
       const { matches, component } = findRoute(req.url);
 
@@ -65,7 +65,7 @@ export default function rendererMiddleware(fastify, opts, next) {
       reply
         .code(500)
         .type("text/html")
-        .send(renderToString(<_500 message={error?.toString()} />));
+        .send(renderToString(<_500 message={error.stack} />));
     }
   });
   next();

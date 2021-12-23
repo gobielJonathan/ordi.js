@@ -1,10 +1,13 @@
 require("dotenv").config();
 const fastify = require("fastify")({});
-import { _500 } from "./template";
+
+import { _500 } from "@beyond/default/error/index";
+
 /**
  * middleware
  */
-const registerMiddleware = require("./middleware");
+import registerMiddleware from "./middleware/index";
+
 try {
   (async function () {
     await fastify.register(registerMiddleware);

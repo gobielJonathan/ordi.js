@@ -1,56 +1,75 @@
-import path from "path";
-import {
-  getFooter,
-  getHeaders,
-} from "../middleware/renderer/get-html-template";
+import { useHtmlContext } from "@beyond/shared/context/html";
+import { useDataContext } from "@beyond/shared/context/data";
 
-import { ChunkExtractor } from "@loadable/server";
-import { HelmetProvider } from "react-helmet-async";
-import { StaticRouter } from "react-router-dom";
-import { renderToString } from "react-dom/server";
-import { renderStylesToString } from "@emotion/server";
-import Routes from "@beyond/client/component/routes";
-import { removeURLParameter } from "../utils/url";
+const mainBundles = ["main", "runtime", "vendors~main"];
 
-const statsFile = path.resolve(__dirname, "./loadable-stats.json");
-
-export default function render({ routerProps = {}, req = {} }) {
-  const url = removeURLParameter(req.url);
-  let helmetContext = { helmet: {} };
-  let routerContext = { status: 200 };
-
-  const extractor = new ChunkExtractor({
-    statsFile,
-    publicPath: process.env.HOST_CLIENT,
-  });
-
-  const body = renderStylesToString(
-    renderToString(
-      extractor.collectChunks(
-        <HelmetProvider context={helmetContext}>
-          <StaticRouter context={routerContext} location={url}>
-            <Routes {...routerProps} />
-          </StaticRouter>
-        </HelmetProvider>
-      )
-    )
-  );
-
-  let htmlState = {
-    helmet: helmetContext.helmet,
-    extractor,
-    initialData: routerProps,
-  };
-
-  const bodyContent = `${getHeaders(htmlState)}${body}${getFooter(htmlState)}`;
-
-  let statusCode = Number(routerContext?.status ?? 200);
-  let redirect = "";
-
-  if (routerContext.url) {
-    statusCode = 301;
-    redirect = routerContext.url;
+function createScriptTag({ src, type = "", nomodule = false, nonce = "" }) {
+  if (src) {
+    return (
+      <script
+        defer
+        src={`${process.env.HOST_CLIENT}/${src}.js`}
+        type={type}
+        noModule={nomodule}
+        crossOrigin={"anonymous"}
+        nonce={nonce}
+      />
+    );
   }
-
-  return { status: statusCode, html: bodyContent, redirect };
+  return "";
 }
+
+const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
+
+export const Html = ({ children }) => {
+  const { helmet } = useHtmlContext();
+  const attr = helmet.htmlAttributes?.toComponent();
+  return <html {...attr}>{children}</html>;
+};
+
+export const Head = () => {
+  const { helmet, extractor } = useHtmlContext();
+
+  return (
+    <head>
+      {helmet.title?.toComponent()}
+      {helmet.priority?.toComponent()}
+      {helmet.meta?.toComponent()}
+      {helmet.link?.toComponent()}
+      {helmet.script?.toComponent()}
+      {extractor?.getLinkElements()}
+      {extractor?.getStyleElements()}
+    </head>
+  );
+};
+
+export const Scripts = () => {
+  const { extractor } = useHtmlContext();
+  const data = useDataContext();
+  return (
+    <>
+      <script id="__BEYOND__DATA__" type="application/json">
+        {JSON.stringify(data)}
+      </script>
+      {extractor?.getScriptElements() ?? mainScripts}
+    </>
+  );
+};
+
+export const Main = () => {
+  const { html } = useHtmlContext();
+  return <div id="__beyond" dangerouslySetInnerHTML={{ __html: html }} />;
+};
+
+export const Document = () => {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <noscript>Please enable your javascript</noscript>
+        <Main />
+        <Scripts />
+      </body>
+    </Html>
+  );
+};
