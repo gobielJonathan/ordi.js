@@ -1,4 +1,6 @@
+import renderMiddleware from "./renderer/index";
+
 export default function registerMiddleware(fastify, opts, next) {
-  fastify.register(require("./renderer"));
+  fastify.register(renderMiddleware);
   next();
 }

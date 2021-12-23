@@ -7,7 +7,7 @@ import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { renderStylesToString } from "@emotion/server";
 import { removeURLParameter } from "@beyond/server/utils/url";
 import { HtmlProvider } from "@beyond/shared/context/html";
-import { ContextProvider } from "@beyond/shared/context";
+import { ContextProvider } from "@beyond/shared/context/index";
 import Routes from "@beyond/router";
 import App from "@beyond/default/_app";
 
@@ -42,8 +42,6 @@ export default function render({ routerProps = {}, req = {} }) {
   );
 
   const appHTML = renderStylesToString(renderToString(AppTree));
-
-  console.log({ appHTML });
 
   const body = renderDocument({ helmetContext, extractor, html: appHTML });
 

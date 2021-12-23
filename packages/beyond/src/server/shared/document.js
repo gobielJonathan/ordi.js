@@ -23,8 +23,8 @@ const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
 
 export const Html = ({ children }) => {
   const { helmet } = useHtmlContext();
-  const attr = helmet.htmlAttributes.toComponent();
-  return <html {...attr} />;
+  const attr = helmet.htmlAttributes?.toComponent();
+  return <html {...attr}>{children}</html>;
 };
 
 export const Head = () => {
@@ -32,11 +32,11 @@ export const Head = () => {
 
   return (
     <head>
-      {helmet.title?.toString()}
-      {helmet.priority?.toString()}
-      {helmet.meta?.toString()}
-      {helmet.link?.toString()}
-      {helmet.script?.toString()}
+      {helmet.title?.toComponent()}
+      {helmet.priority?.toComponent()}
+      {helmet.meta?.toComponent()}
+      {helmet.link?.toComponent()}
+      {helmet.script?.toComponent()}
       {extractor?.getLinkElements()}
       {extractor?.getStyleElements()}
     </head>
@@ -58,7 +58,6 @@ export const Scripts = () => {
 
 export const Main = () => {
   const { html } = useHtmlContext();
-  console.log({ html });
   return <div id="__beyond" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 

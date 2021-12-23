@@ -1,6 +1,6 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
-import { _500, _404 } from "@beyond/server/template";
+import { _500, _404 } from "@beyond/default/error/index";
 import render from "./render";
 import { findRoute } from "@beyond/server/shared/route";
 

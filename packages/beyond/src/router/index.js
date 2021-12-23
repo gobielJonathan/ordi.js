@@ -1,8 +1,7 @@
 import { Switch, Route } from "react-router-dom";
 import { _404 } from "@beyond/default/error";
 import routes from "@beyond/default/routes";
-
-const canUseDom = () => typeof window != undefined;
+import { canUseDom } from "@beyond/utils/dom";
 
 export default function Routes(props) {
   // TODO: will be remove to HOC component app
