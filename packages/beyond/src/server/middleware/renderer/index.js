@@ -7,7 +7,7 @@ import { findRoute } from "@beyond/server/shared/route";
 export default function rendererMiddleware(fastify, opts, next) {
   const incremental = new Incremental();
 
-  fastify.get("*", async (req, reply) => {
+  fastify.get("/*", async (req, reply) => {
     try {
       const { matches, component } = findRoute(req.url);
 

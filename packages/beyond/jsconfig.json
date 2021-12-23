@@ -1,27 +1,14 @@
 {
-    "include": ["src/*", "webpack/*"],
-    "exclude": ["node_modules", "build"],
     "compilerOptions": {
-        "baseUrl": ".",
-        "jsx": "react",
-        "checkJs": false,
-        "allowSyntheticDefaultImports": true,
+        "target": "es2017",
+        "allowSyntheticDefaultImports": false,
+        "baseUrl": "./",
         "paths": {
-            "@beyond/webpack": [
-                "./webpack"
-            ],
-            "@beyond/pages": [
-                "./src/client/pages"
-            ],
-            "@beyond/component": [
-                "./src/client/component"
-            ],
-            "@beyond/client": [
-                "./src/client"
-            ],
-            "@beyond/server": [
-                "./src/server"
-            ]
+            "@beyond/*" : ["src/*"]
         }
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+    ]
 }

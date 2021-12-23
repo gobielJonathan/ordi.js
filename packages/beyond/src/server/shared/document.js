@@ -22,7 +22,9 @@ function createScriptTag({ src, type = "", nomodule = false, nonce = "" }) {
 const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
 
 export const Html = ({ children }) => {
-  return <html lang={"en"}>{children}</html>;
+  const { helmet } = useHtmlContext();
+  const attr = helmet.htmlAttributes.toComponent();
+  return <html {...attr} />;
 };
 
 export const Head = () => {
@@ -59,6 +61,7 @@ export const Main = () => {
   console.log({ html });
   return <div id="__beyond" dangerouslySetInnerHTML={{ __html: html }} />;
 };
+
 export const Document = () => {
   return (
     <Html>
