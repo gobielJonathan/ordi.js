@@ -1,3 +1,3 @@
-const ROUTES = [{ path: "/", component: () => <h5>home</h5> }];
+const ROUTES = [];
 
 export default ROUTES;

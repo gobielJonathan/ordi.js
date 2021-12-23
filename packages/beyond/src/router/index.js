@@ -4,7 +4,6 @@ import routes from "@beyond/default/routes";
 import { canUseDom } from "@beyond/utils/dom";
 
 export default function Routes(props) {
-  // TODO: will be remove to HOC component app
   const initialData = canUseDom() ? window.__BEYOND__DATA__ : props;
 
   return (

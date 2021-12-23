@@ -1,10 +1,12 @@
 import { HelmetProvider } from "react-helmet-async";
-import { DataProvider } from "./data";
+import { DataProvider } from "./data/index";
 
-export const ContextProvider = ({ children, helmetContext, routerProps }) => {
+const ContextProvider = ({ children, helmetContext, routerProps }) => {
   return (
     <HelmetProvider context={helmetContext}>
       <DataProvider data={routerProps}>{children}</DataProvider>
     </HelmetProvider>
   );
 };
+
+export default ContextProvider;

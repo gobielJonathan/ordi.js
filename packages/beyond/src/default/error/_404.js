@@ -11,9 +11,7 @@ export default function _404() {
         </h1>
         <p>Page not Found</p>
 
-        <button onClick={() => window.location.assign(process.env.HOSTNAME)}>
-          Go Home
-        </button>
+        <a href="/">Go Home</a>
       </div>
     </>
   );

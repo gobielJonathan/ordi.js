@@ -65,7 +65,7 @@ export default function rendererMiddleware(fastify, opts, next) {
       reply
         .code(500)
         .type("text/html")
-        .send(renderToString(<_500 message={error?.toString()} />));
+        .send(renderToString(<_500 message={error.stack} />));
     }
   });
   next();

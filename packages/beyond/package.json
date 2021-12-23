@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all --parallel dev:client dev:server",
+    "dev": "npm-run-all --parallel dev:client dev:server",
     "dev:client": "webpack serve --config ./webpack/client/webpack.dev.js",
     "dev:server": "npm-run-all --parallel watch:server watch:build",
     "watch:build": "webpack --watch --config ./webpack/server/webpack.prod.js",

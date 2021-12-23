@@ -32,8 +32,11 @@ export default class IncrementalSSG {
       html: content,
     };
 
-    this.cache.set(url, cacheData, timeToRevalidate);
-    console.info(`${url} put in cache`);
+    if (this.cache.set(url, cacheData, timeToRevalidate)) {
+      console.info(`${url} put in cache`);
+    } else {
+      console.warn(`${url} failed put in cache`);
+    }
   }
   get(req) {
     const url = removeURLParameter(req.url);
