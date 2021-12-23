@@ -20,7 +20,7 @@ export default function rendererMiddleware(fastify, opts, next) {
       }
 
       let isSSG = !!component?.getStaticProps;
-      let htmlCache = undefined;
+      let htmlCache;
 
       if (isSSG) htmlCache = incremental.get(req);
 

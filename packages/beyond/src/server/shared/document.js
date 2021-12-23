@@ -1,5 +1,4 @@
-import { useHtmlContext } from "@beyond/shared/context/html";
-import { useDataContext } from "@beyond/shared/context/data";
+import { useHtmlContext } from "@beyond/shared/context/html/index";
 
 const mainBundles = ["main", "runtime", "vendors~main"];
 
@@ -72,4 +71,10 @@ export const Document = () => {
       </body>
     </Html>
   );
+};
+
+export const Body = ({ children }) => {
+  const { helmet } = useHtmlContext();
+  const attr = helmet.bodyAttributes?.toComponent();
+  return <body {...attr}>{children}</body>;
 };

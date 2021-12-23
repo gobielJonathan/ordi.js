@@ -1,11 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import { _404 } from "@beyond/default/error";
 import routes from "@beyond/default/routes";
-import { canUseDom } from "@beyond/utils/dom";
+import { useDataContext } from "@beyond/shared/context/data/index";
 
-export default function Routes(props) {
-  const initialData = canUseDom() ? window.__BEYOND__DATA__ : props;
-
+export default function Routes() {
+  const initialData = useDataContext();
   return (
     <Switch>
       {routes.map(({ exact, path, component: Component }, key) => (
