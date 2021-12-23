@@ -43,13 +43,17 @@ export const Head = () => {
 };
 
 export const Scripts = () => {
-  const { extractor } = useHtmlContext();
-  const data = useDataContext();
+  const { extractor, routerProps } = useHtmlContext();
   return (
     <>
-      <script id="__BEYOND__DATA__" type="application/json">
-        {JSON.stringify(data)}
-      </script>
+      <script
+        id="__BEYOND__DATA__"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.__BEYOND__DATA__=${JSON.stringify(routerProps)}
+        `,
+        }}
+      ></script>
       {extractor?.getScriptElements() ?? mainScripts}
     </>
   );
