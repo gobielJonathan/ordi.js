@@ -7,6 +7,8 @@ import { canUseDom } from "./utils/dom";
 import ContextProvider from "@beyond/shared/context";
 import App from "@beyond/default/_app";
 
+const canUseDom = () => typeof window != undefined;
+
 const app = (
   <BrowserRouter>
     <ContextProvider>
