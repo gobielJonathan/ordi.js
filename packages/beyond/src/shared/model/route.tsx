@@ -1,8 +1,8 @@
-import type { AppComponent } from "./client";
+import type { AppComponentType } from "./core";
 
 type PlainRoute = {
   type: "route";
-  component: AppComponent;
+  component: AppComponentType;
   exact?: boolean;
   strict?: boolean;
 };

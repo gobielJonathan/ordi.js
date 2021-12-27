@@ -31,7 +31,7 @@ const Server = () => {
     start: async () => {
       await app.listen(Number(process.env.PORT_SERVER));
     },
-    end: async () => {
+    close: async () => {
       app.close();
     },
   };

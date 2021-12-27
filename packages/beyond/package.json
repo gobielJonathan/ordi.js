@@ -1,12 +1,13 @@
 {
-  "name": "@beyond/core",
+  "name": "beyond",
   "private": true,
   "version": "0.0.1",
   "description": "Main Code in Beyond Framework",
-  "main": "build/server/index.js",
+  "main": "build/cli/index.js",
   "scripts": {
     "start": "",
     "dev": "",
+    "build": "npm-run-all --parallel build:ts build:js",
     "build:ts": "npx typescript",
     "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline"
   },

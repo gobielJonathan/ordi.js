@@ -1,4 +1,4 @@
-import { AppComponent } from "@beyond/shared/model/client";
+import { AppComponentType } from "@beyond/shared/model/core";
 import { Route } from "@beyond/shared/model/route";
 import { matchPath, match } from "react-router";
 import { removeURLParameter } from "../utils/url";
@@ -6,7 +6,7 @@ import { removeURLParameter } from "../utils/url";
 export const findRoute = (
   routes: Route[],
   url = ""
-): { matches: match | null; component: AppComponent | null } => {
+): { matches: match | null; component: AppComponentType | null } => {
   let cleanURL = removeURLParameter(url);
   let matches = null;
   let component = null;
