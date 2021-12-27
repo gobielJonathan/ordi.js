@@ -12,6 +12,7 @@ import Routes from "@beyond/router";
 import App from "@beyond/default/_app";
 import type { FastifyRequest } from "fastify";
 import type { StaticRouterContext } from "react-router";
+import type { HelmetData } from "react-helmet-async";
 
 const statsFile = path.resolve(__dirname, "./loadable-stats.json");
 
@@ -28,7 +29,7 @@ function renderDocument({
 }) {
   return renderToStaticMarkup(
     <HtmlProvider
-      helmet={helmetContext}
+      helmet={helmetContext as unknown as HelmetData}
       extractor={extractor}
       html={html}
       routerProps={routerProps}

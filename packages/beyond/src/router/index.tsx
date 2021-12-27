@@ -15,7 +15,7 @@ const CreateRoute: VFC<BeyondRoute> = (props) => {
         <Route
           key={props.path}
           exact={props.exact}
-          render={() => <Component {...initialData} />}
+          render={() => <Component key={props.path} {...initialData} />}
           path={props.path}
         />
       );

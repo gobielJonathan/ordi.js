@@ -1,13 +1,14 @@
 {
-  "name": "@beyond/beyond",
+  "name": "@beyond/core",
   "private": true,
   "version": "0.0.1",
   "description": "Main Code in Beyond Framework",
-  "main": "src/index.js",
+  "main": "build/server/index.js",
   "scripts": {
     "start": "",
     "dev": "",
-    "build:ts": "npx typescript"
+    "build:ts": "npx typescript",
+    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline"
   },
   "repository": {
     "url": "https://github.com/gobielJonathan/beyond"
@@ -31,6 +32,7 @@
     "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/webpack-plugin": "^5.15.2",
     "@types/jest": "^27.0.3",
@@ -68,6 +70,7 @@
     "@loadable/component": "^5.15.2",
     "@loadable/server": "^5.15.2",
     "@types/react-router-dom": "^5.3.2",
+    "core-js": "^3.20.1",
     "dotenv": "^10.0.0",
     "fastify": "^3.25.2",
     "fastify-plugin": "^3.0.0",
