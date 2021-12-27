@@ -1,4 +1,4 @@
-export default function _500({ message }) {
+export default function _500({ message }: { message: string }) {
   return (
     <>
       <div

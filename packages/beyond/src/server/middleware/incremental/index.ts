@@ -2,15 +2,21 @@ import { revalidateTime, isStaleTime } from "@beyond/server/utils/time";
 import { removeURLParameter } from "@beyond/server/utils/url";
 import LRU from "lru-cache";
 import { rm } from "fs";
+import type { FastifyRequest } from "fastify";
+
+type CacheData = {
+  revalidateAfter: number;
+  html: string;
+};
 
 export default class IncrementalSSG {
-  cache = new LRU({
-    dispose: (key) => {
+  cache = new LRU<string, CacheData>({
+    dispose: (key: string) => {
       this.del(key);
     },
   });
 
-  del(key) {
+  del(key: string) {
     rm(key, (err) => {
       if (err) {
         throw err;
@@ -18,7 +24,7 @@ export default class IncrementalSSG {
     });
   }
 
-  set(req, content, time) {
+  set(req: FastifyRequest, html: string, time: number) {
     const url = removeURLParameter(req.url);
 
     const { revalidateAfter } = this.cache.get(url) ?? {
@@ -29,23 +35,25 @@ export default class IncrementalSSG {
 
     const cacheData = {
       revalidateAfter: timeToRevalidate,
-      html: content,
+      html: html,
     };
 
-    if (this.cache.set(url, cacheData, timeToRevalidate)) {
-      console.info(`${url} put in cache`);
-    } else {
+    if (!this.cache.set(url, cacheData, timeToRevalidate)) {
       console.warn(`${url} failed put in cache`);
     }
   }
-  get(req) {
+  get(req: FastifyRequest) {
     const url = removeURLParameter(req.url);
-    if (!this.cache.get(url)) return undefined;
-    console.info(`${url} get in cache`);
-    const { revalidateAfter, html } = this.cache.get(url);
+    const cache = this.cache.get(url);
+
+    if (!cache) return undefined;
+
+    const { revalidateAfter, html } = cache;
+
     if (isStaleTime(revalidateAfter)) {
       return undefined;
     }
+
     return html;
   }
 }

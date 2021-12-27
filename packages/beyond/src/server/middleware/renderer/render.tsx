@@ -6,17 +6,30 @@ import { StaticRouter } from "react-router-dom";
 import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { renderStylesToString } from "@emotion/server";
 import { removeURLParameter } from "@beyond/server/utils/url";
-import { HtmlProvider } from "@beyond/shared/context/html/index";
-import ContextProvider from "@beyond/shared/context/index";
-import Routes from "@beyond/router/index";
+import { HtmlProvider } from "@beyond/shared/context/html";
+import ContextProvider from "@beyond/shared/context";
+import Routes from "@beyond/router";
 import App from "@beyond/default/_app";
+import type { FastifyRequest } from "fastify";
+import type { StaticRouterContext } from "react-router";
+import type { HelmetData } from "react-helmet-async";
 
 const statsFile = path.resolve(__dirname, "./loadable-stats.json");
 
-function renderDocument({ helmetContext, extractor, html, routerProps }) {
+function renderDocument({
+  helmetContext,
+  extractor,
+  html,
+  routerProps,
+}: {
+  helmetContext: Record<string, unknown>;
+  extractor: ChunkExtractor;
+  html: string;
+  routerProps: Record<string, unknown>;
+}) {
   return renderToStaticMarkup(
     <HtmlProvider
-      helmet={helmetContext}
+      helmet={helmetContext as unknown as HelmetData}
       extractor={extractor}
       html={html}
       routerProps={routerProps}
@@ -26,10 +39,18 @@ function renderDocument({ helmetContext, extractor, html, routerProps }) {
   );
 }
 
-export default function render({ routerProps = {}, req = {} }) {
+export default function render({
+  routerProps,
+  req,
+}: {
+  routerProps: Record<string, unknown>;
+  req: FastifyRequest;
+}) {
   const url = removeURLParameter(req.url);
   let helmetContext = { helmet: {} };
-  let routerContext = { status: 200 };
+  let routerContext: StaticRouterContext & { status?: number } = {
+    status: 200,
+  };
 
   const extractor = new ChunkExtractor({
     statsFile,

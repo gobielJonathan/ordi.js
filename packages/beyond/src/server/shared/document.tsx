@@ -1,8 +1,19 @@
-import { useHtmlContext } from "@beyond/shared/context/html/index";
+import { useHtmlContext } from "@beyond/shared/context/html";
+import type { ReactNode } from "react";
 
 const mainBundles = ["main", "runtime", "vendors~main"];
 
-function createScriptTag({ src, type = "", nomodule = false, nonce = "" }) {
+function createScriptTag({
+  src,
+  type = "",
+  nomodule = false,
+  nonce = "",
+}: {
+  src: string;
+  type?: string;
+  nomodule?: boolean;
+  nonce?: string;
+}) {
   if (src) {
     return (
       <script
@@ -20,9 +31,9 @@ function createScriptTag({ src, type = "", nomodule = false, nonce = "" }) {
 
 const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
 
-export const Html = ({ children }) => {
+export const Html = ({ children }: { children: ReactNode }) => {
   const { helmet } = useHtmlContext();
-  const attr = helmet.htmlAttributes?.toComponent();
+  const attr = helmet.htmlAttributes.toComponent();
   return <html {...attr}>{children}</html>;
 };
 
@@ -31,13 +42,12 @@ export const Head = () => {
 
   return (
     <head>
-      {helmet.title?.toComponent()}
-      {helmet.priority?.toComponent()}
-      {helmet.meta?.toComponent()}
-      {helmet.link?.toComponent()}
-      {helmet.script?.toComponent()}
-      {extractor?.getLinkElements()}
-      {extractor?.getStyleElements()}
+      {helmet.title.toComponent()}
+      {helmet.meta.toComponent()}
+      {helmet.link.toComponent()}
+      {helmet.script.toComponent()}
+      {extractor.getLinkElements()}
+      {extractor.getStyleElements()}
     </head>
   );
 };
@@ -54,7 +64,7 @@ export const Scripts = () => {
         `,
         }}
       ></script>
-      {extractor?.getScriptElements() ?? mainScripts}
+      {extractor.getScriptElements() ?? mainScripts}
     </>
   );
 };
@@ -64,21 +74,8 @@ export const Main = () => {
   return <div id="__beyond" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
-export const Document = () => {
-  return (
-    <Html>
-      <Head />
-      <body>
-        <noscript>Please enable your javascript</noscript>
-        <Main />
-        <Scripts />
-      </body>
-    </Html>
-  );
-};
-
-export const Body = ({ children }) => {
+export const Body = ({ children }: { children: ReactNode }) => {
   const { helmet } = useHtmlContext();
-  const attr = helmet.bodyAttributes?.toComponent();
+  const attr = helmet.bodyAttributes.toComponent();
   return <body {...attr}>{children}</body>;
 };

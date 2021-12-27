@@ -1,15 +1,21 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
-import { _500, _404 } from "@beyond/default/error/index";
+import { _500, _404 } from "@beyond/default/error";
 import render from "./render";
 import { findRoute } from "@beyond/server/shared/route";
+import type { FastifyInstance } from "fastify";
+import ROUTES from "@beyond/default/routes";
 
-export default function rendererMiddleware(fastify, opts, next) {
+export default function rendererMiddleware(
+  fastify: FastifyInstance,
+  _opts: Record<string, unknown>,
+  next: Function
+) {
   const incremental = new Incremental();
 
   fastify.get("/*", async (req, reply) => {
     try {
-      const { matches, component } = findRoute(req.url);
+      const { matches, component } = findRoute(ROUTES, req.url);
 
       if (!matches) {
         reply
@@ -41,7 +47,7 @@ export default function rendererMiddleware(fastify, opts, next) {
       }
 
       let revalidate = -1;
-      if (isSSG) {
+      if (isSSG && component?.getStaticProps) {
         let { props = {}, revalidate: _revalidate = -1 } =
           await component.getStaticProps(req);
         routerProps = props;
@@ -65,7 +71,7 @@ export default function rendererMiddleware(fastify, opts, next) {
       reply
         .code(500)
         .type("text/html")
-        .send(renderToString(<_500 message={error.stack} />));
+        .send(renderToString(<_500 message={String(error)} />));
     }
   });
   next();
