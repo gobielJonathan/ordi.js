@@ -1,6 +1,11 @@
+import { ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 
-export default function App({ children }) {
+type Props = {
+  children: ReactNode;
+};
+
+export default function App({ children }: Props) {
   return (
     <>
       <Helmet>
