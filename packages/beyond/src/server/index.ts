@@ -1,4 +1,4 @@
-import { _500 } from "../default/error";
+import _500 from "@BUILD_500";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import fastify from "fastify";
 

@@ -35,10 +35,18 @@
     "jsx": "react-jsx",
     "paths": {
       "@beyond/*" : ["src/*"],
+      "@BUILD_ROUTE" : ["src/default/routes.ts"],
+      "@BUILD_404": [
+        "src/default/error/_404.tsx",
+      ],
+      "@BUILD_500": [
+        "src/default/error/_500.tsx",
+      ],
     },
-    "typeRoots": ["src/@types"]
+    "typeRoots": ["src/@types"],
+    "types": ["node"]
   },
-    "include": ["src", "@types"],
+    "include": ["src", "@types", "cli"],
     "exclude": [
         "node_modules",
         "build",

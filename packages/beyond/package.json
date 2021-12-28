@@ -3,13 +3,16 @@
   "private": true,
   "version": "0.0.1",
   "description": "Main Code in Beyond Framework",
-  "main": "build/cli/index.js",
+  "main": "./build/cli/index.js",
   "scripts": {
     "start": "node ./src/cli serve",
     "dev": "node ./src/cli serve",
     "build": "npm-run-all --parallel build:ts build:js",
     "build:ts": "npx typescript",
     "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline"
+  },
+  "bin": {
+    "beyond": "./build/cli/index.js"
   },
   "repository": {
     "url": "https://github.com/gobielJonathan/beyond"

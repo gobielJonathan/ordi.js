@@ -3,7 +3,7 @@ require("dotenv").config();
 const Webpack = require("webpack");
 const WDS = require("webpack-dev-server");
 const devServerConfig = require("../webpack/dev-server");
-const errorLog = require("../../shared/log").error;
+const errorLog = require("../../src/shared/log").error;
 
 const getServerCompiler = () => {
   const webpackConfig = require("../webpack/server/webpack.dev");

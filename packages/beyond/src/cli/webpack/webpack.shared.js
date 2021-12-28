@@ -1,11 +1,15 @@
+const { default: resolveCwd } = require("../../src/utils/resolve");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const resolver = require("./resolve").resolver;
 
 module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    symlinks: true,
     alias: {
-      "@beyond": path.resolve(process.cwd(), "src"),
+      "@beyond": resolveCwd(),
+      ...resolver,
     },
   },
   module: {
@@ -17,7 +21,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: `${process.env.HOST_CLIENT}`,
+              publicPath: process.env.HOST_CLIENT,
             },
           },
           {

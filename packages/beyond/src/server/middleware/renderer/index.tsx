@@ -1,6 +1,7 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
-import { _500, _404 } from "@beyond/default/error";
+import _500 from "@BUILD_500";
+import _404 from "@BUILD_404";
 import render from "./render";
 import { findRoute } from "@beyond/server/shared/route";
 import type { FastifyInstance } from "fastify";

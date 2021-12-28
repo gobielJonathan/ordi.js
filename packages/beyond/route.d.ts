@@ -1,2 +1,2 @@
 export * from "react-router-dom";
-export { Route } from "./build/shared/model/route";
+export { Route as RouteEntry } from "./build/shared/model/route";

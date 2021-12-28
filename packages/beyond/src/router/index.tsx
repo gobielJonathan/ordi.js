@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router-dom";
-import { _404 } from "@beyond/default/error";
-import routes from "@beyond/default/routes";
+import _404 from "@BUILD_404";
+import ROUTES from "@BUILD_ROUTE";
 import { useDataContext } from "@beyond/shared/context/data";
 import type { Route as BeyondRoute } from "@beyond/shared/model/route";
 import type { VFC } from "react";
@@ -28,7 +28,7 @@ const CreateRoute: VFC<BeyondRoute> = (props) => {
 export default function Routes() {
   return (
     <Switch>
-      {routes.map((route, key) => (
+      {ROUTES.map((route, key) => (
         <CreateRoute key={key} {...route} />
       ))}
       <Route component={_404} path="*" />
