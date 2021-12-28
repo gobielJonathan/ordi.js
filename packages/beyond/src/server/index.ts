@@ -3,9 +3,10 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import fastify from "fastify";
 
 /**
- * middleware
+ * middlewares
  */
 import registerMiddleware from "./middleware";
+import * as logger from "@beyond/shared/log";
 
 const Server = () => {
   const app = fastify({
@@ -27,7 +28,10 @@ const Server = () => {
 
   return {
     start: async () => {
-      await app.listen(Number(process.env.PORT_SERVER));
+      app.listen(Number(process.env.PORT_SERVER), (err, address) => {
+        if (err) return logger.error(err);
+        logger.info("Listening " + address);
+      });
     },
     close: async () => {
       app.close();

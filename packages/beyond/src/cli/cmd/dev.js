@@ -4,7 +4,6 @@ const Webpack = require("webpack");
 const WDS = require("webpack-dev-server");
 const devServerConfig = require("../webpack/dev-server");
 const errorLog = require("../../shared/log").error;
-const infoLog = require("../../shared/log").info;
 
 const getServerCompiler = () => {
   const webpackConfig = require("../webpack/server/webpack.dev");
@@ -32,7 +31,6 @@ const start = async () => {
 
     server.watch(WATCH_OPTIONS, (err) => {
       if (err) throw err;
-      infoLog("listening port: 127.0.0.1:" + devServerConfig.port);
     });
   } catch (error) {
     errorLog(error);
