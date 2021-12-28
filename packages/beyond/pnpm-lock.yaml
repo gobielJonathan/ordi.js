@@ -5,6 +5,7 @@ dependencies:
   '@emotion/server': 11.4.0_@emotion+css@11.5.0
   '@loadable/component': 5.15.0_react@17.0.2
   '@loadable/server': 5.15.1_913415d69eea84a09fdc068c59f8dfe1
+  chalk: 5.0.0
   dotenv: 10.0.0
   fastify: 3.24.0
   fastify-plugin: 3.0.0
@@ -2177,6 +2178,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
+  /chalk/5.0.0:
+    dev: false
+    engines:
+      node: ^12.17.0 || ^14.13 || >=16.0.0
+    resolution:
+      integrity: sha512-/duVOqst+luxCQRKEo4bNxinsOQtMP80ZYm7mMqzuh5PociNL0PvmHFvREJ9ueYL2TxlHjBcmLCdmocx9Vg+IQ==
   /chokidar/3.5.2:
     dependencies:
       anymatch: 3.1.2
@@ -6503,6 +6510,7 @@ specifiers:
   '@loadable/webpack-plugin': ^5.15.1
   '@types/node': ^17.0.4
   babel-loader: ^8.2.3
+  chalk: ^5.0.0
   css-loader: ^6.5.1
   dotenv: ^10.0.0
   eslint: ^8.4.1
