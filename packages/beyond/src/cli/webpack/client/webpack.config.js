@@ -1,5 +1,4 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
@@ -11,14 +10,11 @@ module.exports = mergeWithCustomize({
     plugins: "append",
   }),
 })(shared, {
-  entry: [
-    "@babel/polyfill",
-    path.resolve(process.cwd(), "src", "client", "index.js"),
-  ],
+  entry: path.resolve(process.cwd(), "src", "client", "index.ts"),
   module: {
     rules: [
       {
-        test: /\.js$|jsx/,
+        test: /\.(tsx?|jsx?)/gm,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -53,9 +49,6 @@ module.exports = mergeWithCustomize({
     publicPath: `${process.env.HOST_CLIENT}/`,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(process.cwd(), "public", "index.html"),
-    }),
     new WebpackBar({ name: "client" }),
     new MiniCssExtractPlugin({
       insert: function (linkTag) {

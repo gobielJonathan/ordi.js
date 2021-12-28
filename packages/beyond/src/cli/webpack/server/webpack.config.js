@@ -13,7 +13,7 @@ module.exports = mergeWithCustomize({
   }),
 })(shared, {
   target: "node",
-  entry: path.resolve(process.cwd(), "src/server", "index.js"),
+  entry: path.resolve(process.cwd(), "src/server", "index.ts"),
   output: {
     path: path.resolve(process.cwd(), "build/server"),
     library: {
@@ -44,7 +44,7 @@ module.exports = mergeWithCustomize({
         },
       },
       {
-        test: /\.m?js$/,
+        test: /\.(tsx?|jsx?)/gm,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",

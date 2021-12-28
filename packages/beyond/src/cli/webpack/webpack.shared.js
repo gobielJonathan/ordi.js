@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = {
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".tsx", ".ts"],
     alias: {
       "@beyond": path.resolve(process.cwd(), "src"),
     },
