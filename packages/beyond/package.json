@@ -12,7 +12,7 @@
     "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline"
   },
   "bin": {
-    "beyond": "./build/cli/index.js"
+    "beyond": "./cli/index.js"
   },
   "repository": {
     "url": "https://github.com/gobielJonathan/beyond"
