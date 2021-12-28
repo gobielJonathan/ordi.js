@@ -46,7 +46,7 @@
     "typeRoots": ["src/@types"],
     "types": ["node"]
   },
-    "include": ["src", "@types", "cli"],
+    "include": ["src", "@types"],
     "exclude": [
         "node_modules",
         "build",
