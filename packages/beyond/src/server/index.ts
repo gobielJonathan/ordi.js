@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 import { _500 } from "../default/error";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import fastify from "fastify";

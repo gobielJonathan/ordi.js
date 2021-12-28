@@ -1,10 +1,9 @@
-require("dotenv").config();
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 module.exports = {
   resolve: {
-    extensions: [".tsx", ".ts"],
+    extensions: [".ts", ".tsx", ".js"],
     alias: {
       "@beyond": path.resolve(process.cwd(), "src"),
     },

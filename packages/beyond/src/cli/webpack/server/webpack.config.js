@@ -35,31 +35,17 @@ module.exports = mergeWithCustomize({
   module: {
     rules: [
       {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+      {
         test: /\.(png|jpe?g|gif)$/i,
         loader: "file-loader",
         options: {
           name: "[contenthash].[ext]",
           outputPath: `../client/`,
           publicPath: process.env.HOST_CLIENT,
-        },
-      },
-      {
-        test: /\.(tsx?|jsx?)/gm,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            plugins: [
-              "@babel/plugin-transform-modules-commonjs",
-              "@babel/transform-runtime",
-              "@babel/plugin-syntax-dynamic-import",
-              "@loadable/babel-plugin",
-            ],
-            presets: [
-              "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }],
-            ],
-          },
         },
       },
     ],

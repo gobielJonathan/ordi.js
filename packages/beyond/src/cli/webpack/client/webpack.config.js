@@ -14,17 +14,9 @@ module.exports = mergeWithCustomize({
   module: {
     rules: [
       {
-        test: /\.(tsx?|jsx?)/gm,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }],
-            ],
-          },
-        },
+        loader: "babel-loader",
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -32,14 +24,6 @@ module.exports = mergeWithCustomize({
         options: {
           name: `[contenthash].[ext]`,
           publicPath: process.env.HOST_CLIENT,
-        },
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: "file-loader",
-        options: {
-          name: "[contenthash].[ext]",
-          esModule: false,
         },
       },
     ],

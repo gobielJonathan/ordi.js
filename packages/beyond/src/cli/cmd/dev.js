@@ -1,19 +1,20 @@
+require("dotenv").config();
+
 const Webpack = require("webpack");
-const WebpackDevServer = require("webpack-dev-server");
+const WDS = require("webpack-dev-server");
+const devServerConfig = require("../webpack/dev-server");
+const errorLog = require("../../shared/log").error;
+const infoLog = require("../../shared/log").info;
 
 const getServerCompiler = () => {
   const webpackConfig = require("../webpack/server/webpack.dev");
-  const compiler = Webpack(webpackConfig);
-  return compiler;
+  return Webpack(webpackConfig);
 };
 
 const getClientCompiler = () => {
   const webpackConfig = require("../webpack/client/webpack.dev");
 
-  const compiler = Webpack(webpackConfig);
-  const devServerOptions = { ...webpackConfig.devServer };
-  const server = new WebpackDevServer(devServerOptions, compiler);
-  return server;
+  return Webpack(webpackConfig);
 };
 
 const WATCH_OPTIONS = {
@@ -22,13 +23,21 @@ const WATCH_OPTIONS = {
 };
 
 const start = async () => {
-  const server = getServerCompiler();
-  const client = getClientCompiler();
-  client.start();
+  try {
+    const server = getServerCompiler();
+    const client = getClientCompiler();
 
-  server.watch(WATCH_OPTIONS, (err) => {
-    if (err) throw err;
-  });
+    const webpackDevServer = new WDS(devServerConfig, client);
+    webpackDevServer.start();
+
+    server.watch(WATCH_OPTIONS, (err) => {
+      if (err) throw err;
+      infoLog("listening port: 127.0.0.1:" + devServerConfig.port);
+    });
+  } catch (error) {
+    errorLog(error);
+    process.exit(1);
+  }
 };
 
 module.exports = start;

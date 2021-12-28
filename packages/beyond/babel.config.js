@@ -1,21 +1,21 @@
 module.exports = {
+  targets: "> 0.25%, not dead",
+  plugins: [
+    "@babel/plugin-transform-modules-commonjs",
+    ["@babel/transform-runtime"],
+    "@babel/plugin-syntax-dynamic-import",
+    "@loadable/babel-plugin",
+  ],
   presets: [
-    "@babel/preset-typescript",
-    ["@babel/preset-react", { runtime: "automatic" }],
     [
       "@babel/preset-env",
       {
         useBuiltIns: "entry",
         targets: "> 0.25%, not dead",
+        corejs: 3,
       },
     ],
-  ],
-  plugins: [
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        regenerator: true,
-      },
-    ],
+    "@babel/preset-typescript",
+    ["@babel/preset-react", { runtime: "automatic" }],
   ],
 };
