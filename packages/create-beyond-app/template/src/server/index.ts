@@ -1,6 +1,21 @@
-import Server from "beyond/server";
+import App from "./app";
+import { info } from "beyond/build/shared/log";
 
-const app = Server();
-app.start().catch((err) => {
-  console.error(err);
-});
+let app = App;
+
+app
+  .start()
+  .then(() => {
+    info("Listening: 127.0.0.1:" + process.env.PORT_SERVER);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+if (module.hot) {
+  module.hot.accept("./app", async () => {
+    await app.close();
+    app = require("./app");
+    app.start();
+  });
+}

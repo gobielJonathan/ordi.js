@@ -6,6 +6,7 @@ const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 const WebpackBar = require("webpackbar");
+const { default: resolveCwd } = require("../../../src/utils/resolve");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -14,7 +15,7 @@ module.exports = mergeWithCustomize({
   }),
 })(shared, {
   target: "node",
-  entry: path.resolve(process.cwd(), "src/server", "index.ts"),
+  entry: resolveCwd("server/index.ts"),
   output: {
     path: path.resolve(process.cwd(), "build/server"),
     library: {
