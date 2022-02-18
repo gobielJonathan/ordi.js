@@ -6,7 +6,7 @@ import fastify from "fastify";
  * middlewares
  */
 import registerMiddleware from "./middleware";
-import * as logger from "@beyond/shared/log";
+import * as logger from "../shared/log";
 
 const Server = () => {
   const app = fastify({
@@ -29,7 +29,7 @@ const Server = () => {
   return {
     start: async () => {
       app.listen(Number(process.env.PORT_SERVER), (err, address) => {
-        if (err) return logger.error(err);
+        if (err) return logger.error(err.message);
         logger.info("Listening " + address);
       });
     },

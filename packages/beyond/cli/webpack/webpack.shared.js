@@ -1,7 +1,8 @@
 const { default: resolveCwd } = require("../../src/utils/resolve");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
 const resolver = require("./resolve").resolver;
+const webpack = require("webpack");
+const defaultProcessEnv = require("./plugins/DefinePlugin").default;
 
 module.exports = {
   resolve: {
@@ -12,6 +13,13 @@ module.exports = {
       ...resolver,
     },
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      ...defaultProcessEnv,
+    }),
+  ],
+
   module: {
     rules: [
       {

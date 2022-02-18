@@ -2,10 +2,11 @@ module.exports = {
   targets: "> 0.25%, not dead",
   plugins: [
     "@babel/plugin-transform-modules-commonjs",
-    ["@babel/transform-runtime"],
+    "@babel/transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
     "@loadable/babel-plugin",
   ],
+  sourceType: "module",
   presets: [
     [
       "@babel/preset-env",

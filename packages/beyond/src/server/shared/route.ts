@@ -1,5 +1,5 @@
-import { AppComponentType } from "@beyond/shared/model/core";
-import { Route } from "@beyond/shared/model/route";
+import type { AppComponentType } from "../../shared/model/core";
+import type { Route } from "../../shared/model/route";
 import { matchPath, match } from "react-router";
 import { removeURLParameter } from "../utils/url";
 

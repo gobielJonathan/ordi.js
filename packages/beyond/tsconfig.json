@@ -34,13 +34,14 @@
     "baseUrl": ".",
     "jsx": "react-jsx",
     "paths": {
-      "@beyond/*" : ["src/*"],
-      "@BUILD_ROUTE" : ["src/default/routes.ts"],
-      "@BUILD_404": [
-        "src/default/error/_404.tsx",
-      ],
+      "@BUILD_ROUTE" : ["src/client/routes/index.ts"],
+      "@BUILD_404": ["src/client/error/_404.tsx"],
       "@BUILD_500": [
-        "src/default/error/_500.tsx",
+        "src/client/error/_500.tsx"
+      ],
+      "@DOCUMENT" : ["src/client/_document.tsx"],
+      "@APP": [
+        "src/client/_app.tsx"
       ],
     },
     "typeRoots": ["src/@types"],

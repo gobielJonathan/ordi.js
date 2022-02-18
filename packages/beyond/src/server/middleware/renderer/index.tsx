@@ -3,9 +3,9 @@ import Incremental from "../incremental";
 import _500 from "@BUILD_500";
 import _404 from "@BUILD_404";
 import render from "./render";
-import { findRoute } from "@beyond/server/shared/route";
+import { findRoute } from "../../shared/route";
 import type { FastifyInstance } from "fastify";
-import ROUTES from "@beyond/default/routes";
+import ROUTES from "@BUILD_ROUTE";
 
 export default function rendererMiddleware(
   fastify: FastifyInstance,

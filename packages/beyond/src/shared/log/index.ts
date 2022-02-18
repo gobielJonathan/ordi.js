@@ -1,13 +1,15 @@
 import chalk from "chalk";
 
-export const log = (message) =>
+const log = (message: string) =>
   console.log(chalk.bold.magenta("[beyond]: "), chalk.magenta(message));
 
-export const info = (message) =>
+const info = (message: string) =>
   console.info(chalk.bold.blue("[beyond]: "), chalk.blue(message));
 
-export const error = (message) =>
+const error = (message: string) =>
   console.error(chalk.bold.red("[beyond]: "), chalk.red(message));
 
-export const warn = (message) =>
+const warn = (message: string) =>
   console.warn(chalk.bold.yellow("[beyond]: "), chalk.yellow(message));
+
+export { log, info, error, warn };

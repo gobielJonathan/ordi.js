@@ -1,4 +1,4 @@
-import { useHtmlContext } from "@beyond/shared/context/html";
+import { useHtmlContext } from "../../shared/context/html";
 import type { ReactNode } from "react";
 
 const mainBundles = ["main", "runtime", "vendors~main"];

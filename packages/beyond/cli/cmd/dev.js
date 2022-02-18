@@ -1,9 +1,7 @@
-require("dotenv").config();
-
-const Webpack = require("webpack");
-const WDS = require("webpack-dev-server");
-const devServerConfig = require("../webpack/dev-server");
-const errorLog = require("../../src/shared/log").error;
+import devServerConfig from "../webpack/dev-server";
+import Webpack from "webpack";
+import WDS from "webpack-dev-server";
+// import { error as errorLog } from "../../src/shared/log";
 
 const getServerCompiler = () => {
   const webpackConfig = require("../webpack/server/webpack.dev");
@@ -12,7 +10,6 @@ const getServerCompiler = () => {
 
 const getClientCompiler = () => {
   const webpackConfig = require("../webpack/client/webpack.dev");
-
   return Webpack(webpackConfig);
 };
 
@@ -33,7 +30,7 @@ const start = async () => {
       if (err) throw err;
     });
   } catch (error) {
-    errorLog(error);
+    // errorLog(error);
     process.exit(1);
   }
 };

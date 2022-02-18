@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const path = require("path");
 const yargs = require("yargs");
 
 const noop = () => {};
@@ -6,9 +7,9 @@ const noop = () => {};
 yargs
   .command("serve", "start the dev server", noop, (argv) => {
     require("@babel/register")({
-      babelrc: false,
       extensions: [".ts", ".js", ".tsx", ".jsx"],
-      configFile: "./babel.config.js",
+      ignore: [/node_modules/],
+      root: path.join(__dirname, ".."),
     });
     require("./cmd/dev")();
   })

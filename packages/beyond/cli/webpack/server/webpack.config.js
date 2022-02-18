@@ -10,6 +10,7 @@ const WebpackBar = require("webpackbar");
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
+    plugins: "append",
   }),
 })(shared, {
   target: "node",
@@ -22,10 +23,6 @@ module.exports = mergeWithCustomize({
   },
   externals: [nodeExternals()],
   plugins: [
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(process.env.NODE_ENV === "development"),
-      __PROD__: JSON.stringify(process.env.NODE_ENV === "production"),
-    }),
     new MiniCssExtractPlugin({
       runtime: true,
     }),

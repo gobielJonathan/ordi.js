@@ -16,7 +16,12 @@ module.exports = mergeWithCustomize({
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-react", "@babel/preset-typescript"],
+          },
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/i,

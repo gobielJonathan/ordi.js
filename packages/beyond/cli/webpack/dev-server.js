@@ -1,5 +1,8 @@
-module.exports = {
-  port: Number(process.env.PORT_SERVER),
+require("dotenv-safe").config({
+  allowEmptyValues: true,
+});
+export default {
+  port: Number(process.env.PORT_CLIENT),
   compress: true,
   headers: {
     "Access-Control-Allow-Origin": "*",
