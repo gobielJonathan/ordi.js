@@ -17,6 +17,7 @@ module.exports = mergeWithCustomize({
     rules: [],
   },
   optimization: {
+    usedExports: true,
     runtimeChunk: "single",
     splitChunks: {
       chunks: "all",

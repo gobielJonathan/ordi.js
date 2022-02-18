@@ -25,6 +25,9 @@
   "engines": {
     "node": ">=14.0.0"
   },
+  "sideEffects": [
+    "*.js"
+  ],
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
