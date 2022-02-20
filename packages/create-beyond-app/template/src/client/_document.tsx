@@ -1,10 +1,4 @@
-import {
-  Html,
-  Head,
-  Main,
-  Body,
-  Scripts,
-} from "@beyond/server/shared/document";
+import { Html, Head, Main, Body, Scripts } from "beyond/build/shared/document";
 
 const Document = () => {
   return (

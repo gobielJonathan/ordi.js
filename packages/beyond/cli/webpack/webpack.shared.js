@@ -1,4 +1,3 @@
-const { default: resolveCwd } = require("../../src/utils/resolve");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const resolver = require("./resolve").resolver;
 const webpack = require("webpack");
@@ -9,7 +8,6 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"],
     symlinks: true,
     alias: {
-      "@beyond": resolveCwd(),
       ...resolver,
     },
   },
@@ -21,6 +19,8 @@ module.exports = {
   ],
 
   module: {
+    strictExportPresence: true,
+
     rules: [
       {
         test: /\.css$/,

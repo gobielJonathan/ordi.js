@@ -7,6 +7,7 @@ const shared = require("../webpack.shared");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 const WebpackBar = require("webpackbar");
 const { default: resolveCwd } = require("../../../src/utils/resolve");
+const { RunScriptWebpackPlugin } = require("run-script-webpack-plugin");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
@@ -29,6 +30,10 @@ module.exports = mergeWithCustomize({
     }),
     new LoadablePlugin(),
     new WebpackBar({ name: "server", color: "#FFBD35" }),
+    new webpack.HotModuleReplacementPlugin(),
+    new RunScriptWebpackPlugin({
+      name: "main.js",
+    }),
   ],
   module: {
     rules: [

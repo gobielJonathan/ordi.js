@@ -17,7 +17,9 @@
     "React Framework zero configuration"
   ],
   "author": "Gobiel",
-  "workspaces": [],
+  "workspaces": [
+    "packages/*"
+  ],
   "engines": {
     "node": ">=12.22.0"
   },

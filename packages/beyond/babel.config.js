@@ -6,7 +6,6 @@ module.exports = {
     "@babel/plugin-syntax-dynamic-import",
     "@loadable/babel-plugin",
   ],
-  sourceType: "module",
   presets: [
     [
       "@babel/preset-env",
