@@ -7,7 +7,7 @@ export const findRoute = (
   routes: Route[],
   url = ""
 ): { matches: match | null; component: AppComponentType | null } => {
-  let cleanURL = removeURLParameter(url);
+  const cleanURL = removeURLParameter(url);
   let matches = null;
   let component = null;
 
@@ -16,8 +16,9 @@ export const findRoute = (
       return findRoute(route.children, url + route.path);
     }
 
-    if (matchPath(cleanURL, { path: route.path, exact: true })) {
-      matches = matchPath(cleanURL, { path: route.path, exact: true });
+    const routeMatch = matchPath(cleanURL, { path: route.path, exact: true });
+    if (routeMatch) {
+      matches = routeMatch;
       component = route.component;
       break;
     }

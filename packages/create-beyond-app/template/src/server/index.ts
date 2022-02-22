@@ -1,5 +1,5 @@
 import App from "./app";
-import { info } from "beyond/build/shared/log";
+import { error, info } from "beyond/build/shared/log";
 
 let app = App;
 
@@ -9,7 +9,7 @@ app
     info("Listening: 127.0.0.1:" + process.env.PORT_SERVER);
   })
   .catch((err) => {
-    console.error(err);
+    error(err);
   });
 
 if (module.hot) {

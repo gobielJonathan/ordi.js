@@ -1,10 +1,12 @@
+const path = require("path");
+
 module.exports = {
   targets: "> 0.25%, not dead",
+  ignore: ["node_modules"],
   plugins: [
     "@babel/plugin-transform-modules-commonjs",
     "@babel/transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
-    "@loadable/babel-plugin",
   ],
   presets: [
     [
@@ -18,4 +20,5 @@ module.exports = {
     "@babel/preset-typescript",
     ["@babel/preset-react", { runtime: "automatic" }],
   ],
+  sourceMaps: "inline",
 };

@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "outDir": "build",
+    "outDir": "./build",
     "lib": ["es5", "es2015", "es2016", "es2017", "es2018", "es2019", "es2020", "dom"],
     "maxNodeModuleJsDepth": 0,
     "module": "esnext",
@@ -44,10 +44,10 @@
         "src/client/_app.tsx"
       ],
     },
-    "typeRoots": ["src/@types"],
+    "typeRoots": ["src/client/@types"],
     "types": ["node"]
   },
-    "include": ["src", "@types"],
+    "include": ["src"],
     "exclude": [
         "node_modules",
         "build",

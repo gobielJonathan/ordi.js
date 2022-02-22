@@ -1,4 +1,3 @@
-const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -18,12 +17,12 @@ module.exports = mergeWithCustomize({
   target: "node",
   entry: resolveCwd("server/index.ts"),
   output: {
-    path: path.resolve(process.cwd(), "build/server"),
+    path: resolveCwd("../build/server"),
     library: {
       type: "commonjs2",
     },
   },
-  externals: [nodeExternals()],
+  // externals: [nodeExternals({ allowlist: [/^beyond/] })],
   plugins: [
     new MiniCssExtractPlugin({
       runtime: true,
@@ -40,7 +39,23 @@ module.exports = mergeWithCustomize({
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ["@babel/preset-react", { runtime: "automatic" }],
+              "@babel/preset-typescript",
+              [
+                "@babel/preset-env",
+                {
+                  useBuiltIns: "entry",
+                  targets: "> 0.25%, not dead",
+                  corejs: 3,
+                },
+              ],
+            ],
+          },
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/i,

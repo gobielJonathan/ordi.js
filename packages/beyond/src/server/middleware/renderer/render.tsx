@@ -76,7 +76,7 @@ export default function render({
     html: appHTML,
   });
 
-  let statusCode = Number(routerContext?.status ?? 200);
+  let statusCode = Number(routerContext.status || 200);
   let redirect = "";
 
   if (routerContext.url) {

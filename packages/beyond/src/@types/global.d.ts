@@ -7,3 +7,11 @@ interface NodeModule {
     accept: (path?: string | string[], callback?: () => void) => void;
   };
 }
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      PORT_SERVER: number;
+    }
+  }
+}

@@ -31,6 +31,7 @@ const start = async () => {
     });
   } catch (error) {
     // errorLog(error);
+    console.error(error);
     process.exit(1);
   }
 };

@@ -1,3 +1,4 @@
+import { execFileSync } from "child_process";
 import { readFileSync } from "fs";
 import path from "path";
 
@@ -13,7 +14,7 @@ try {
     if (envValue.trim().length > 0) {
       const [key, value] = envValue.split("=");
       if (key && value) {
-        env[`process.env.${key}`] = value;
+        env[`process.env.${key}`] = JSON.stringify(value);
       }
     }
   });

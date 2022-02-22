@@ -1,6 +1,7 @@
 import { RouteEntry } from "beyond/route";
 
 import Person from "./Person";
+import Food from "./Food";
 
 const ROUTES: RouteEntry[] = [
   {
@@ -8,6 +9,14 @@ const ROUTES: RouteEntry[] = [
     component: Person,
     name: "person",
     path: "/person",
+    exact: true,
+    strict: false,
+  },
+  {
+    type: "route",
+    component: Food,
+    name: "food",
+    path: "/food",
     exact: true,
     strict: false,
   },

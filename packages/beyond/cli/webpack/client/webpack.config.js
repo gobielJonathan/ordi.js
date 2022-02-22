@@ -10,7 +10,7 @@ module.exports = mergeWithCustomize({
     plugins: "append",
   }),
 })(shared, {
-  entry: path.resolve(process.cwd(), "src", "client", "index.ts"),
+  entry: path.resolve(process.cwd(), "src/client/index.ts"),
   module: {
     rules: [
       {

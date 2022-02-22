@@ -4,7 +4,6 @@ const common = require("./webpack.config");
 
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
-    "module.rules": "append",
     output: "append",
   }),
 })(common, {
@@ -12,9 +11,6 @@ module.exports = mergeWithCustomize({
   output: {
     path: path.resolve(process.cwd(), "build", "client"),
     filename: "[name].js",
-  },
-  module: {
-    rules: [],
   },
   optimization: {
     usedExports: true,
