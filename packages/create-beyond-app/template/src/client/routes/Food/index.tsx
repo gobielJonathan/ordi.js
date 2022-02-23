@@ -1,10 +1,10 @@
 import { AppComponentType } from "beyond/core";
 
-const Person: AppComponentType = () => {
-  return <h3>person</h3>;
+const Food: AppComponentType = () => {
+  return <h3>Food</h3>;
 };
 
-Person.getServerSideProps = async () => {
+Food.getServerSideProps = async () => {
   return {
     props: {
       data: 1,
@@ -12,4 +12,4 @@ Person.getServerSideProps = async () => {
   };
 };
 
-export default Person;
+export default Food;

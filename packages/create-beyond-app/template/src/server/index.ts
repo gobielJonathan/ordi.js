@@ -13,7 +13,7 @@ app
   });
 
 if (module.hot) {
-  module.hot.accept("./app", async () => {
+  module.hot.accept(["./app", "../client/routes"], async () => {
     await app.close();
     app = require("./app");
     app.start();

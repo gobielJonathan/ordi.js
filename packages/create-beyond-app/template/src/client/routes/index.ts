@@ -20,6 +20,14 @@ const ROUTES: RouteEntry[] = [
     exact: true,
     strict: false,
   },
+  {
+    type: "route",
+    component: Food,
+    name: "animal",
+    path: "/animal",
+    exact: true,
+    strict: false,
+  },
 ];
 
 export default ROUTES;

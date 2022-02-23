@@ -15,7 +15,13 @@ module.exports = mergeWithCustomize({
   }),
 })(shared, {
   target: "node",
-  entry: resolveCwd("server/index.ts"),
+  entry: [
+    require.resolve("webpack/hot/poll") + "?1000",
+    resolveCwd("server/index.ts"),
+  ],
+  optimization: {
+    minimize: false,
+  },
   output: {
     path: resolveCwd("../build/server"),
     library: {

@@ -1,5 +1,3 @@
-const path = require("path");
-
 module.exports = {
   targets: "> 0.25%, not dead",
   ignore: ["node_modules"],
