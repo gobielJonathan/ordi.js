@@ -1,5 +1,5 @@
-import { AppComponentType } from "@beyond/shared/model/core";
-import { Route } from "@beyond/shared/model/route";
+import type { AppComponentType } from "../../shared/model/core";
+import type { Route } from "../../shared/model/route";
 import { matchPath, match } from "react-router";
 import { removeURLParameter } from "../utils/url";
 
@@ -7,7 +7,7 @@ export const findRoute = (
   routes: Route[],
   url = ""
 ): { matches: match | null; component: AppComponentType | null } => {
-  let cleanURL = removeURLParameter(url);
+  const cleanURL = removeURLParameter(url);
   let matches = null;
   let component = null;
 
@@ -16,8 +16,9 @@ export const findRoute = (
       return findRoute(route.children, url + route.path);
     }
 
-    if (matchPath(cleanURL, { path: route.path, exact: true })) {
-      matches = matchPath(cleanURL, { path: route.path, exact: true });
+    const routeMatch = matchPath(cleanURL, { path: route.path, exact: true });
+    if (routeMatch) {
+      matches = routeMatch;
       component = route.component;
       break;
     }

@@ -1,5 +1,5 @@
-import { revalidateTime, isStaleTime } from "@beyond/server/utils/time";
-import { removeURLParameter } from "@beyond/server/utils/url";
+import { revalidateTime, isStaleTime } from "../../utils/time";
+import { removeURLParameter } from "../../utils/url";
 import LRU from "lru-cache";
 import { rm } from "fs";
 import type { FastifyRequest } from "fastify";

@@ -1,10 +1,12 @@
 import { renderToString } from "react-dom/server";
 import Incremental from "../incremental";
-import { _500, _404 } from "@beyond/default/error";
+import _500 from "@BUILD_500";
+import _404 from "@BUILD_404";
 import render from "./render";
-import { findRoute } from "@beyond/server/shared/route";
+import { findRoute } from "../../shared/route";
 import type { FastifyInstance } from "fastify";
-import ROUTES from "@beyond/default/routes";
+import ROUTES from "@BUILD_ROUTE";
+import * as logger from "../../../shared/log";
 
 export default function rendererMiddleware(
   fastify: FastifyInstance,
@@ -67,11 +69,15 @@ export default function rendererMiddleware(
 
       reply.code(status).type("text/html").send(html);
     } catch (error) {
-      fastify.log.error(error);
+      let errorMsg: any = error;
+      if (errorMsg.stack) errorMsg = errorMsg.stack;
+
+      fastify.log.error(errorMsg);
+      logger.error(errorMsg + "");
       reply
         .code(500)
         .type("text/html")
-        .send(renderToString(<_500 message={String(error)} />));
+        .send(renderToString(<_500 message={String(errorMsg)} />));
     }
   });
   next();

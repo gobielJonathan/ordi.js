@@ -1,4 +1,4 @@
-import { canUseDom } from "@beyond/utils/dom";
+import { canUseDom } from "../../../utils/dom";
 import { createContext, useContext } from "react";
 import type { ReactNode, VFC } from "react";
 

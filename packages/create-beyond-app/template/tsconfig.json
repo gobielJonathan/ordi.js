@@ -44,7 +44,7 @@
         "src/client/_app.tsx"
       ],
     },
-    "typeRoots": ["./src/@types"],
+    "typeRoots": ["src/client/@types"],
     "types": ["node"]
   },
     "include": ["src"],

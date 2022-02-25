@@ -1,15 +1,15 @@
 import path from "path";
-import Document from "@beyond/default/_document";
+import Document from "@DOCUMENT";
 
 import { ChunkExtractor } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
 import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { renderStylesToString } from "@emotion/server";
-import { removeURLParameter } from "@beyond/server/utils/url";
-import { HtmlProvider } from "@beyond/shared/context/html";
-import ContextProvider from "@beyond/shared/context";
-import Routes from "@beyond/router";
-import App from "@beyond/default/_app";
+import { removeURLParameter } from "../../utils/url";
+import { HtmlProvider } from "../../../shared/context/html";
+import ContextProvider from "../../../shared/context";
+import Routes from "../../../router";
+import App from "@APP";
 import type { FastifyRequest } from "fastify";
 import type { StaticRouterContext } from "react-router";
 import type { HelmetData } from "react-helmet-async";
@@ -76,7 +76,7 @@ export default function render({
     html: appHTML,
   });
 
-  let statusCode = Number(routerContext?.status ?? 200);
+  let statusCode = Number(routerContext.status || 200);
   let redirect = "";
 
   if (routerContext.url) {

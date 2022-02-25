@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom";
-import Routes from "@beyond/router";
+import Routes from "../router";
 import { BrowserRouter } from "react-router-dom";
 import { loadableReady } from "@loadable/component";
 import { canUseDom } from "../utils/dom";
-import ContextProvider from "@beyond/shared/context";
-import App from "@beyond/default/_app";
+import ContextProvider from "../shared/context";
+import App from "./_app";
 
 const app = (
   <BrowserRouter>
