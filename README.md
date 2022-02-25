@@ -4,9 +4,8 @@
 
 # Beyond.js
 
-javascript utilities with painless configuration. 
+React library with painless configuration.
 This tool is very suitable to be used to shorten the project setting process and focus on developing a program
-
 
 ## Tech Stack
 
@@ -29,7 +28,7 @@ Clone the project
 Go to the project directory
 
 ```bash
- cd packages/beyond
+ cd packages/create-beyond-app/template
 ```
 
 Install dependencies
@@ -44,16 +43,13 @@ Start the server
  npm run start
 ```
 
-
 ## Documentation
 
 [Documentation](https://github.com/gobielJonathan/beyond)
 
-
 ## Support
 
 For support, email fake@fake.com or join our Slack channel.
-
 
 ## Contributing
 
@@ -62,7 +58,6 @@ Contributions are always welcome!
 See `contributing.md` for ways to get started.
 
 Please adhere to this project's `code of conduct`.
-
 
 ## Roadmap
 
