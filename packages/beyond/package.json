@@ -79,7 +79,7 @@
     "chalk": "^5.0.0",
     "core-js": "^3.20.1",
     "dotenv-safe": "^8.2.0",
-    "fastify": "^3.25.2",
+    "fastify": "^3.29.4",
     "fastify-plugin": "^3.0.0",
     "lru-cache": "^6.0.0",
     "prop-types": "^15.8.0",
