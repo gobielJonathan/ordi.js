@@ -12,8 +12,8 @@
     "outDir": "./build",
     "lib": ["es5", "es2015", "es2016", "es2017", "es2018", "es2019", "es2020", "dom"],
     "maxNodeModuleJsDepth": 0,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
@@ -28,7 +28,6 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
     "plugins": [{ "transform": "typescript-transform-paths", "afterDeclarations": true }],
     "baseUrl": ".",
@@ -44,7 +43,7 @@
         "src/client/_app.tsx"
       ],
     },
-    "typeRoots": ["./src/@types"],
+    "typeRoots": ["./node_modules/@types"],
     "types": ["node"]
   },
     "include": ["src"],

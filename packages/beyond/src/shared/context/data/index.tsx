@@ -12,7 +12,7 @@ export const DataProvider: VFC<Props & { children: ReactNode }> = ({
   children,
   data,
 }) => {
-  const initialData = canUseDom() ? window.__BEYOND__DATA__ : data;
+  const initialData = canUseDom ? window.__BEYOND__DATA__ : data;
 
   return (
     <DataContext.Provider value={{ data: initialData }}>

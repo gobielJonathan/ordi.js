@@ -4,7 +4,7 @@ module.exports = {
   plugins: [
     "@babel/plugin-transform-modules-commonjs",
     "@babel/transform-runtime",
-    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-syntax-dynamic-import"
   ],
   presets: [
     [

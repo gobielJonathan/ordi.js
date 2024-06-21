@@ -10,7 +10,7 @@ type Props = {
 
 const ContextProvider: VFC<Props> = ({
   children,
-  helmetContext,
+  helmetContext = {},
   routerProps = {},
 }) => {
   return (

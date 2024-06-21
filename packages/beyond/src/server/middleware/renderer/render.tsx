@@ -2,17 +2,18 @@ import path from "path";
 import Document from "@DOCUMENT";
 
 import { ChunkExtractor } from "@loadable/server";
-import { StaticRouter } from "react-router-dom";
-import { renderToStaticMarkup, renderToString } from "react-dom/server";
-import { renderStylesToString } from "@emotion/server";
+import { StaticRouter, StaticRouterProps } from "react-router-dom";
+import { renderToStaticMarkup } from "react-dom/server";
 import { removeURLParameter } from "../../utils/url";
 import { HtmlProvider } from "../../../shared/context/html";
 import ContextProvider from "../../../shared/context";
 import Routes from "../../../router";
 import App from "@APP";
 import type { FastifyRequest } from "fastify";
-import type { StaticRouterContext } from "react-router";
+
 import type { HelmetData } from "react-helmet-async";
+
+type StaticRouterContext = StaticRouterProps["context"];
 
 const statsFile = path.resolve(__dirname, "./loadable-stats.json");
 
@@ -29,7 +30,7 @@ function renderDocument({
 }) {
   return renderToStaticMarkup(
     <HtmlProvider
-      helmet={helmetContext as unknown as HelmetData}
+      helmet={helmetContext as unknown as HelmetData['context']['helmet']}
       extractor={extractor}
       html={html}
       routerProps={routerProps}
@@ -67,7 +68,7 @@ export default function render({
     </StaticRouter>
   );
 
-  const appHTML = renderStylesToString(renderToString(AppTree));
+  const appHTML = renderToStaticMarkup(AppTree);
 
   const body = renderDocument({
     helmetContext: helmetContext.helmet,

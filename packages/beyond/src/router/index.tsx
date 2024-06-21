@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Router } from "react-router-dom";
 import _404 from "@BUILD_404";
 import ROUTES from "@BUILD_ROUTE";
 import { useDataContext } from "../shared/context/data";

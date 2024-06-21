@@ -1,5 +1,4 @@
 const webpack = require("webpack");
-const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
 const shared = require("../webpack.shared");
@@ -28,7 +27,6 @@ module.exports = mergeWithCustomize({
       type: "commonjs2",
     },
   },
-  // externals: [nodeExternals({ allowlist: [/^beyond/] })],
   plugins: [
     new MiniCssExtractPlugin({
       runtime: true,
@@ -49,7 +47,6 @@ module.exports = mergeWithCustomize({
           loader: "babel-loader",
           options: {
             presets: [
-              ["@babel/preset-react", { runtime: "automatic" }],
               "@babel/preset-typescript",
               [
                 "@babel/preset-env",
@@ -59,6 +56,7 @@ module.exports = mergeWithCustomize({
                   corejs: 3,
                 },
               ],
+              ["@babel/preset-react", { runtime: "automatic" }],
             ],
           },
         },

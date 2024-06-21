@@ -1,7 +1,7 @@
 import devServerConfig from "../webpack/dev-server";
 import Webpack from "webpack";
 import WDS from "webpack-dev-server";
-// import { error as errorLog } from "../../src/shared/log";
+
 
 const getServerCompiler = () => {
   const webpackConfig = require("../webpack/server/webpack.dev");
@@ -30,7 +30,6 @@ const start = async () => {
       if (err) throw err;
     });
   } catch (error) {
-    // errorLog(error);
     console.error(error);
     process.exit(1);
   }

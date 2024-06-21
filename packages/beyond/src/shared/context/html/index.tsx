@@ -4,7 +4,7 @@ import type { HelmetData } from "react-helmet-async";
 import type { ChunkExtractor } from "@loadable/server";
 
 export type HtmlContextType = {
-  helmet: HelmetData;
+  helmet: HelmetData['context']['helmet'];
   extractor: ChunkExtractor;
   html: string;
   routerProps: Record<string, unknown>;
@@ -18,8 +18,9 @@ export const HtmlProvider: VFC<HtmlContextType & { children: ReactNode }> = (
   props
 ) => {
   const { helmet, extractor, html, routerProps, children } = props;
+
   return (
-    <HtmlContext.Provider value={{ helmet, extractor, html, routerProps }}>
+    <HtmlContext.Provider value={{ helmet: helmet, extractor, html, routerProps }}>
       {children}
     </HtmlContext.Provider>
   );

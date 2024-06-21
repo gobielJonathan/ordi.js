@@ -17,7 +17,7 @@ const app = (
 );
 
 const renderer = (id: HTMLElement | null) =>
-  canUseDom()
+  canUseDom
     ? ReactDOM.render(app, id)
     : loadableReady(() => ReactDOM.hydrate(app, id));
 

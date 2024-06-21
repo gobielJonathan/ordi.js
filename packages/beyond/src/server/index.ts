@@ -8,41 +8,36 @@ import * as logger from "../shared/log";
  */
 import registerMiddleware from "./middleware";
 
+const app = fastify({
+  disableRequestLogging: true,
+});
+
+app.register(registerMiddleware);
+
+app.setErrorHandler(function (
+  error: Error,
+  _request: FastifyRequest,
+  reply: FastifyReply
+) {
+  app.log.error(error.stack);
+  logger.error(error.stack || "");
+  reply.code(500).type("text/html").send(error?.stack?.toString());
+});
+
 const Server = () => {
-  try {
-    const app = fastify({
-      disableRequestLogging: true,
-    });
-
-    (async function () {
-      await app.register(registerMiddleware);
-
-      app.setErrorHandler(function (
-        error: Error,
-        _request: FastifyRequest,
-        reply: FastifyReply
-      ) {
-        app.log.error(error.stack);
-        logger.error(error.stack || "");
-        reply.code(500).type("text/html").send(error?.stack?.toString());
-      });
-    })();
-
-    return {
-      start: async () => {
-        try {
-          await app.listen(Number(process.env.PORT_SERVER));
-        } catch (error) {
-          throw error;
-        }
-      },
-      close: async () => {
-        app.close();
-      },
-    };
-  } catch (error) {
-    throw error;
-  }
+  return {
+    start: async () => {
+      try {
+        await app.listen(Number(process.env.PORT_SERVER));
+      } catch (error) {
+        const _error = error instanceof Error ? error.message : String(error)
+        logger.error(_error)
+      }
+    },
+    close: async () => {
+      await app.close();
+    },
+  };
 };
 
 export default Server;

@@ -1,7 +1,5 @@
-import { useHtmlContext } from "../context/html";
 import type { ReactNode } from "react";
-
-const mainBundles = ["main", "runtime", "vendors~main"];
+import { useHtmlContext } from "../context/html";
 
 function createScriptTag({
   src,
@@ -14,38 +12,35 @@ function createScriptTag({
   nomodule?: boolean;
   nonce?: string;
 }) {
-  if (src) {
-    return (
-      <script
-        defer
-        src={`${process.env.HOST_CLIENT}/${src}.js`}
-        type={type}
-        noModule={nomodule}
-        crossOrigin={"anonymous"}
-        nonce={nonce}
-      />
-    );
-  }
-  return "";
+  if (!src) return null;
+  return (
+    <script
+      defer
+      src={`${process.env.HOST_CLIENT}/${src}.js`}
+      type={type}
+      noModule={nomodule}
+      crossOrigin={"anonymous"}
+      nonce={nonce}
+    />
+  );
 }
 
-const mainScripts = mainBundles.map((src) => createScriptTag({ src })).join("");
+const mainScripts = ["main", "runtime", "vendors~main"]
+  .map((src) => createScriptTag({ src }))
+  .join("");
 
 export const Html = ({ children }: { children: ReactNode }) => {
-  const { helmet } = useHtmlContext();
-  const attr = helmet.htmlAttributes.toComponent();
-  return <html {...attr}>{children}</html>;
+  return <html>{children}</html>;
 };
 
 export const Head = () => {
   const { helmet, extractor } = useHtmlContext();
-
   return (
     <head>
-      {helmet.title.toComponent()}
-      {helmet.meta.toComponent()}
-      {helmet.link.toComponent()}
-      {helmet.script.toComponent()}
+      {helmet?.title.toComponent()}
+      {helmet?.meta.toComponent()}
+      {helmet?.link.toComponent()}
+      {helmet?.script.toComponent()}
       {extractor.getLinkElements()}
       {extractor.getStyleElements()}
     </head>
@@ -75,7 +70,5 @@ export const Main = () => {
 };
 
 export const Body = ({ children }: { children: ReactNode }) => {
-  const { helmet } = useHtmlContext();
-  const attr = helmet.bodyAttributes.toComponent();
-  return <body {...attr}>{children}</body>;
+  return <body>{children}</body>;
 };
