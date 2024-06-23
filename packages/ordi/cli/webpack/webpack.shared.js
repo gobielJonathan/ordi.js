@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { default: ifDev } = require("../../src/utils/ifDev");
 
 const resolver = require("./resolve");
+const { default: resolveCwd } = require("../../src/utils/resolve");
 const defaultProcessEnv = require("./plugins/DefinePlugin").default;
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
       runtime: true,
       filename: ifDev("[name].css", "[name].[contenthash].css"),
       chunkFilename: ifDev("[id].css", "[id].[contenthash].css"),
-    })
+    }),
   ],
 
   module: {
