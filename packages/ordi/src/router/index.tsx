@@ -1,12 +1,12 @@
 import { Switch, Route } from "react-router-dom";
-import _404 from "@BUILD_404";
-import ROUTES from "@BUILD_ROUTE";
-import { useDataContext } from "../shared/context/data";
-import type { Route as BeyondRoute } from "../shared/model/route";
 import type { VFC } from "react";
 
-const CreateRoute: VFC<BeyondRoute> = (props) => {
-  const initialData = useDataContext();
+import _404 from "@BUILD_404";
+import ROUTES from "@BUILD_ROUTE";
+
+import type { Route as OrdiRoute } from "../shared/model/route";
+
+const CreateRoute: VFC<OrdiRoute> = (props) => {
 
   switch (props.type) {
     case "route":
@@ -15,7 +15,7 @@ const CreateRoute: VFC<BeyondRoute> = (props) => {
         <Route
           key={props.path}
           exact={props.exact}
-          render={() => <Component key={props.path} {...initialData} />}
+          render={() => <Component key={props.path} />}
           path={props.path}
         />
       );

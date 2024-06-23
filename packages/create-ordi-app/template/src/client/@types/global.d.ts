@@ -1,5 +1,5 @@
 interface Window {
-  __BEYOND__DATA__: Record<string, unknown>;
+  __ORDI_DATA__: Record<string, unknown>;
 }
 
 interface NodeModule {

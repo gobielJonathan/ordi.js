@@ -1,4 +1,3 @@
-const path = require("path");
 const WebpackBar = require("webpackbar");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
@@ -16,16 +15,14 @@ module.exports = mergeWithCustomize({
     plugins: "append",
   }),
 })(shared, {
-  entry: path.resolve(process.cwd(), "src/client/index.ts"),
-  resolve: {
-    modules: ["node_modules", resolveCwd("node_modules")],
-  },
+  entry: resolveCwd("src/client/index.ts"),
 
   output: {
     clean: true,
     publicPath: `${process.env.HOST_CLIENT}/`,
     path: resolveCwd("build/client"),
   },
+
   plugins: [
     new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
@@ -57,6 +54,8 @@ module.exports = mergeWithCustomize({
     ],
   },
   optimization: {
+    usedExports: true, 
+    chunkIds: 'named',
     runtimeChunk: {
       name: "runtime",
     },

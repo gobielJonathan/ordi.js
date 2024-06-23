@@ -22,6 +22,7 @@ module.exports = mergeWithCustomize({
   output: {
     path: resolveCwd("build/server"),
     clean: true,
+    libraryTarget: 'commonjs2'
   },
   plugins: [
     new WebpackBar({ name: "server", color: "#FFBD35" }),

@@ -1,1 +1,1 @@
-export *  from './build/shared/document'
+export * from "./build/shared/document";

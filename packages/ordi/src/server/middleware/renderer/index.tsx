@@ -37,7 +37,7 @@ export default function rendererMiddleware(
       if (htmlCache) {
         reply
           .code(200)
-          .headers({ "x-beyond-ssg": true })
+          .headers({ "x-ordi-ssg": true })
           .type("text/html")
           .send(htmlCache);
         return;

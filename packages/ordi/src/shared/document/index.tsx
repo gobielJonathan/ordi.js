@@ -9,10 +9,10 @@ export const Head = () => {
   const { helmet, extractor } = useHtmlContext();
   return (
     <head>
-      {helmet?.title.toComponent()}
-      {helmet?.meta.toComponent()}
-      {helmet?.link.toComponent()}
-      {helmet?.script.toComponent()}
+      {helmet.title.toComponent()}
+      {helmet.meta.toComponent()}
+      {helmet.link.toComponent()}
+      {helmet.script.toComponent()}
       {extractor.getLinkElements()}
       {extractor.getStyleElements()}
     </head>
@@ -25,10 +25,10 @@ export const Scripts = () => {
   return (
     <>
       <script
-        id="__BEYOND__DATA__"
+        id="__ORDI_DATA__"
         dangerouslySetInnerHTML={{
           __html: `
-          window.__BEYOND__DATA__=${JSON.stringify(routerProps)}
+          window.__ORDI_DATA__=${JSON.stringify(routerProps)}
         `,
         }}
       ></script>
@@ -39,7 +39,7 @@ export const Scripts = () => {
 
 export const Main = () => {
   const { html } = useHtmlContext();
-  return <div id="__beyond" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div id="__ordi" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export const Body = ({ children }: { children: ReactNode }) => {

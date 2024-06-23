@@ -1,7 +1,15 @@
 import { AppComponentType } from "ordi/core";
+import { useHistory } from "ordi/route";
 
 const Person: AppComponentType = () => {
-  return <h3>person</h3>;
+  const history = useHistory();
+
+  return (
+    <>
+      <h3>person</h3>
+      <button onClick={history.goBack}>back</button>
+    </>
+  );
 };
 
 Person.getServerSideProps = async () => {

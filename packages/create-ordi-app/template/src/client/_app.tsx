@@ -1,5 +1,5 @@
+import { Helmet } from "ordi/head";
 import { ReactNode } from "react";
-import { Helmet } from "react-helmet-async";
 
 type Props = {
   children: ReactNode;
@@ -8,10 +8,10 @@ type Props = {
 export default function App({ children }: Props) {
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <html lang="id" />
-        <title>Welcome to beyond framework</title>
-      </Helmet> */}
+        <title>Welcome to ordi framework</title>
+      </Helmet>
       {children}
     </>
   );

@@ -1,12 +1,12 @@
 import path from "path";
-import Document from "@DOCUMENT";
-import App from "@APP";
+import type { HelmetData } from "react-helmet-async";
+import { StaticRouter, StaticRouterProps } from "react-router-dom";
+import { renderToString } from "react-dom/server";
+import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import type { FastifyRequest } from "fastify";
 
-import type { HelmetData } from "react-helmet-async";
-import { ChunkExtractor } from "@loadable/server";
-import { StaticRouter, StaticRouterProps } from "react-router-dom";
-import { renderToStaticMarkup } from "react-dom/server";
+import Document from "@DOCUMENT";
+import App from "@APP";
 
 import { removeURLParameter } from "../../utils/url";
 import { HtmlProvider } from "../../../shared/context/html";
@@ -15,6 +15,9 @@ import Routes from "../../../router";
 
 type StaticRouterContext = StaticRouterProps["context"];
 
+/**
+ * get from build/client
+ */
 const statsFile = path.resolve(__dirname, "../client/loadable-stats.json");
 
 function renderDocument({
@@ -28,7 +31,7 @@ function renderDocument({
   html: string;
   routerProps: Record<string, unknown>;
 }) {
-  return renderToStaticMarkup(
+  return renderToString(
     <HtmlProvider
       helmet={helmetContext as unknown as HelmetData["context"]["helmet"]}
       extractor={extractor}
@@ -58,17 +61,22 @@ export default function render({
     publicPath: process.env.HOST_CLIENT,
   });
 
-  const AppTree = extractor.collectChunks(
-    <StaticRouter context={routerContext} location={url}>
-      <ContextProvider helmetContext={helmetContext} routerProps={routerProps}>
-        <App>
-          <Routes />
-        </App>
-      </ContextProvider>
-    </StaticRouter>
+  const AppTree = (
+    <ChunkExtractorManager extractor={extractor}>
+      <StaticRouter context={routerContext} location={url}>
+        <ContextProvider
+          helmetContext={helmetContext}
+          routerProps={routerProps}
+        >
+          <App>
+            <Routes />
+          </App>
+        </ContextProvider>
+      </StaticRouter>
+    </ChunkExtractorManager>
   );
 
-  const appHTML = renderToStaticMarkup(AppTree);
+  const appHTML = renderToString(AppTree);
 
   const body = renderDocument({
     helmetContext: helmetContext.helmet,

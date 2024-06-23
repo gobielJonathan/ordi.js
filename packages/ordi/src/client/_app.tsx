@@ -10,7 +10,7 @@ export default function App({ children }: Props) {
     <>
       <Helmet>
         <html lang="id" />
-        <title>Welcome to beyond framework</title>
+        <title>Welcome to ordi framework</title>
       </Helmet>
       {children}
     </>
