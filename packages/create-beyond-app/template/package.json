@@ -5,24 +5,27 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "beyond serve"
+    "start": "beyond serve",
+    "build:server": "beyond build:server",
+    "build:client": "beyond build:client",
+    "serve": "node ./build/server/main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "^7.17.2",
-    "babel-loader": "^8.2.3",
-    "beyond": "file:../../beyond",
-    "react": "^17.0.2",
-    "react-helmet-async": "^1.2.3"
+    "beyond.js": "0.0.1",
+    "react": "17",
+    "react-dom": "17",
+    "react-router-dom": "5"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/plugin-transform-runtime": "^7.17.0",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@types/node": "^17.0.19",
-    "@types/react": "^17.0.39"
+    "@babel/core": "^7.24.7",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/node": "^18.19.38",
+    "@types/react": "^17.0.39",
+    "babel-loader": "^9.1.3"
   }
 }

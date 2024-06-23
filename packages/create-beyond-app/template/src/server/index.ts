@@ -1,7 +1,7 @@
 import App from "./app";
-import { error, info } from "beyond/build/shared/log";
+import { error, info } from "beyond/log";
 
-let app = App;
+let app = App
 
 app
   .start()
@@ -15,7 +15,7 @@ app
 if (module.hot) {
   module.hot.accept(["./app", "../client/routes"], async () => {
     await app.close();
-    app = require("./app");
+    app = require("./app").default;
     app.start();
   });
 }

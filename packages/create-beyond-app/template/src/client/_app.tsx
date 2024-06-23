@@ -8,10 +8,10 @@ type Props = {
 export default function App({ children }: Props) {
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <html lang="id" />
         <title>Welcome to beyond framework</title>
-      </Helmet>
+      </Helmet> */}
       {children}
     </>
   );

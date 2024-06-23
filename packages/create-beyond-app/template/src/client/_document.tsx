@@ -1,4 +1,4 @@
-import { Html, Head, Main, Body, Scripts } from "beyond/build/shared/document";
+import { Html, Head, Main, Body, Scripts } from "beyond/document";
 
 const Document = () => {
   return (
