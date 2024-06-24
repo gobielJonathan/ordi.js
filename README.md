@@ -1,82 +1,42 @@
-<p align="center">
-  <img width="200" height="200" src="https://user-images.githubusercontent.com/46088334/145545433-fbcb94a9-adf5-4eb0-a8b0-b6a5e14fbe2a.png">
-</p>
+# Ordi.js
+The React Framework for Production
+ordi.js gives you the best developer experience with all the features you need for production: hybrid static & server rendering, TypeScript support, smart bundling, and more. No config is necessary.
 
-# Beyond.js
-
-React library with painless configuration.
-This tool is very suitable to be used to shorten the project setting process and focus on developing a program
-
-## Tech Stack
-
-**Client:** React
-
-**Server:** Node, Fastify
-
-**Bundler:** Webpack 5
-
-**Testing:** Jest
-
-## Run Locally
-
-Clone the project
+##### Getting Started
+To get started with ordi.js, you can create a new project:
 
 ```bash
- git clone https://github.com/gobielJonathan/beyond.git
+npx create-ordi-app@latest [project_name]
 ```
 
-Go to the project directory
+Then, follow the prompts to set up your new ordi.js project.
+
+### Documentation
+The documentation for ordi.js can be found here.
+
+### Development
+To start the development server, run:
 
 ```bash
- cd packages/create-beyond-app/template
+pnpm start
 ```
 
-Install dependencies
+Open http://localhost:4000 with your browser to see the result.
+
+You can start editing the page by modifying **src/routes/***. The page auto-updates as you edit the file.
+
+### Building for Production
+To create an optimized production build of your application, run:
 
 ```bash
- npm install
+pnpm build
 ```
 
-Start the server
+### Community
+The ordi.js community can be found on GitHub Discussions, where you can ask questions, voice ideas, and share your projects.
 
-```bash
- npm run start
-```
+### Contributing
+Please see our Contributing Guide to learn how you can help.
 
-## Documentation
-
-[Documentation](https://github.com/gobielJonathan/beyond)
-
-## Support
-
-For support, email fake@fake.com or join our Slack channel.
-
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
-## Roadmap
-
-This file provides an overview of the direction this project is heading. The roadmap is organized in steps that focus on a specific theme,for instance, UX.
-
-#### [M1 - Basic Infrastructure](https://github.com/gobielJonathan/beyond)
-
-In this phase of the project the focus is on X, Y and Z. The expected features are:
-
-- Something the user can do.
-- Description of a feature.
-- Ability to save things.
-- Etc.
-
-#### [M2 - User Experience](https://github.com/gobielJonathan/beyond)
-
-In this phase of the project the focus is on A, B and C. The expected features are:
-
-- Something the user can do.
-- Description of a feature.
-- Ability to save things.
-- Etc.
+### License
+ordi.js is licensed under the MIT License. You can view the full license here.
