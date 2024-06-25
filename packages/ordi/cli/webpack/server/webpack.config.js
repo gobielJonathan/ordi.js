@@ -9,11 +9,11 @@ module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
     plugins: "append",
+    'resolve': "append",
   }),
 })(shared, {
   target: "node",
   entry: [
-    require.resolve("node-fetch"),
     require.resolve("webpack/hot/poll") + "?1000",
     resolveCwd("src/server/index.ts"),
   ],

@@ -49,16 +49,4 @@ const Food: AppComponentType = () => {
   );
 };
 
-Food.getServerSideProps = async () => {
-  const todos = await fetch("https://jsonplaceholder.typicode.com/todos").then(
-    (res) => res.json()
-  );
-
-  return {
-    props: {
-      todos: todos,
-    },
-  };
-};
-
 export default Food;

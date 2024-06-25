@@ -11,7 +11,7 @@ module.exports = mergeWithCustomize({
   devtool: "source-map",
   plugins: [
     new RunScriptWebpackPlugin({
-      name: "main.js",
+      name: "main.js"
     }),
   ],
 });
