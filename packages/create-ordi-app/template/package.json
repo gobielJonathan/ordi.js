@@ -1,0 +1,31 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ordi serve",
+    "build": "pnpm build:client && pnpm build:server",
+    "build:server": "ordi build:server",
+    "build:client": "ordi build:client",
+    "serve": "node ./build/server/main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ordi": "link:/Users/bytedance/Documents/code/ordi.js/packages/ordi",
+    "react": "17",
+    "react-dom": "17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/node": "^18.19.38",
+    "@types/react": "^17.0.39",
+    "babel-loader": "^9.1.3"
+  }
+}
