@@ -1,3 +1,5 @@
-export default function Detail() {
+const Detail = () => {
   return <p>detail</p>;
-}
+};
+
+export default Detail;

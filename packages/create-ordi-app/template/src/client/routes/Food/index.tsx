@@ -2,11 +2,11 @@ import { useState } from "react";
 import { AppComponentType } from "ordi/core";
 import { useDataContext } from "ordi/data";
 import { Helmet } from "ordi/head";
-
+import { useHistory } from "ordi/route";
 import lazy from "ordi/lazy";
+
 import styles from "./index.css";
 import dummyPic from "./assets/dummy.jpg";
-import { useHistory } from "ordi/route";
 
 const Detail = lazy(
   () => import(/* webpackChunkName: "detail" */ "./components/Detail")

@@ -1,6 +1,7 @@
 const WebpackBar = require("webpackbar");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 const shared = require("../webpack.shared");
 const { default: resolveCwd } = require("../../../src/utils/resolve");
@@ -26,6 +27,7 @@ module.exports = mergeWithCustomize({
   plugins: [
     new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
+    new FriendlyErrorsWebpackPlugin()
   ],
 
   module: {
@@ -55,6 +57,7 @@ module.exports = mergeWithCustomize({
   },
   optimization: {
     usedExports: true, 
+    moduleIds: 'named',
     chunkIds: 'named',
     runtimeChunk: {
       name: "runtime",

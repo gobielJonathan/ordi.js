@@ -1,6 +1,7 @@
-import _500 from "@BUILD_500";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import fastify from "fastify";
+import _500 from "@BUILD_500";
+
 import * as logger from "../shared/log";
 
 /**

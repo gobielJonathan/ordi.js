@@ -1,3 +1,1 @@
-const { default: lazy } = require("@loadable/component");
-
-module.exports = lazy;
+module.exports = require("@loadable/component");

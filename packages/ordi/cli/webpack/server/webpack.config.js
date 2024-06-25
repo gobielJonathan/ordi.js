@@ -13,6 +13,7 @@ module.exports = mergeWithCustomize({
 })(shared, {
   target: "node",
   entry: [
+    require.resolve("node-fetch"),
     require.resolve("webpack/hot/poll") + "?1000",
     resolveCwd("src/server/index.ts"),
   ],
@@ -22,7 +23,7 @@ module.exports = mergeWithCustomize({
   output: {
     path: resolveCwd("build/server"),
     clean: true,
-    libraryTarget: 'commonjs2'
+    libraryTarget: "commonjs",
   },
   plugins: [
     new WebpackBar({ name: "server", color: "#FFBD35" }),
