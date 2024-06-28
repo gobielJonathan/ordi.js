@@ -8,8 +8,7 @@ const { default: resolveCwd } = require("../../../src/utils/resolve");
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
-    plugins: "append",
-    'resolve': "append",
+    resolve: "append",
   }),
 })(shared, {
   target: "node",
@@ -29,34 +28,4 @@ module.exports = mergeWithCustomize({
     new WebpackBar({ name: "server", color: "#FFBD35" }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-  module: {
-    rules: [
-      {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: [
-                "@babel/preset-typescript",
-                [
-                  "@babel/preset-env",
-                  {
-                    useBuiltIns: "entry",
-                    targets: "> 0.25%, not dead",
-                    corejs: 3,
-                  },
-                ],
-                [
-                  "@babel/preset-react",
-                  { runtime: "automatic", useBuiltIns: true },
-                ],
-              ],
-            },
-          },
-        ],
-      },
-    ],
-  },
 });

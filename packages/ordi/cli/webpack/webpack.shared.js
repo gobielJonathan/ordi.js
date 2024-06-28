@@ -6,6 +6,7 @@ const { default: ifDev } = require("../../src/utils/ifDev");
 const resolver = require("./resolve");
 const defaultProcessEnv = require("./plugins/DefinePlugin").default;
 
+
 module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -28,6 +29,29 @@ module.exports = {
     strictExportPresence: true,
 
     rules: [
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              "@babel/preset-typescript",
+              ["@babel/preset-react", { runtime: "automatic", useBuiltIns: true }],
+              [
+                "@babel/preset-env",
+                {
+                  useBuiltIns: "entry",
+                  targets: "> 0.25%, not dead",
+                  corejs: 3,
+                  modules: false
+                },
+              ],
+            ],
+          },
+        },
+      },
+
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         loader: require.resolve("file-loader"),

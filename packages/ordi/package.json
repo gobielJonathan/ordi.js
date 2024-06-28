@@ -1,6 +1,6 @@
 {
-  "name": "ordi",
-  "private": true,
+  "name": "ordijs",
+  "private": false,
   "version": "0.1.0-beta-1",
   "description": "Main Code in Beyond Framework",
   "main": "./build/server/main.js",
@@ -21,6 +21,8 @@
   },
   "author": "Gobiel",
   "files": [
+    "build",
+    "cli",
     "client.js",
     "client.d.ts",
     "core.js",
@@ -38,7 +40,9 @@
     "route.js",
     "route.d.ts",
     "server.js",
-    "server.d.ts"
+    "server.d.ts",
+    "tsconfig.json",
+    "babel.config.js"
   ],
   "workspaces": [],
   "engines": {
@@ -90,7 +94,6 @@
     "fastify": "^3.29.5",
     "fastify-plugin": "^3.0.1",
     "file-loader": "^6.2.0",
-    "friendly-errors-webpack-plugin": "^1.7.0",
     "lru-cache": "^6.0.0",
     "mini-css-extract-plugin": "^2.9.0",
     "react-helmet-async": "^2.0.5",
@@ -98,14 +101,14 @@
     "react-router-dom": "5",
     "run-script-webpack-plugin": "^0.2.0",
     "style-loader": "^4.0.0",
-    "yargs": "^17.7.2",
     "webpack": "^5.92.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-middleware": "^5.3.4",
     "webpack-dev-server": "^4.15.2",
     "webpack-merge": "^5.10.0",
     "webpack-node-externals": "^3.0.0",
-    "webpackbar": "^5.0.2"
+    "webpackbar": "^5.0.2",
+    "yargs": "^17.7.2"
   },
   "peerDependencies": {
     "react": "17",
