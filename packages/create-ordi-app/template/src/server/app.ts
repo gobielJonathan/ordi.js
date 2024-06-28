@@ -1,3 +1,3 @@
-import Server from "ordi/server";
+import Server from "ordijs/server";
 let app = Server();
 export default app;

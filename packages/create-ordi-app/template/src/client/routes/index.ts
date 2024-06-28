@@ -1,4 +1,4 @@
-import { RouteEntry } from "ordi/route";
+import { RouteEntry } from "ordijs/route";
 
 import Person from "./Person";
 import Food from "./Food";
@@ -25,6 +25,14 @@ const ROUTES: RouteEntry[] = [
     component: Food,
     name: "animal",
     path: "/animal",
+    exact: true,
+    strict: false,
+  },
+  {
+    type: "route",
+    component: Food,
+    name: "home",
+    path: "/",
     exact: true,
     strict: false,
   },

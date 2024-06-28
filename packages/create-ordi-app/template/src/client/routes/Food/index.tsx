@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { AppComponentType } from "ordi/core";
-import { useDataContext } from "ordi/data";
-import { Helmet } from "ordi/head";
-import { useHistory } from "ordi/route";
-import lazy from "ordi/lazy";
+import { AppComponentType } from "ordijs/core";
+import { useDataContext } from "ordijs/data";
+import { Helmet } from "ordijs/head";
+import { useHistory } from "ordijs/route";
+import lazy from "ordijs/lazy";
 
 import styles from "./index.css";
 import dummyPic from "./assets/dummy.jpg";
 
 const Detail = lazy(
-  () => import(/* webpackChunkName: "detail" */ "./components/Detail")
+  () => import(/* webpackChunkName: "detail" */ "./components/Detail"),
+  {
+    ssr: true,
+  }
 );
 
 const Food: AppComponentType = () => {
@@ -47,18 +50,6 @@ const Food: AppComponentType = () => {
       </ul>
     </>
   );
-};
-
-Food.getServerSideProps = async () => {
-  const todos = await fetch("https://jsonplaceholder.typicode.com/todos").then(
-    (res) => res.json()
-  );
-
-  return {
-    props: {
-      todos: todos,
-    },
-  };
 };
 
 export default Food;

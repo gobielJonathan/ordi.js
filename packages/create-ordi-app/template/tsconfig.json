@@ -28,10 +28,10 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "es2016",
     "plugins": [{ "transform": "typescript-transform-paths", "afterDeclarations": true }],
     "baseUrl": "./src",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "paths": {
       "@BUILD_ROUTE" : ["client/routes/index.ts"],
       "@BUILD_404": ["client/error/_404.tsx"],
@@ -43,7 +43,8 @@
         "client/_app.tsx"
       ],
     },
-    "typeRoots": ["client/@types"],
-    "types": ["node"]
-  }
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
+  },
+  "include" : ["src/**/*"]
 }

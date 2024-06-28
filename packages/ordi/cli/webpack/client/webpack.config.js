@@ -1,7 +1,6 @@
 const WebpackBar = require("webpackbar");
 const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
 const { mergeWithCustomize, customizeObject } = require("webpack-merge");
-const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 const shared = require("../webpack.shared");
 const { default: resolveCwd } = require("../../../src/utils/resolve");
@@ -13,7 +12,6 @@ const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
 module.exports = mergeWithCustomize({
   customizeObject: customizeObject({
     "module.rules": "append",
-    plugins: "append",
   }),
 })(shared, {
   entry: resolveCwd("src/client/index.ts"),
@@ -27,34 +25,8 @@ module.exports = mergeWithCustomize({
   plugins: [
     new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
-    new FriendlyErrorsWebpackPlugin()
   ],
 
-  module: {
-    rules: [
-      {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              ["@babel/preset-react", { runtime: "automatic", useBuiltIns: true }],
-              "@babel/preset-typescript",
-              [
-                "@babel/preset-env",
-                {
-                  useBuiltIns: "entry",
-                  targets: "> 0.25%, not dead",
-                  corejs: 3,
-                },
-              ],
-            ],
-          },
-        },
-      },
-    ],
-  },
   optimization: {
     usedExports: true, 
     moduleIds: 'named',

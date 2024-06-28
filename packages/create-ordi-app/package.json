@@ -1,0 +1,42 @@
+{
+  "name": "create-ordi-app",
+  "version": "0.1.0-beta.3",
+  "description": "Create ordi app with single command",
+  "homepage": "https://github.com/gobielJonathan/ordi.js",
+  "bugs": {
+    "url": "https://github.com/gobielJonathan/ordi.js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gobielJonathan/ordi.js.git"
+  },
+  "license": "ISC",
+  "author": "gobielJonathan",
+  "type": "module",
+  "exports": "./index.js",
+  "bin": {
+    "create-ordi-app": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "cli",
+    "template",
+    "!**/node_modules",
+    "!**/build",
+    "!**/.env",
+    "utils"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "got": "11.8.5",
+    "recursive-copy": "~2.0.9",
+    "semver": "^7.5.2",
+    "through2": "~2.0.5",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=18.17 <19",
+    "pnpm": ">=8.6 <9"
+  }
+}
