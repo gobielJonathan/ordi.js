@@ -20,15 +20,6 @@ export default class Git {
     cp.execSync('git init', options);
   }
 
-  /**
-   * Add a remote named <name> for the ordi application directory at <URL>. The command git fetch <name>
-   * can then be used to create and update remote-tracking branches <name>/<branch>.
-   * @param {string} origin
-   * @param {import('node:child_process').CommonExecOptions} options
-   */
-  gitRemoteAddOrigin(remote = 'tokopedia/ordi-web-framework', options = { cwd: this.cwd, stdio: 'ignore' }) {
-    cp.execSync(`git remote add origin git@github.com:${remote}.git`, options);
-  }
 
   /**
    * Download necessary objects and refs from ordi repository. We only care
