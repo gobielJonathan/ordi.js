@@ -1,3 +1,3 @@
-import registerClient from "ordi/client";
+import registerClient from "ordijs/client";
 
 registerClient();

@@ -1,4 +1,4 @@
-import { Helmet } from "ordi/head";
+import { Helmet } from "ordijs/head";
 import { ReactNode } from "react";
 
 type Props = {

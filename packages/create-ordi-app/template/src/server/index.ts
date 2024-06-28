@@ -1,5 +1,5 @@
 import App from "./app";
-import { error, info } from "ordi/log";
+import { error, info } from "ordijs/log";
 
 let app = App
 

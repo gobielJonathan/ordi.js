@@ -1,5 +1,5 @@
-import { AppComponentType } from "ordi/core";
-import { useHistory } from "ordi/route";
+import { AppComponentType } from "ordijs/core";
+import { useHistory } from "ordijs/route";
 
 const Person: AppComponentType = () => {
   const history = useHistory();

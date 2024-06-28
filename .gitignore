@@ -1,6 +1,11 @@
 node_modules
+**/node_modules/
+
 *.log
 package-lock.json
 /**/build
 .env
 .DS_Store
+
+build
+dist

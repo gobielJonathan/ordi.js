@@ -1,4 +1,4 @@
-import { Html, Head, Main, Body, Scripts } from "ordi/document";
+import { Html, Head, Main, Body, Scripts } from "ordijs/document";
 
 const Document = () => {
   return (
