@@ -1,14 +1,14 @@
 import Webpack from "webpack";
 
-const getServerCompiler = () => {
-  const webpackConfig = require("../webpack/server/webpack.prod");
+const getClientCompiler = () => {
+  const webpackConfig = require("../webpack/client/webpack.prod");
   return Webpack(webpackConfig);
 };
 
-const buildServer = async () => {
-  const server = getServerCompiler();
-  return new Promise((resolve, reject) => {
-    server.run((err) => {
+const buildClient = async () => {
+  const client = getClientCompiler();
+  return new Promise<void>((resolve, reject) => {
+    client.run((err) => {
       if (err) reject(err);
       resolve();
     });
@@ -17,7 +17,7 @@ const buildServer = async () => {
 
 const build = async () => {
   try {
-    await buildServer();
+    await buildClient();
   } catch (error) {
     // errorLog(error);
     console.error(error);

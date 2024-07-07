@@ -1,15 +1,16 @@
-const WebpackBar = require("webpackbar");
-const { default: LoadablePlugin } = require("@loadable/webpack-plugin");
-const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+import WebpackBar from "webpackbar";
+import { type Configuration } from "webpack";
+import LoadablePlugin from "@loadable/webpack-plugin";
+import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
-const shared = require("../webpack.shared");
-const { default: resolveCwd } = require("../../../src/utils/resolve");
-const { default: ifDev } = require("../../../src/utils/ifDev");
+import shared from "../webpack.shared";
+import resolveCwd from "../../../src/utils/resolve";
+import ifDev from "../../../src/utils/ifDev";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
 
-module.exports = mergeWithCustomize({
+export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "append",
   }),
@@ -28,9 +29,9 @@ module.exports = mergeWithCustomize({
   ],
 
   optimization: {
-    usedExports: true, 
-    moduleIds: 'named',
-    chunkIds: 'named',
+    usedExports: true,
+    moduleIds: "named",
+    chunkIds: "named",
     runtimeChunk: {
       name: "runtime",
     },
@@ -52,7 +53,7 @@ module.exports = mergeWithCustomize({
           chunks: "all",
           priority: 40,
           enforce: true,
-          filename: ifDev("[name].js","[name].[contenthash].js"),
+          filename: ifDev("[name].js", "[name].[contenthash].js"),
         },
         default: {
           minChunks: 2,

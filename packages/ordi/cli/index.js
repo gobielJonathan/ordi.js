@@ -11,6 +11,9 @@ const babelOptions = {
   plugins: [
     "@babel/plugin-transform-modules-commonjs",
   ],
+  presets: [
+    "@babel/preset-typescript",
+  ],
   babelrc: false,
 };
 

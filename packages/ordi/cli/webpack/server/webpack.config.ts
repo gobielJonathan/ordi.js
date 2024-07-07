@@ -1,11 +1,12 @@
-const webpack = require("webpack");
-const WebpackBar = require("webpackbar");
-const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+import webpack from "webpack";
+import WebpackBar from "webpackbar";
+import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
-const shared = require("../webpack.shared");
-const { default: resolveCwd } = require("../../../src/utils/resolve");
+import shared from "../webpack.shared";
+import resolveCwd from "../../../src/utils/resolve";
+import { Configuration } from "webpack";
 
-module.exports = mergeWithCustomize({
+export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "append",
     resolve: "append",

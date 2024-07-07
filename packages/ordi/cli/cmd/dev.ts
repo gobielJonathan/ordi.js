@@ -34,4 +34,4 @@ const start = async () => {
   }
 };
 
-module.exports = start;
+export default start
