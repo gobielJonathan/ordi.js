@@ -1,7 +1,7 @@
 import Webpack from "webpack";
+import webpackConfig from '../webpack/server/webpack.prod'
 
 const getServerCompiler = () => {
-  const webpackConfig = require("../webpack/server/webpack.prod");
   return Webpack(webpackConfig);
 };
 

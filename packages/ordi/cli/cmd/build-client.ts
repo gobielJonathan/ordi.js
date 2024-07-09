@@ -1,7 +1,7 @@
 import Webpack from "webpack";
+import webpackConfig from '../webpack/client/webpack.prod'
 
 const getClientCompiler = () => {
-  const webpackConfig = require("../webpack/client/webpack.prod");
   return Webpack(webpackConfig);
 };
 
@@ -25,4 +25,4 @@ const build = async () => {
   }
 };
 
-module.exports = build;
+module.exports = build

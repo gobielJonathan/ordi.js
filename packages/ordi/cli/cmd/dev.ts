@@ -1,15 +1,16 @@
-import devServerConfig from "../webpack/dev-server";
 import Webpack from "webpack";
 import WDS from "webpack-dev-server";
 
+import devServerConfig from "../webpack/dev-server";
+import webpackClient from "../webpack/client/webpack.dev"
+import webpackServer from "../webpack/server/webpack.dev"
+
 const getServerCompiler = () => {
-  const webpackConfig = require("../webpack/server/webpack.dev");
-  return Webpack(webpackConfig);
+  return Webpack(webpackServer);
 };
 
 const getClientCompiler = () => {
-  const webpackConfig = require("../webpack/client/webpack.dev");
-  return Webpack(webpackConfig);
+  return Webpack(webpackClient);
 };
 
 const WATCH_OPTIONS = {
@@ -34,4 +35,4 @@ const start = async () => {
   }
 };
 
-export default start
+module.exports = start

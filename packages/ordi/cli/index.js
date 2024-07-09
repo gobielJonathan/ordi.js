@@ -20,7 +20,7 @@ const babelOptions = {
 yargs
   .command("serve", "start the dev server", noop, () => {
     require("@babel/register")(babelOptions);
-    require("./cmd/dev")();
+    require("./cmd/dev")()
   })
 
   .command("build:server", "build the server", noop, () => {

@@ -1,7 +1,8 @@
-const { mergeWithCustomize, customizeObject } = require("webpack-merge");
-const common = require("./webpack.config");
+import {type  Configuration } from "webpack";
+import { mergeWithCustomize, customizeObject } from "webpack-merge"
+import common from "./webpack.config"
 
-module.exports = mergeWithCustomize({
+export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
   }),
 })(common, {

@@ -1,4 +1,5 @@
 import type { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import renderMiddleware from "./renderer";
 import { log } from "../../shared/log";
 
@@ -11,6 +12,6 @@ export default function registerMiddleware(
     log(`Accessing URL : ${req.url}`);
     done();
   });
-  fastify.register(renderMiddleware);
+  fastify.register(fp(renderMiddleware, { name: "render-pligin" }));
   next();
 }

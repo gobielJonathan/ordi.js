@@ -27,32 +27,6 @@ const shared = {
 
     rules: [
       {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-typescript",
-              [
-                "@babel/preset-react",
-                { runtime: "automatic", useBuiltIns: true },
-              ],
-              [
-                "@babel/preset-env",
-                {
-                  useBuiltIns: "entry",
-                  targets: "> 0.25%, not dead",
-                  corejs: 3,
-                  modules: false,
-                },
-              ],
-            ],
-          },
-        },
-      },
-
-      {
         test: /\.(png|jpg|jpeg|gif)$/i,
         loader: require.resolve("file-loader"),
         options: {

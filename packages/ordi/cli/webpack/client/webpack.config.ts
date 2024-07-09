@@ -6,20 +6,22 @@ import { mergeWithCustomize, customizeObject } from "webpack-merge";
 import shared from "../webpack.shared";
 import resolveCwd from "../../../src/utils/resolve";
 import ifDev from "../../../src/utils/ifDev";
+import { clientLoader } from "../loader/ts-loader";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
-    "module.rules": "append",
+    "module.rules": "prepend",
+    "plugins": "append",
   }),
 })(shared, {
   entry: resolveCwd("src/client/index.ts"),
 
   output: {
     clean: true,
-    publicPath: `${process.env.HOST_CLIENT}/`,
+    publicPath: process.env.HOST_CLIENT,
     path: resolveCwd("build/client"),
   },
 
@@ -27,6 +29,10 @@ export default mergeWithCustomize<Configuration>({
     new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
   ],
+
+  module : {
+    rules : [clientLoader]
+  }, 
 
   optimization: {
     usedExports: true,

@@ -9,6 +9,6 @@ export default mergeWithCustomize<Configuration>({
 })(common, {
   mode: "production",
   output: {
-    filename: "[name].[contenthash].js",
+    filename: "[name].[contenthash].js"
   },
 });

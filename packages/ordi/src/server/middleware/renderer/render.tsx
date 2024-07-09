@@ -57,8 +57,7 @@ export default function render({
   };
 
   const extractor = new ChunkExtractor({
-    statsFile,
-    publicPath: process.env.HOST_CLIENT,
+    statsFile
   });
 
   const AppTree = (

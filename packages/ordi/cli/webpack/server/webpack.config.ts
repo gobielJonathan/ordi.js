@@ -1,10 +1,12 @@
 import webpack from "webpack";
 import WebpackBar from "webpackbar";
+import { type Configuration } from "webpack";
+
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../webpack.shared";
 import resolveCwd from "../../../src/utils/resolve";
-import { Configuration } from "webpack";
+import { serverLoader } from "../loader/ts-loader";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -29,4 +31,8 @@ export default mergeWithCustomize<Configuration>({
     new WebpackBar({ name: "server", color: "#FFBD35" }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+
+  module : {
+    rules : [serverLoader]
+  }
 });

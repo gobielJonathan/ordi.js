@@ -12,4 +12,5 @@ export default mergeWithCustomize<Configuration>({
   mode: "development",
   devtool: "eval-source-map",
   plugins: [new ReactRefreshWebpackPlugin()],
+
 });
