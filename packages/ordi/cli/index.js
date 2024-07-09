@@ -11,13 +11,16 @@ const babelOptions = {
   plugins: [
     "@babel/plugin-transform-modules-commonjs",
   ],
+  presets: [
+    "@babel/preset-typescript",
+  ],
   babelrc: false,
 };
 
 yargs
   .command("serve", "start the dev server", noop, () => {
     require("@babel/register")(babelOptions);
-    require("./cmd/dev")();
+    require("./cmd/dev")()
   })
 
   .command("build:server", "build the server", noop, () => {

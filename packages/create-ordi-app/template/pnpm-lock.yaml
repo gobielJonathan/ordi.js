@@ -10,7 +10,7 @@ dependencies:
     version: link:../../ordi
   react:
     specifier: '17'
-    version: 17.0.2
+    version: link:../../ordi/node_modules/react
   react-dom:
     specifier: '17'
     version: 17.0.2(react@17.0.2)

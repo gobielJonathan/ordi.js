@@ -1,11 +1,14 @@
-const webpack = require("webpack");
-const WebpackBar = require("webpackbar");
-const { mergeWithCustomize, customizeObject } = require("webpack-merge");
+import webpack from "webpack";
+import WebpackBar from "webpackbar";
+import { type Configuration } from "webpack";
 
-const shared = require("../webpack.shared");
-const { default: resolveCwd } = require("../../../src/utils/resolve");
+import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
-module.exports = mergeWithCustomize({
+import shared from "../webpack.shared";
+import resolveCwd from "../../../src/utils/resolve";
+import { serverLoader } from "../loader/ts-loader";
+
+export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "append",
     resolve: "append",
@@ -28,4 +31,8 @@ module.exports = mergeWithCustomize({
     new WebpackBar({ name: "server", color: "#FFBD35" }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+
+  module : {
+    rules : [serverLoader]
+  }
 });
