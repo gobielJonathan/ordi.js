@@ -12,6 +12,6 @@ export default function registerMiddleware(
     log(`Accessing URL : ${req.url}`);
     done();
   });
-  fastify.register(fp(renderMiddleware, { name: "render-pligin" }));
+  fastify.register(fp(renderMiddleware, { name: "render-plugin" }));
   next();
 }
