@@ -100,7 +100,6 @@ export default async function render({
     </ChunkExtractorManager>
   );
 
-  // const appHTML = renderToStaticMarkup(AppTree);
   const { html: appHTML, fetchState } = await getDataFromTree(AppTree);
 
   const body = renderDocument({

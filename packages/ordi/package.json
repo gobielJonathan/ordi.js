@@ -1,7 +1,7 @@
 {
   "name": "ordijs",
   "private": false,
-  "version": "0.1.0-beta-1",
+  "version": "0.2.0-beta-1",
   "description": "Main Code in Beyond Framework",
   "main": "./build/server/main.js",
   "scripts": {
