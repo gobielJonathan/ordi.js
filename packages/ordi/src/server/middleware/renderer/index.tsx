@@ -58,7 +58,7 @@ export default function rendererMiddleware(
         revalidate = _revalidate;
       }
 
-      const { status, html, redirect } = render({ req, routerProps });
+      const { status, html, redirect } = await render({ req, routerProps });
 
       if (status === 301) {
         reply.redirect(301, redirect);
