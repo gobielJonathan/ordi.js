@@ -20,7 +20,7 @@ export const Head = () => {
 };
 
 export const Scripts = () => {
-  const { extractor, routerProps } = useHtmlContext();
+  const { extractor, routerProps, fetchProps } = useHtmlContext();
 
   return (
     <>
@@ -29,6 +29,7 @@ export const Scripts = () => {
         dangerouslySetInnerHTML={{
           __html: `
           window.__ORDI_DATA__=${JSON.stringify(routerProps)}
+          window.__ORDI_FETCH__=${JSON.stringify(fetchProps)}
         `,
         }}
       ></script>

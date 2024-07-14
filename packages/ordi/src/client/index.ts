@@ -1,5 +1,5 @@
-const registerClient = async () => {
-  await import("./bootstrap");
+const registerClient =  () => {
+  require("./bootstrap")
 };
 
 export default registerClient;

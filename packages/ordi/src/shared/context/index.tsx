@@ -15,7 +15,9 @@ const ContextProvider: VFC<Props> = ({
 }) => {
   return (
     <HelmetProvider context={helmetContext}>
-      <DataProvider data={routerProps}>{children}</DataProvider>
+      <DataProvider data={routerProps}>
+        {children}
+      </DataProvider>
     </HelmetProvider>
   );
 };
