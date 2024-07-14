@@ -1,34 +1,23 @@
-import { useState } from "react";
 import { AppComponentType } from "ordijs/core";
-import { useDataContext } from "ordijs/data";
 import { Helmet } from "ordijs/head";
 import { useHistory } from "ordijs/route";
-import lazy from "ordijs/lazy";
+import { useFetch } from "ordijs/fetch";
 
 import styles from "./index.css";
 import dummyPic from "./assets/dummy.jpg";
 
-const Detail = lazy(
-  () => import(/* webpackChunkName: "detail" */ "./components/Detail"),
-  {
-    ssr: true,
-  }
-);
+import Detail from "./components/Detail";
 
 const Food: AppComponentType = () => {
   const history = useHistory();
-  const [showDetail, setShowDetail] = useState(false);
 
-  const data = useDataContext() as unknown as {
-    todos: {
-      title: string;
-      id: number;
-    }[];
-  };
-
-  const toggleShowDetail = () => {
-    setShowDetail((e) => !e);
-  };
+  const {data :  todos = [], loading} = useFetch({
+    fetchKey: ["todos"],
+    fetcher: () =>
+      fetch("https://jsonplaceholder.typicode.com/todos").then((res) =>
+        res.json()
+      ).then(arr => arr.slice(1, 30))
+  });
 
   return (
     <>
@@ -38,16 +27,15 @@ const Food: AppComponentType = () => {
 
       <h3 className={styles.header}>Food</h3>
       <img src={dummyPic} alt="dummypic" />
-      {showDetail && <Detail />}
       <Detail />
-      <button onClick={toggleShowDetail}>toggle show detail</button>
       <button onClick={() => history.push("/person")}>go to person</button>
 
-      <ul>
-        {data.todos?.map((todo) => (
+      <ol>
+        {loading && <h5>loading list...</h5>}
+        {todos?.map((todo) => (
           <li key={todo.id}>{todo.title}</li>
         ))}
-      </ul>
+      </ol>
     </>
   );
 };
