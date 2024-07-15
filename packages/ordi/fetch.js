@@ -1,3 +1,4 @@
-const useFetch = require("./build/shared/context/fetch/usecase/use-fetch").default;
+const useFetch =
+  require("./build/shared/context/fetch/usecase/use-fetch").default;
 
-module.exports = useFetch;
+module.exports = { useFetch };
