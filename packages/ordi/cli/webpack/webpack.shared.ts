@@ -2,7 +2,7 @@ import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import resolver from "./resolve";
 import defaultProcessEnv from "./plugins/DefinePlugin";
-import ifDev from "../../src/utils/ifDev";
+import ifDev from "../../utils/ifDev";
 
 const shared = {
   resolve: {

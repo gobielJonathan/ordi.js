@@ -1,4 +1,4 @@
-import ifDev from "../../../src/utils/ifDev";
+import ifDev from "../../../utils/ifDev";
 
 export const clientLoader = {
   test: /\.(ts|js)x?$/,
@@ -6,9 +6,10 @@ export const clientLoader = {
   use: {
     loader: "babel-loader",
     options: {
-      plugins: [ifDev(require.resolve("react-refresh/babel")), "@loadable/babel-plugin"].filter(
-        Boolean
-      ),
+      plugins: [
+        ifDev(require.resolve("react-refresh/babel")),
+        "@loadable/babel-plugin",
+      ].filter(Boolean),
       presets: [
         "@babel/preset-typescript",
         ["@babel/preset-react", { runtime: "automatic", useBuiltIns: true }],

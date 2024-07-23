@@ -1,4 +1,4 @@
-import resolveCwd from '../../src/utils/resolve'
+import resolveCwd from "../../utils/resolve";
 
 const resolver = {
   "@BUILD_ROUTE": resolveCwd("src/client/routes/index.ts"),
@@ -8,4 +8,4 @@ const resolver = {
   "@APP": resolveCwd("src/client/_app.tsx"),
 };
 
-export default resolver
+export default resolver;

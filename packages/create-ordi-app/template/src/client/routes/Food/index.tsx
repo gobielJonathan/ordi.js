@@ -11,12 +11,12 @@ import Detail from "./components/Detail";
 const Food: AppComponentType = () => {
   const history = useHistory();
 
-  const {data :  todos = [], loading} = useFetch({
+  const { data: todos = [], loading } = useFetch({
     fetchKey: ["todos"],
     fetcher: () =>
-      fetch("https://jsonplaceholder.typicode.com/todos").then((res) =>
-        res.json()
-      ).then(arr => arr.slice(1, 30))
+      fetch("https://jsonplaceholder.typicode.com/todos")
+        .then((res) => res.json())
+        .then((arr) => arr.slice(1, 30)),
   });
 
   return (

@@ -1,35 +1,32 @@
 #!/usr/bin/env node
 const path = require("path");
 const yargs = require("yargs");
+const { register } = require("ts-node");
 
 const noop = () => {};
 
-const babelOptions = {
-  extensions: [".ts", ".tsx", ".jsx", ".js"],
-  ignore: [/node_modules/],
-  root: path.join(__dirname, ".."),
-  plugins: [
-    "@babel/plugin-transform-modules-commonjs",
-  ],
-  presets: [
-    "@babel/preset-typescript",
-  ],
-  babelrc: false,
-};
+function registerSwc() {
+  register({
+    swc: true,
+    emit: false,
+    transpileOnly: true,
+    cwd: path.resolve(__dirname, "../../.."),
+  });
+}
 
 yargs
   .command("serve", "start the dev server", noop, () => {
-    require("@babel/register")(babelOptions);
-    require("./cmd/dev")()
+    registerSwc();
+    require("./cmd/dev")();
   })
 
   .command("build:server", "build the server", noop, () => {
-    require("@babel/register")(babelOptions);
+    registerSwc();
     require("./cmd/build-server")();
   })
 
   .command("build:client", "build the client", noop, () => {
-    require("@babel/register")(babelOptions);
+    registerSwc();
     require("./cmd/build-client")();
   })
 
