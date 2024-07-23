@@ -23,6 +23,7 @@
   "files": [
     "build",
     "cli",
+    "utils",
     "client.js",
     "client.d.ts",
     "core.js",
