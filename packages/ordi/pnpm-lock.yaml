@@ -14,9 +14,6 @@ dependencies:
   '@babel/plugin-syntax-jsx':
     specifier: ^7.24.7
     version: 7.24.7(@babel/core@7.24.7)
-  '@babel/plugin-transform-modules-commonjs':
-    specifier: ^7.24.7
-    version: 7.24.7(@babel/core@7.24.7)
   '@babel/plugin-transform-runtime':
     specifier: ^7.24.7
     version: 7.24.7(@babel/core@7.24.7)

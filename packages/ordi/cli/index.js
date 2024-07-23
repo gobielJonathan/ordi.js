@@ -5,15 +5,6 @@ const { register } = require("ts-node");
 
 const noop = () => {};
 
-const babelOptions = {
-  extensions: [".ts", ".tsx", ".jsx", ".js"],
-  ignore: [/node_modules/],
-  root: path.join(__dirname, ".."),
-  plugins: ["@babel/plugin-transform-modules-commonjs"],
-  presets: ["@babel/preset-typescript"],
-  babelrc: false,
-};
-
 function registerSwc() {
   register({
     swc: true,
