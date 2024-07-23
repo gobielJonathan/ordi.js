@@ -4,8 +4,8 @@ import LoadablePlugin from "@loadable/webpack-plugin";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../webpack.shared";
-import resolveCwd from "../../../src/utils/resolve";
-import ifDev from "../../../src/utils/ifDev";
+import resolveCwd from "../../../utils/resolve";
+import ifDev from "../../../utils/ifDev";
 import { clientLoader } from "../loader/ts-loader";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
@@ -14,7 +14,7 @@ const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "prepend",
-    "plugins": "append",
+    plugins: "append",
   }),
 })(shared, {
   entry: resolveCwd("src/client/index.ts"),
@@ -30,9 +30,9 @@ export default mergeWithCustomize<Configuration>({
     new LoadablePlugin({ writeToDisk: true }),
   ],
 
-  module : {
-    rules : [clientLoader]
-  }, 
+  module: {
+    rules: [clientLoader],
+  },
 
   optimization: {
     usedExports: true,

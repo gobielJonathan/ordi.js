@@ -5,7 +5,7 @@ import { type Configuration } from "webpack";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../webpack.shared";
-import resolveCwd from "../../../src/utils/resolve";
+import resolveCwd from "../../../utils/resolve";
 import { serverLoader } from "../loader/ts-loader";
 
 export default mergeWithCustomize<Configuration>({
@@ -32,7 +32,7 @@ export default mergeWithCustomize<Configuration>({
     new webpack.HotModuleReplacementPlugin(),
   ],
 
-  module : {
-    rules : [serverLoader]
-  }
+  module: {
+    rules: [serverLoader],
+  },
 });
