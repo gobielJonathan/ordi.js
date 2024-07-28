@@ -1,6 +1,8 @@
+import { matchPath, match } from "react-router-dom";
+
 import type { AppComponentType } from "../../shared/model/core";
 import type { Route } from "../../shared/model/route";
-import { matchPath, match } from "react-router-dom";
+
 import { removeURLParameter } from "../utils/url";
 
 export const findRoute = (

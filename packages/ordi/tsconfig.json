@@ -53,7 +53,12 @@
     "typeRoots": ["./node_modules/@types"],
     "types": ["node"]
   },
-  "include": ["src/**/*", "utils/resolve.ts", "utils/ifDev.ts"],
+  "include": [
+    "src/**/*",
+    "utils/resolve.ts",
+    "utils/ifDev.ts",
+    "utils/collector.ts"
+  ],
   "exclude": ["node_modules", "build"],
   "ts-node": {
     "swc": true,

@@ -1,3 +1,1 @@
-const Document = require("./build/shared/document");
-
-module.exports = Document;
+module.exports = require("./build/shared/document");

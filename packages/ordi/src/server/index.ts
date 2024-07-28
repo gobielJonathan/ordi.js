@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import fastify from "fastify";
-import _500 from "@BUILD_500";
 
+import _500 from "@BUILD_500";
 import * as logger from "../shared/log";
 
 /**
@@ -10,13 +10,12 @@ import * as logger from "../shared/log";
 import registerMiddleware from "./middleware";
 
 const Server = () => {
-
   const app = fastify({
     disableRequestLogging: true,
   });
-  
+
   app.register(registerMiddleware);
-  
+
   app.setErrorHandler(function (
     error: Error,
     _request: FastifyRequest,
@@ -32,8 +31,8 @@ const Server = () => {
       try {
         await app.listen(Number(process.env.PORT_SERVER));
       } catch (error) {
-        const _error = error instanceof Error ? error.message : String(error)
-        logger.error(_error)
+        const _error = error instanceof Error ? error.message : String(error);
+        logger.error(_error);
       }
     },
     close: async () => {
