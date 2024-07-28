@@ -1,0 +1,47 @@
+.link {
+  color: #6eacda;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+.content {
+  margin-top: 4rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.headline {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.2rem;
+
+  h5 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
