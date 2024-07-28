@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type { PropsWithChildren } from "react";
 
-import type { CollectorValue } from "../../../utils/collector";
+import type { CollectorValue } from "../../../../utils/collector";
 import { canUseDom } from "../../../utils/dom";
 
 type Props = {
