@@ -1,9 +1,11 @@
 import { Helmet } from "ordijs/head";
 import { ReactNode } from "react";
 
-type Props = {
+import "./_app.css";
+
+interface Props {
   children: ReactNode;
-};
+}
 
 export default function App({ children }: Props) {
   return (
