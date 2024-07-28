@@ -17,7 +17,7 @@ function registerSwc() {
 yargs
   .command("serve", "start the dev server", noop, () => {
     registerSwc();
-    require("./cmd/dev")();
+    require("./cmd/dev").default();
   })
 
   .command("build:server", "build the server", noop, () => {
