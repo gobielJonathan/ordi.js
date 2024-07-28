@@ -4,11 +4,12 @@ import common from "./webpack.config";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
-    output: "append",
+    output: "merge",
   }),
 })(common, {
   mode: "production",
   output: {
-    filename: "[name].[contenthash].js"
+    filename: "[name].[contenthash].js",
+    publicPath: process.env.ASSET_PREFIX,
   },
 });

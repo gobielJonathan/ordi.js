@@ -1,10 +1,14 @@
 import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import resolver from "./resolve";
-import defaultProcessEnv from "./plugins/DefinePlugin";
-import ifDev from "../../utils/ifDev";
 
-const shared = {
+import resolver from "./resolve";
+import { cssLoader, cssModulesLoader } from "./loader/css-loader";
+import defaultProcessEnv from "./plugins/DefinePlugin";
+
+import ifDev from "../../utils/ifDev";
+import ifProd from "../../utils/ifProd";
+
+const shared: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     symlinks: true,
@@ -15,12 +19,14 @@ const shared = {
 
   plugins: [
     new webpack.DefinePlugin(defaultProcessEnv),
-    new MiniCssExtractPlugin({
-      runtime: true,
-      filename: ifDev("[name].css", "[name].[contenthash].css"),
-      chunkFilename: ifDev("[id].css", "[id].[contenthash].css"),
-    }),
-  ],
+    ifProd(
+      new MiniCssExtractPlugin({
+        runtime: true,
+        filename: "[name].[contenthash].css",
+        chunkFilename: "[id].[contenthash].css",
+      })
+    ),
+  ].filter(Boolean),
 
   module: {
     strictExportPresence: true,
@@ -34,29 +40,9 @@ const shared = {
           publicPath: process.env.HOST_CLIENT,
         },
       },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: process.env.HOST_CLIENT,
-            },
-          },
-          {
-            loader: require.resolve("css-loader"),
-            options: {
-              esModule: false,
-              modules: {
-                localIdentName: ifDev(
-                  "[local]--[hash:base64:5]",
-                  "[hash:base64:5]"
-                ),
-              },
-            },
-          },
-        ],
-      },
+
+      cssLoader,
+      cssModulesLoader,
     ],
   },
 };
