@@ -2,8 +2,8 @@ import Webpack from "webpack";
 import WDS from "webpack-dev-server";
 
 import devServerConfig from "../webpack/dev-server";
-import webpackClient from "../webpack/client/webpack.dev"
-import webpackServer from "../webpack/server/webpack.dev"
+import webpackClient from "../webpack/client/webpack.dev";
+import webpackServer from "../webpack/server/webpack.dev";
 
 const getServerCompiler = () => {
   return Webpack(webpackServer);
@@ -35,4 +35,4 @@ const start = async () => {
   }
 };
 
-module.exports = start
+export default start;

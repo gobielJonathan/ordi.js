@@ -54,5 +54,13 @@
     "types": ["node"]
   },
   "include": ["src/**/*", "utils/resolve.ts", "utils/ifDev.ts"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build"],
+  "ts-node": {
+    "swc": true,
+    "emit": false,
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "NodeNext"
+    }
+  }
 }

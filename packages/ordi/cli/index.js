@@ -22,12 +22,12 @@ yargs
 
   .command("build:server", "build the server", noop, () => {
     registerSwc();
-    require("./cmd/build-server")();
+    require("./cmd/build-server").default();
   })
 
   .command("build:client", "build the client", noop, () => {
     registerSwc();
-    require("./cmd/build-client")();
+    require("./cmd/build-client").default();
   })
 
   .parse();
