@@ -1,14 +1,14 @@
 {
   "name": "ordijs",
   "private": false,
-  "version": "0.3.3-beta-2",
+  "version": "0.3.4-beta-2",
   "description": "Main Code in Beyond Framework",
   "main": "./build/server/main.js",
   "scripts": {
     "start": "node ./src/cli serve",
     "build": "rm -rf build && npm-run-all --parallel build:ts build:js",
-    "build:ts": "pnpm tsc",
-    "build:js": "rm -rf build && babel src --out-dir build --extensions \".ts,.tsx\""
+    "build:ts": "pnpm tsc --skipLibCheck -d --emitDeclarationOnly --declarationMap --declarationDir build",
+    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\""
   },
   "bin": {
     "ordi": "./cli/index.js"
@@ -23,7 +23,6 @@
   "files": [
     "build",
     "cli",
-    "utils",
     "client.js",
     "client.d.ts",
     "core.js",

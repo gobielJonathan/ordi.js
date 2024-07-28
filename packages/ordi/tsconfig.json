@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "outDir": "./build",
+    "outDir": "build",
     "lib": [
       "es5",
       "es2015",
@@ -51,15 +51,11 @@
       "@APP": ["src/client/_app.tsx"]
     },
     "typeRoots": ["./node_modules/@types"],
-    "types": ["node"]
+    "types": ["node"],
+    "rootDir": "src"
   },
-  "include": [
-    "src/**/*",
-    "utils/resolve.ts",
-    "utils/ifDev.ts",
-    "utils/collector.ts"
-  ],
-  "exclude": ["node_modules", "build"],
+  "include": ["src"],
+  "exclude": ["node_modules", "build", "**/node_modules", "*.d.ts"],
   "ts-node": {
     "swc": true,
     "emit": false,
