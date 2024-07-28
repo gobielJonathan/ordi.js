@@ -10,7 +10,7 @@ function registerSwc() {
     swc: true,
     emit: false,
     transpileOnly: true,
-    cwd: path.resolve(__dirname, "../../.."),
+    cwd: path.resolve(__dirname, "../"),
   });
 }
 
