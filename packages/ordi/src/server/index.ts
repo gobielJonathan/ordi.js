@@ -29,7 +29,7 @@ const Server = () => {
   return {
     start: async () => {
       try {
-        await app.listen(Number(process.env.PORT_SERVER));
+        await app.listen({ port: Number(process.env.PORT_SERVER) });
       } catch (error) {
         const _error = error instanceof Error ? error.message : String(error);
         logger.error(_error);
