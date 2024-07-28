@@ -1,7 +1,3 @@
-require("dotenv-safe").config({
-  allowEmptyValues: true,
-});
-
 export default {
   port: Number(process.env.PORT_CLIENT),
   compress: true,
