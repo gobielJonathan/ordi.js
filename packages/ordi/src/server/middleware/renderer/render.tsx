@@ -15,7 +15,7 @@ import { HtmlProvider } from "../../../shared/context/html";
 import ContextProvider from "../../../shared/context";
 import { FetchProvider } from "../../../shared/context/fetch";
 import Routes from "../../../router";
-import Collector from "../../../../utils/collector";
+import Collector from "../../../utils/collector";
 
 type StaticRouterContext = StaticRouterProps["context"];
 
