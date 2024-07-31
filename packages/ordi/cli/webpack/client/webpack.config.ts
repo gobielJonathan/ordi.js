@@ -21,7 +21,7 @@ export default mergeWithCustomize<Configuration>({
 
   output: {
     clean: true,
-    publicPath: `${process.env.HOST_CLIENT}/`,
+    publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
     path: resolveCwd("build/client"),
   },
 

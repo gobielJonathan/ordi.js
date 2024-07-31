@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "outDir": "build",
+    "outDir": "./build",
     "lib": [
       "es5",
       "es2015",
@@ -21,7 +21,7 @@
       "dom"
     ],
     "maxNodeModuleJsDepth": 0,
-    "module": "es2020",
+    "module": "esnext",
     "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
@@ -37,31 +37,21 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es6",
+    "target": "es2016",
     "plugins": [
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ],
-    "baseUrl": ".",
-    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "jsx": "preserve",
     "paths": {
-      "@BUILD_ROUTE": ["src/client/routes/index.ts"],
-      "@BUILD_404": ["src/client/error/_404.tsx"],
-      "@BUILD_500": ["src/client/error/_500.tsx"],
-      "@DOCUMENT": ["src/client/_document.tsx"],
-      "@APP": ["src/client/_app.tsx"]
+      "@BUILD_ROUTE": ["client/routes/index.ts"],
+      "@BUILD_404": ["client/error/_404.tsx"],
+      "@BUILD_500": ["client/error/_500.tsx"],
+      "@DOCUMENT": ["client/_document.tsx"],
+      "@APP": ["client/_app.tsx"]
     },
     "typeRoots": ["./node_modules/@types"],
-    "types": ["node"],
-    "rootDir": "src"
+    "types": ["node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "build", "**/node_modules", "*.d.ts"],
-  "ts-node": {
-    "swc": true,
-    "emit": false,
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "NodeNext"
-    }
-  }
+  "include": ["src/**/*"]
 }

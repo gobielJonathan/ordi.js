@@ -1,8 +1,18 @@
 import { AppComponentType } from "ordijs/core";
+import { useFetch } from "ordijs/fetch";
+
 import "./index.css";
-import testStyles from "./test.module.css";
 
 const Person: AppComponentType = () => {
+  const { data: todos } = useFetch({
+    fetchKey: ["todos"],
+    fetcher: () =>
+      fetch("https://jsonplaceholder.typicode.com/todos").then((res) =>
+        res.json()
+      ),
+    initialData: [],
+  });
+
   return (
     <div className="container">
       <h1 className="headline">
@@ -13,7 +23,7 @@ const Person: AppComponentType = () => {
       </h1>
       <p style={{ textAlign: "center", fontSize: "1.3rem" }}>
         Get started by editing{" "}
-        <code className={testStyles.test}>
+        <code>
           <b>routes/home/index.tsx</b>
         </code>
       </p>
@@ -43,6 +53,12 @@ const Person: AppComponentType = () => {
           </div>
         </a>
       </div>
+
+      <h1>Todos</h1>
+
+      {todos.map((todo) => (
+        <div key={todo.id}>{todo.title}</div>
+      ))}
     </div>
   );
 };

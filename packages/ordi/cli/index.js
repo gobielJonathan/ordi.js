@@ -3,6 +3,10 @@ const path = require("path");
 const yargs = require("yargs");
 const { register } = require("ts-node");
 
+require("dotenv-safe").config({
+  allowEmptyValues: true,
+});
+
 const noop = () => {};
 
 function registerSwc() {
@@ -15,6 +19,16 @@ function registerSwc() {
 }
 
 yargs
+  .middleware((argv) => {
+    const [cmd] = argv._;
+    if (cmd.startsWith("build")) {
+      process.env.NODE_ENV = "production";
+      process.env.BABEL_ENV = "production";
+    } else {
+      process.env.NODE_ENV = "development";
+      process.env.BABEL_ENV = "development";
+    }
+  })
   .command("serve", "start the dev server", noop, () => {
     registerSwc();
     require("./cmd/dev").default();

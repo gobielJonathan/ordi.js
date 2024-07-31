@@ -10,4 +10,4 @@ package-lock.json
 build
 dist
 
-examples/*-lock.yaml
+examples/**/*-lock.*
