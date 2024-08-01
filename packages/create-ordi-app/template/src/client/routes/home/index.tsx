@@ -1,12 +1,19 @@
 import { AppComponentType } from "ordijs/core";
+import loadable from "ordijs/lazy";
+
 import "./index.css";
 import testStyles from "./test.module.css";
+import downloadPng from "./assets/download.png";
 
-const Person: AppComponentType = () => {
+const Examples = loadable(
+  () => import(/* webpackChunkName: "examples" */ "./components/Examples")
+);
+
+const Home: AppComponentType = () => {
   return (
     <div className="container">
       <h1 className="headline">
-        Welcome to{" "}
+        Welcome to
         <a className="link" href="https://ordijs.vercel.app/">
           Ordi.js!
         </a>
@@ -25,15 +32,7 @@ const Person: AppComponentType = () => {
             <p>Find in-depth information about Ordi.js features and API.</p>
           </div>
         </a>
-        <a
-          target="_blank"
-          href="https://github.com/gobielJonathan/ordi.js/tree/main/examples"
-        >
-          <div className="card">
-            <h5>Examples</h5>
-            <p>Discover and deploy boilerplate example Ordi.js projects.</p>
-          </div>
-        </a>
+        <Examples />
         <a target="_blank" href="https://vercel.com/">
           <div className="card">
             <h5>Deploy</h5>
@@ -43,8 +42,10 @@ const Person: AppComponentType = () => {
           </div>
         </a>
       </div>
+
+      <img src={downloadPng} alt="" style={{ width: "100%" }} />
     </div>
   );
 };
 
-export default Person;
+export default Home;

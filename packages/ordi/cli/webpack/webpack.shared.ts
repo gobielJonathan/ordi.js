@@ -2,7 +2,6 @@ import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 import resolver from "./resolve";
-import { cssLoader, cssModulesLoader } from "./loader/css-loader";
 import defaultProcessEnv from "./plugins/DefinePlugin";
 
 import ifDev from "../../utils/ifDev";
@@ -17,6 +16,10 @@ const shared: webpack.Configuration = {
     },
   },
 
+  output  : {
+    clean: true
+  }, 
+
   plugins: [
     new webpack.DefinePlugin(defaultProcessEnv),
     ifProd(
@@ -24,6 +27,7 @@ const shared: webpack.Configuration = {
         runtime: true,
         filename: "[name].[contenthash].css",
         chunkFilename: "[id].[contenthash].css",
+        ignoreOrder: true,
       })
     ),
   ].filter(Boolean),
@@ -36,13 +40,11 @@ const shared: webpack.Configuration = {
         test: /\.(png|jpg|jpeg|gif)$/i,
         loader: require.resolve("file-loader"),
         options: {
-          name: ifDev("[name].[ext]", "[contenthash].[ext]"),
-          publicPath: process.env.HOST_CLIENT,
+          name: ifDev("[name].[ext][query]", "[contenthash].[ext][query]"),
+          publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
+          outputPath: "../client",
         },
       },
-
-      cssLoader,
-      cssModulesLoader,
     ],
   },
 };

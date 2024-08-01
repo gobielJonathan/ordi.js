@@ -6,12 +6,15 @@ import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../webpack.shared";
 import resolveCwd from "../../../utils/resolve";
+
 import { serverLoader } from "../loader/ts-loader";
+import { cssLoader } from "../loader/css-loader";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "append",
     resolve: "append",
+    output: "append",
   }),
 })(shared, {
   target: "node",
@@ -24,7 +27,6 @@ export default mergeWithCustomize<Configuration>({
   },
   output: {
     path: resolveCwd("build/server"),
-    clean: true,
     libraryTarget: "commonjs",
   },
   plugins: [
@@ -33,6 +35,6 @@ export default mergeWithCustomize<Configuration>({
   ],
 
   module: {
-    rules: [serverLoader],
+    rules: [serverLoader, ...cssLoader({ isServer: true })],
   },
 });

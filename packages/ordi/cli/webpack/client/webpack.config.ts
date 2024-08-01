@@ -2,11 +2,13 @@ import WebpackBar from "webpackbar";
 import { type Configuration } from "webpack";
 import LoadablePlugin from "@loadable/webpack-plugin";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 import shared from "../webpack.shared";
 import resolveCwd from "../../../utils/resolve";
 import ifDev from "../../../utils/ifDev";
 import { clientLoader } from "../loader/ts-loader";
+import { cssLoader } from "../loader/css-loader";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
@@ -15,12 +17,12 @@ export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "prepend",
     plugins: "append",
+    output: "append",
   }),
 })(shared, {
   entry: resolveCwd("src/client/index.ts"),
 
   output: {
-    clean: true,
     publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
     path: resolveCwd("build/client"),
   },
@@ -31,7 +33,7 @@ export default mergeWithCustomize<Configuration>({
   ],
 
   module: {
-    rules: [clientLoader],
+    rules: [clientLoader, ...cssLoader({})],
   },
 
   optimization: {
@@ -68,5 +70,8 @@ export default mergeWithCustomize<Configuration>({
         },
       },
     },
+
+    minimize: true,
+    minimizer: ["...", new CssMinimizerPlugin()],
   },
 });
