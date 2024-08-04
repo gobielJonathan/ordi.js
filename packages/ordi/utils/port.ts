@@ -16,7 +16,6 @@ const _checkPort = (port: number) =>
     });
 
     server.once("listening", () => {
-      console.log("asdas");
       resolve(PORT_AVAIL);
       server.close();
     });
