@@ -29,18 +29,26 @@ yargs
       process.env.BABEL_ENV = "development";
     }
   })
-  .command("serve", "start the dev server", noop, () => {
+  .middleware(() => {
     registerSwc();
+
+    const { default: loadConfig } = require("../utils/load-config");
+
+    const { assetPrefix, basePath, logging, poweredByHeader } = loadConfig();
+    process.env.ASSET_PREFIX = assetPrefix ?? "/";
+    process.env.BASE_PATH = basePath ?? "";
+    process.env.IS_USE_LOGGING = logging ?? true;
+    process.env.POWERED_BY = poweredByHeader ?? true;
+  })
+  .command("serve", "start the dev server", noop, () => {
     require("./cmd/dev").default();
   })
 
   .command("build:server", "build the server", noop, () => {
-    registerSwc();
     require("./cmd/build-server").default();
   })
 
   .command("build:client", "build the client", noop, () => {
-    registerSwc();
     require("./cmd/build-client").default();
   })
 

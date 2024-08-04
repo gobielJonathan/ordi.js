@@ -139,6 +139,9 @@ devDependencies:
   '@babel/cli':
     specifier: ^7.24.7
     version: 7.24.7(@babel/core@7.24.7)
+  '@types/dotenv-safe':
+    specifier: ^8.1.6
+    version: 8.1.6
   '@types/jest':
     specifier: ^27.5.2
     version: 27.5.2
@@ -2077,6 +2080,13 @@ packages:
     dependencies:
       '@types/node': 18.19.38
 
+  /@types/dotenv-safe@8.1.6:
+    resolution: {integrity: sha512-ftZXu3WGT6ALq+f98IX2gWriGMPds+0ku5h8kZewNpY47ua+Z+XNcin9apZ2kVd4B9LV1vMfUOyDf1/hhreR0Q==}
+    dependencies:
+      '@types/node': 18.19.38
+      dotenv: 8.6.0
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
@@ -3344,7 +3354,6 @@ packages:
   /dotenv@8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
     engines: {node: '>=10'}
-    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}

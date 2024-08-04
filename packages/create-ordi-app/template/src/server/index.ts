@@ -1,7 +1,7 @@
 import App from "./app";
 import { error, info } from "ordijs/log";
 
-let app = App
+let app = App;
 
 app
   .start()
