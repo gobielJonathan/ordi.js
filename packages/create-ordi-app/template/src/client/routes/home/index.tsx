@@ -44,6 +44,7 @@ const Home: AppComponentType = () => {
       </div>
 
       <img src={downloadPng} alt="" style={{ width: "100%" }} />
+      <p>{process.env.ORDI_PUBLIC_ASSET_PREFIX}</p>
     </div>
   );
 };

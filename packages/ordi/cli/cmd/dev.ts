@@ -5,12 +5,24 @@ import devServerConfig from "../webpack/dev-server";
 import webpackClient from "../webpack/client/webpack.dev";
 import webpackServer from "../webpack/server/webpack.dev";
 
-const getServerCompiler = () => {
-  return Webpack(webpackServer);
+import { withOrdiConfig } from "../../utils/load-config";
+import { checkPort } from "../../utils/port";
+
+const getServerCompiler = async () => {
+  // const newPortServer = await checkPort(
+  //   Number(process.env.PORT_SERVER ?? "4001"),
+  //   3
+  // );
+  // process.env.PORT_SERVER = String(newPortServer);
+
+  return Webpack(withOrdiConfig(webpackServer, { isServer: true }));
 };
 
-const getClientCompiler = () => {
-  return Webpack(webpackClient);
+const getClientCompiler = async () => {
+  // const newPortClient = await checkPort(devServerConfig.port, 3);
+  // process.env.PORT_CLIENT = String(newPortClient);
+  // devServerConfig.port = newPortClient;
+  return Webpack(withOrdiConfig(webpackClient, {}));
 };
 
 const WATCH_OPTIONS = {
@@ -20,8 +32,8 @@ const WATCH_OPTIONS = {
 
 const start = async () => {
   try {
-    const server = getServerCompiler();
-    const client = getClientCompiler();
+    const client = await getClientCompiler();
+    const server = await getServerCompiler();
 
     const webpackDevServer = new WDS(devServerConfig, client);
     webpackDevServer.start();

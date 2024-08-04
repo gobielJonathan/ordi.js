@@ -2,7 +2,6 @@ import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 import resolver from "./resolve";
-import defaultProcessEnv from "./plugins/DefinePlugin";
 
 import ifDev from "../../utils/ifDev";
 import ifProd from "../../utils/ifProd";
@@ -16,12 +15,11 @@ const shared: webpack.Configuration = {
     },
   },
 
-  output  : {
-    clean: true
-  }, 
+  output: {
+    clean: true,
+  },
 
   plugins: [
-    new webpack.DefinePlugin(defaultProcessEnv),
     ifProd(
       new MiniCssExtractPlugin({
         runtime: true,

@@ -6,9 +6,10 @@ import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../webpack.shared";
 import resolveCwd from "../../../utils/resolve";
-
 import { serverLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
+
+import { serverVars } from "../plugins/DefinePlugin";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -30,6 +31,7 @@ export default mergeWithCustomize<Configuration>({
     libraryTarget: "commonjs",
   },
   plugins: [
+    new webpack.DefinePlugin(serverVars),
     new WebpackBar({ name: "server", color: "#FFBD35" }),
     new webpack.HotModuleReplacementPlugin(),
   ],

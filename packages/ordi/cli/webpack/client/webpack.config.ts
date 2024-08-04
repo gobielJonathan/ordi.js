@@ -1,5 +1,5 @@
 import WebpackBar from "webpackbar";
-import { type Configuration } from "webpack";
+import webpack, { type Configuration } from "webpack";
 import LoadablePlugin from "@loadable/webpack-plugin";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
@@ -9,6 +9,8 @@ import resolveCwd from "../../../utils/resolve";
 import ifDev from "../../../utils/ifDev";
 import { clientLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
+
+import { clientVars } from "../plugins/DefinePlugin";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
@@ -28,6 +30,7 @@ export default mergeWithCustomize<Configuration>({
   },
 
   plugins: [
+    new webpack.DefinePlugin(clientVars),
     new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
   ],

@@ -1,27 +1,44 @@
-import { readFileSync } from "fs";
 import path from "path";
+import dotenv from "dotenv-safe";
 
-let env = {};
+const PUBLIC_VAR_PREFIX = "ORDI_PUBLIC";
 
-try {
-  //read all env
-  const envFile = readFileSync(path.resolve(process.cwd(), ".env"), {
-    encoding: "utf8",
-  });
+const { parsed = {} } = dotenv.config({
+  allowEmptyValues: true,
+  example: path.resolve(process.cwd(), ".env"),
+});
 
-  envFile.split("\n").forEach((envValue) => {
-    if (envValue.trim().length > 0) {
-      const [key, value] = envValue.split("=");
-      if (key && value) {
-        env[`process.env.${key}`] = JSON.stringify(value);
-      }
-    }
-  });
-} catch (error) {
-  console.error(error);
-}
-export default {
+const tupleEnv = Object.entries(parsed);
+
+const clientEnv = tupleEnv.filter(([key]) => key.startsWith(PUBLIC_VAR_PREFIX));
+const serverEnv = tupleEnv;
+
+const _clientVars = clientEnv.reduce(
+  (acc, [key, value]) => ({
+    ...acc,
+    [`process.env.${key}`]: JSON.stringify(value),
+  }),
+  {}
+);
+const _serverVars = serverEnv.reduce(
+  (acc, [key, value]) => ({
+    ...acc,
+    [`process.env.${key}`]: JSON.stringify(value),
+  }),
+  {}
+);
+
+const baseVars = {
   __DEV__: JSON.stringify(process.env.NODE_ENV === "development"),
   __PROD__: JSON.stringify(process.env.NODE_ENV === "production"),
-  ...env,
+};
+
+export const clientVars = {
+  ..._clientVars,
+  ...baseVars,
+};
+
+export const serverVars = {
+  ..._serverVars,
+  ...baseVars,
 };

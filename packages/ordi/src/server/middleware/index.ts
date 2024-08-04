@@ -1,10 +1,9 @@
 import type { FastifyInstance } from "fastify";
+import path from "path";
 import fp from "fastify-plugin";
 
 import renderMiddleware from "./renderer";
 import logMiddleware from "./logger";
-
-import path from "path";
 
 export default function registerMiddleware(
   fastify: FastifyInstance,
@@ -17,7 +16,25 @@ export default function registerMiddleware(
       prefix: process.env.ASSET_PREFIX,
     });
   }
-  fastify.register(fp(logMiddleware, { name: "log-plugin" }));
+
+  if (process.env.POWERED_BY) {
+    fastify.register(
+      fp(
+        (fastify, _opts, next) => {
+          fastify.addHook("onSend", (_, res, __, done) => {
+            res.header("x-powered-by", "ordijs");
+            done();
+          });
+          next();
+        },
+        { name: "powerby-plugin" }
+      )
+    );
+  }
+
+  if (process.env.IS_USE_LOGGING) {
+    fastify.register(fp(logMiddleware, { name: "log-plugin" }));
+  }
 
   fastify.register(fp(renderMiddleware, { name: "render-plugin" }));
   next();
