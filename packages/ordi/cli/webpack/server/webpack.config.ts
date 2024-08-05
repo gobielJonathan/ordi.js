@@ -19,10 +19,7 @@ export default mergeWithCustomize<Configuration>({
   }),
 })(shared, {
   target: "node",
-  entry: [
-    require.resolve("webpack/hot/poll") + "?1000",
-    resolveCwd("src/server/index.ts"),
-  ],
+  entry: [resolveCwd("src/server/index.ts")],
   optimization: {
     minimize: false,
   },
@@ -33,7 +30,6 @@ export default mergeWithCustomize<Configuration>({
   plugins: [
     new webpack.DefinePlugin(serverVars),
     new WebpackBar({ name: "server", color: "#FFBD35" }),
-    new webpack.HotModuleReplacementPlugin(),
   ],
 
   module: {

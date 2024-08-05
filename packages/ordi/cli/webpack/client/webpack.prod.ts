@@ -1,5 +1,7 @@
 import { type Configuration } from "webpack";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
+import WebpackBar from "webpackbar";
+
 import common from "./webpack.config";
 
 export default mergeWithCustomize<Configuration>({
@@ -12,4 +14,5 @@ export default mergeWithCustomize<Configuration>({
     filename: "[name].[contenthash].js",
     publicPath: process.env.ASSET_PREFIX,
   },
+  plugins: [new WebpackBar({ name: "client" })],
 });

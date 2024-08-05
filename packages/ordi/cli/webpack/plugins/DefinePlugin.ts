@@ -34,11 +34,11 @@ const baseVars = {
 };
 
 export const clientVars = {
-  ..._clientVars,
   ...baseVars,
+  ..._clientVars,
 };
 
 export const serverVars = {
-  ..._serverVars,
   ...baseVars,
+  ..._serverVars,
 };
