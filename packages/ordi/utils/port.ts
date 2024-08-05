@@ -3,7 +3,7 @@ import net from "node:net";
 const PORT_AVAIL = 1;
 const PORT_UNAVAIL = -1;
 
-const _checkPort = (port: number) =>
+const createServerChecker = (port: number) =>
   new Promise<number>((resolve) => {
     const server = net.createServer();
 
@@ -29,7 +29,7 @@ export const checkPort = async (port: number, retry = 1) => {
   while (true) {
     if (_retry === retry) break;
 
-    const status = await _checkPort(port);
+    const status = await createServerChecker(port);
     if (status === PORT_AVAIL) {
       break;
     }

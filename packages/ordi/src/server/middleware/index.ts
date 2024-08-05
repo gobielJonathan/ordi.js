@@ -10,6 +10,14 @@ export default function registerMiddleware(
   _opts: Record<string, unknown>,
   next: Function
 ) {
+  if (__DEV__) {
+    fastify.register(require("@fastify/http-proxy"), {
+      upstream: `${process.env.HOST_NAME}:${process.env.PORT_CLIENT}`,
+      prefix: process.env.ASSET_PREFIX,
+      rewritePrefix: process.env.ASSET_PREFIX,
+    });
+  }
+
   if (__PROD__) {
     fastify.register(require("@fastify/static"), {
       root: path.join(__dirname, "..", "client"),

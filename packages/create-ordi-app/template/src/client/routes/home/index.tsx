@@ -15,7 +15,7 @@ const Home: AppComponentType = () => {
       <h1 className="headline">
         Welcome to
         <a className="link" href="https://ordijs.vercel.app/">
-          Ordi.js!
+          Ordi.js
         </a>
       </h1>
       <p style={{ textAlign: "center", fontSize: "1.3rem" }}>

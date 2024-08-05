@@ -25,7 +25,7 @@ export default mergeWithCustomize<Configuration>({
   entry: resolveCwd("src/client/index.ts"),
 
   output: {
-    publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
+    publicPath: process.env.ASSET_PREFIX,
     path: resolveCwd("build/client"),
   },
 
@@ -40,6 +40,9 @@ export default mergeWithCustomize<Configuration>({
   },
 
   optimization: {
+    minimize: true,
+    minimizer: ["...", new CssMinimizerPlugin()],
+
     usedExports: true,
     moduleIds: "named",
     chunkIds: "named",
@@ -73,8 +76,5 @@ export default mergeWithCustomize<Configuration>({
         },
       },
     },
-
-    minimize: true,
-    minimizer: ["...", new CssMinimizerPlugin()],
   },
 });
