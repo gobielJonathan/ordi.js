@@ -14,7 +14,7 @@ export interface OrdiConfig {
 
   devServer?: {
     port?: number;
-    hostname?: number;
+    hostname?: string;
   };
 }
 

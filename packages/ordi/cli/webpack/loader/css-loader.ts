@@ -19,7 +19,7 @@ export const cssLoader = (ctx: CssLoaderContext) => {
           ifProd({
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: process.env.ASSET_PREFIX,
+              publicPath: process.env.HOST_CLIENT,
             },
           })
         ),
@@ -46,7 +46,7 @@ export const cssLoader = (ctx: CssLoaderContext) => {
           ifProd({
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: process.env.ASSET_PREFIX,
+              publicPath: process.env.HOST_CLIENT,
             },
           })
         ),

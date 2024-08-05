@@ -1,4 +1,3 @@
-import WebpackBar from "webpackbar";
 import webpack, { type Configuration } from "webpack";
 import LoadablePlugin from "@loadable/webpack-plugin";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
@@ -7,6 +6,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import shared from "../webpack.shared";
 import resolveCwd from "../../../utils/resolve";
 import ifDev from "../../../utils/ifDev";
+
 import { clientLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
 
@@ -25,13 +25,12 @@ export default mergeWithCustomize<Configuration>({
   entry: resolveCwd("src/client/index.ts"),
 
   output: {
-    publicPath: process.env.ASSET_PREFIX,
+    publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
     path: resolveCwd("build/client"),
   },
 
   plugins: [
     new webpack.DefinePlugin(clientVars),
-    new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
   ],
 
@@ -40,9 +39,6 @@ export default mergeWithCustomize<Configuration>({
   },
 
   optimization: {
-    minimize: true,
-    minimizer: ["...", new CssMinimizerPlugin()],
-
     usedExports: true,
     moduleIds: "named",
     chunkIds: "named",
@@ -76,5 +72,8 @@ export default mergeWithCustomize<Configuration>({
         },
       },
     },
+
+    minimize: true,
+    minimizer: ["...", new CssMinimizerPlugin()],
   },
 });

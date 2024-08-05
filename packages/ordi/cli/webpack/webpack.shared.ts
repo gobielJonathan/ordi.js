@@ -39,7 +39,7 @@ const shared: webpack.Configuration = {
         loader: require.resolve("file-loader"),
         options: {
           name: ifDev("[name].[ext][query]", "[contenthash].[ext][query]"),
-          publicPath: process.env.ASSET_PREFIX,
+          publicPath: `${process.env.HOST_CLIENT}${process.env.ASSET_PREFIX}`,
           outputPath: "../client",
         },
       },

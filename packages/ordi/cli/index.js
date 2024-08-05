@@ -45,7 +45,7 @@ yargs
     process.env.IS_USE_LOGGING = logging;
     process.env.POWERED_BY = poweredByHeader;
     process.env.HOST_NAME = devServer.hostname;
-    process.env.PORT_SERVER = 4000;
+    process.env.PORT_SERVER = devServer.port;
   })
 
   .command("serve", "start the dev server", noop, () => {

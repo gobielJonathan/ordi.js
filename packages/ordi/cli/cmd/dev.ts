@@ -2,17 +2,17 @@ import Webpack from "webpack";
 import WDS from "webpack-dev-server";
 
 import devServerConfig from "../webpack/dev-server";
-import webpackClient from "../webpack/client/webpack.dev";
-import webpackServer from "../webpack/server/webpack.dev";
 
 import { withOrdiConfig } from "../../utils/load-config";
 import { checkPort } from "../../utils/port";
 
 const getServerCompiler = () => {
+  const webpackServer = require("../webpack/server/webpack.dev").default;
   return Webpack(withOrdiConfig(webpackServer, { isServer: true }));
 };
 
 const getClientCompiler = () => {
+  const webpackClient = require("../webpack/client/webpack.dev").default;
   return Webpack(withOrdiConfig(webpackClient, {}));
 };
 
@@ -33,6 +33,7 @@ const start = async () => {
      * @note why we need port client, because we still use webpack to serve our static file
      */
     process.env.PORT_CLIENT = String(portClient);
+    process.env.HOST_CLIENT = `${process.env.HOST_NAME}:${portClient}`;
 
     const client = getClientCompiler();
     const server = getServerCompiler();
