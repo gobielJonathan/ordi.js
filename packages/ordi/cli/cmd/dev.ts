@@ -2,26 +2,17 @@ import Webpack from "webpack";
 import WDS from "webpack-dev-server";
 
 import devServerConfig from "../webpack/dev-server";
-import webpackClient from "../webpack/client/webpack.dev";
-import webpackServer from "../webpack/server/webpack.dev";
 
 import { withOrdiConfig } from "../../utils/load-config";
 import { checkPort } from "../../utils/port";
 
-const getServerCompiler = async () => {
-  // const newPortServer = await checkPort(
-  //   Number(process.env.PORT_SERVER ?? "4001"),
-  //   3
-  // );
-  // process.env.PORT_SERVER = String(newPortServer);
-
+const getServerCompiler = () => {
+  const webpackServer = require("../webpack/server/webpack.dev").default;
   return Webpack(withOrdiConfig(webpackServer, { isServer: true }));
 };
 
-const getClientCompiler = async () => {
-  // const newPortClient = await checkPort(devServerConfig.port, 3);
-  // process.env.PORT_CLIENT = String(newPortClient);
-  // devServerConfig.port = newPortClient;
+const getClientCompiler = () => {
+  const webpackClient = require("../webpack/client/webpack.dev").default;
   return Webpack(withOrdiConfig(webpackClient, {}));
 };
 
@@ -32,10 +23,28 @@ const WATCH_OPTIONS = {
 
 const start = async () => {
   try {
-    const client = await getClientCompiler();
-    const server = await getServerCompiler();
+    //check server port, if port used, increment the port
+    const portServer = await checkPort(Number(process.env.PORT_SERVER), 3);
+    process.env.PORT_SERVER = String(portServer);
 
-    const webpackDevServer = new WDS(devServerConfig, client);
+    //check client port, if port used, increment the port
+    const portClient = await checkPort(Number(portServer + 1), 3);
+    /**
+     * @note why we need port client, because we still use webpack to serve our static file
+     */
+    process.env.PORT_CLIENT = String(portClient);
+    process.env.HOST_CLIENT = `${process.env.HOST_NAME}:${portClient}`;
+
+    const client = getClientCompiler();
+    const server = getServerCompiler();
+
+    const webpackDevServer = new WDS(
+      devServerConfig(
+        new URL(process.env.HOST_NAME ?? "http://localhost").hostname,
+        portClient
+      ),
+      client
+    );
     webpackDevServer.start();
 
     server.watch(WATCH_OPTIONS, (err) => {

@@ -1,4 +1,3 @@
-import WebpackBar from "webpackbar";
 import webpack, { type Configuration } from "webpack";
 import LoadablePlugin from "@loadable/webpack-plugin";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
@@ -7,6 +6,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import shared from "../webpack.shared";
 import resolveCwd from "../../../utils/resolve";
 import ifDev from "../../../utils/ifDev";
+
 import { clientLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
 
@@ -31,7 +31,6 @@ export default mergeWithCustomize<Configuration>({
 
   plugins: [
     new webpack.DefinePlugin(clientVars),
-    new WebpackBar({ name: "client" }),
     new LoadablePlugin({ writeToDisk: true }),
   ],
 

@@ -11,6 +11,11 @@ export interface OrdiConfig {
     webpack: Configuration;
     isServer?: boolean;
   }) => Configuration;
+
+  devServer?: {
+    port?: number;
+    hostname?: string;
+  };
 }
 
 const ROOT_PATH = process.cwd();
@@ -22,7 +27,25 @@ const resolveCwd = (_path: string = "") => {
 export default function loadConfig() {
   const configPath = resolveCwd("ordi.config.js");
   const config = require(configPath) as OrdiConfig;
-  return config;
+  const {
+    assetPrefix = "/static/",
+    basePath = "",
+    logging = true,
+    poweredByHeader = true,
+    devServer = { hostname: "http://localhost", port: 4000 },
+    webpack,
+    generateBuildId,
+  } = config;
+
+  return {
+    assetPrefix,
+    basePath,
+    logging,
+    poweredByHeader,
+    devServer,
+    webpack,
+    generateBuildId,
+  };
 }
 
 export const withOrdiConfig = (
