@@ -44,7 +44,6 @@
     "baseUrl": "./src",
     "jsx": "preserve",
     "paths": {
-      "@BUILD_ROUTE": ["client/routes/index.ts"],
       "@BUILD_404": ["client/error/_404.tsx"],
       "@BUILD_500": ["client/error/_500.tsx"],
       "@DOCUMENT": ["client/_document.tsx"],

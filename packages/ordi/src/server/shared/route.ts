@@ -1,7 +1,8 @@
 import { matchPath, match } from "react-router-dom";
 
+import type { Route } from "@BUILD_ROUTE";
+
 import type { AppComponentType } from "../../shared/model/core";
-import type { Route } from "../../shared/model/route";
 
 import { removeURLParameter } from "../utils/url";
 
@@ -14,10 +15,6 @@ export const findRoute = (
   let component = null;
 
   for (const route of routes) {
-    if (route.type === "nested-route") {
-      return findRoute(route.children, url + route.path);
-    }
-
     const routeMatch = matchPath(cleanURL, { path: route.path, exact: true });
     if (routeMatch) {
       matches = routeMatch;

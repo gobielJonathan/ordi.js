@@ -3,15 +3,18 @@ import fsp from "fs/promises";
 import EventEmitter from "events";
 
 import chokidar from "chokidar";
-import type { UnpluginInstance } from "unplugin";
-import { createUnplugin } from "unplugin";
+import type { UnpluginFactory } from "unplugin";
+import { createWebpackPlugin } from "unplugin";
 import fg from "fast-glob";
+
 import { FsRoute, Route, ReactRouterRoute, ReactRouterRouteV5 } from "./types";
 
-interface UserOptions {
+import resolveCwd from "../../../../utils/resolve";
+
+interface Options {
   /**
    * The path to the directory containing your page routes
-   * @default <rootDir>/src/pages
+   * @default <rootDir>/src/client/routes
    */
   routesDir?: string;
   /**
@@ -32,20 +35,25 @@ interface UserOptions {
 
 const RESOLVE_ROUTES = "resolve-routes";
 const VIRTUAL_ROUTE_IDS = ["@BUILD_ROUTE"];
-const ESM_EXTENSION = ".mjs";
+const ESM_EXTENSION = ".js";
 
-const FsRoutePlugin = createUnplugin<UserOptions>((options) => {
+const FsRoutePluginFactory: UnpluginFactory<Options> = (options) => {
   const {
     isDev = true,
     caseSensitive = true,
-    routeExtensions = [".tsx"],
-    routesDir = "pages",
+    routeExtensions = [".page.tsx"],
+    routesDir = "src/client/routes",
   } = options;
 
-  const ctx = new Context({ isDev, routeExtensions, routesDir });
+  const ctx = new Context({
+    isDev,
+    routeExtensions,
+    routesDir: resolveCwd(routesDir),
+  });
 
   return {
     name: "fs-route-plugin",
+
     buildStart() {
       ctx.init();
     },
@@ -53,16 +61,17 @@ const FsRoutePlugin = createUnplugin<UserOptions>((options) => {
     resolveId(id, importer) {
       if (!VIRTUAL_ROUTE_IDS.includes(id)) return null;
       ctx.emit(RESOLVE_ROUTES, importer);
-      return id + ESM_EXTENSION;
+      return id;
     },
 
     async load(id) {
-      if (!VIRTUAL_ROUTE_IDS.map((s) => s + ESM_EXTENSION).includes(id))
-        return null;
+      if (!VIRTUAL_ROUTE_IDS.map((s) => s).includes(id)) return null;
       return ctx.resolveRoutes(caseSensitive, true);
     },
   };
-});
+};
+
+export default /* #__PURE__ */ createWebpackPlugin(FsRoutePluginFactory);
 
 class Context extends EventEmitter {
   routeMap = new Map<string, { path: string; route: string }>();
@@ -103,7 +112,7 @@ class Context extends EventEmitter {
       });
     }
 
-    this._searchGlob();
+    await this._searchGlob();
   }
 
   resolveRoutes(caseSensitive: boolean, isV5 = false) {
@@ -113,8 +122,8 @@ class Context extends EventEmitter {
   }
 
   private async _searchGlob() {
-    for (const route of await this._getFiles(this._routesDir))
-      await this._addRoute(route);
+    const files = await this._getFiles(this._routesDir);
+    for (const route of files) this._addRoute(route);
   }
 
   private _setupWatcher() {
@@ -150,7 +159,7 @@ class Context extends EventEmitter {
       path: route,
       route: path
         .relative(this._routesDir, route)
-        .replace(path.extname(route), ""),
+        .replace(this._routeExtensions.join("|"), ""),
     });
   }
 
@@ -187,11 +196,14 @@ abstract class RouteResolver {
   async resolveRoutes(fsRoutes: FsRoute[]) {
     const routes = this.prepareRoutes(fsRoutes);
     const normalizedRoutes = this.normalizeRoutes(routes);
-    return normalizedRoutes;
+    const code = this.generateCode(normalizedRoutes);
+    console.log({ code });
+    return code;
   }
 
   abstract prepareRoutes(fsRoutes: FsRoute[]): Route[];
   abstract normalizeRoutes(routes: Route[]): ReactRouterRoute[];
+  abstract generateCode(routes: ReactRouterRoute[]): string;
 
   normalizeCase(str: string) {
     return this.caseSensitive ? str : str.toLowerCase();
@@ -297,14 +309,11 @@ class V5RouteResolver extends RouteResolver {
       }
     );
 
-    imports.push('import React from "react"');
     return `${imports.join(
       ";\n"
     )};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
   }
 }
-
-export default FsRoutePlugin;
 
 function slashCount(s: string) {
   return s.split("/").filter(Boolean).length;

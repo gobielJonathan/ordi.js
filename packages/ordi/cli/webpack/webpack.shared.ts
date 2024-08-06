@@ -6,6 +6,8 @@ import resolver from "./resolve";
 import ifDev from "../../utils/ifDev";
 import ifProd from "../../utils/ifProd";
 
+import FsRoutePluginFactory from "./plugins/fs-route";
+
 const shared: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -28,6 +30,8 @@ const shared: webpack.Configuration = {
         ignoreOrder: true,
       })
     ),
+
+    FsRoutePluginFactory({ isDev: process.env.NODE_ENV === "development" }),
   ].filter(Boolean),
 
   module: {

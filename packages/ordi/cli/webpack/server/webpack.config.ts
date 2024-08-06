@@ -1,5 +1,4 @@
 import webpack from "webpack";
-import WebpackBar from "webpackbar";
 import { type Configuration } from "webpack";
 
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
@@ -27,10 +26,7 @@ export default mergeWithCustomize<Configuration>({
     path: resolveCwd("build/server"),
     libraryTarget: "commonjs",
   },
-  plugins: [
-    new webpack.DefinePlugin(serverVars),
-    new WebpackBar({ name: "server", color: "#FFBD35" }),
-  ],
+  plugins: [new webpack.DefinePlugin(serverVars)],
 
   module: {
     rules: [serverLoader, ...cssLoader({ isServer: true })],
