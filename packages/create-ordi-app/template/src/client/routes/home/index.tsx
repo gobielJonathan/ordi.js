@@ -1,13 +1,8 @@
 import { AppComponentType } from "ordijs/core";
-import loadable from "ordijs/lazy";
+
+import Examples from "./components/Examples";
 
 import "./index.css";
-import testStyles from "./test.module.css";
-import downloadPng from "./assets/download.png";
-
-const Examples = loadable(
-  () => import(/* webpackChunkName: "examples" */ "./components/Examples")
-);
 
 const Home: AppComponentType = () => {
   return (
@@ -19,8 +14,8 @@ const Home: AppComponentType = () => {
         </a>
       </h1>
       <p style={{ textAlign: "center", fontSize: "1.3rem" }}>
-        Get started by editing{" "}
-        <code className={testStyles.test}>
+        <span>Get started by editing</span>{" "}
+        <code>
           <b>routes/home/index.tsx</b>
         </code>
       </p>
@@ -42,9 +37,6 @@ const Home: AppComponentType = () => {
           </div>
         </a>
       </div>
-
-      <img src={downloadPng} alt="" style={{ width: "100%" }} />
-      <p>{process.env.ORDI_PUBLIC_ASSET_PREFIX}</p>
     </div>
   );
 };
