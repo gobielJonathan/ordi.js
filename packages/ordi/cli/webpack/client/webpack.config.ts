@@ -11,6 +11,7 @@ import { clientLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
 
 import { clientVars } from "../plugins/DefinePlugin";
+// import FsRoutePluginFactory from ".,/plugins/fs-route";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
@@ -30,6 +31,7 @@ export default mergeWithCustomize<Configuration>({
   },
 
   plugins: [
+    // FsRoutePluginFactory({ isDev: process.env.NODE_ENV === "development" }),
     new webpack.DefinePlugin(clientVars),
     new LoadablePlugin({ writeToDisk: true }),
   ],

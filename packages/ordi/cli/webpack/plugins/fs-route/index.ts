@@ -34,8 +34,10 @@ interface Options {
 }
 
 const RESOLVE_ROUTES = "resolve-routes";
+const CHANGES_ROUTE = "change-routes";
+
 const VIRTUAL_ROUTE_IDS = ["@BUILD_ROUTE"];
-const ESM_EXTENSION = ".js";
+const ROUTE_CONFIG_PATH = resolveCwd("build/client");
 
 const FsRoutePluginFactory: UnpluginFactory<Options> = (options) => {
   const {
@@ -67,6 +69,12 @@ const FsRoutePluginFactory: UnpluginFactory<Options> = (options) => {
     async load(id) {
       if (!VIRTUAL_ROUTE_IDS.map((s) => s).includes(id)) return null;
       return ctx.resolveRoutes(caseSensitive, true);
+    },
+
+    webpack(compiler) {
+      // compiler.hooks.done.tap("Testpligon", (stats) => {
+      //   console.log(stats.hash);
+      // });
     },
   };
 };
@@ -112,6 +120,10 @@ class Context extends EventEmitter {
       });
     }
 
+    this.on(CHANGES_ROUTE, () => {
+      // console.log("on change ", this.routeMap);
+    });
+
     await this._searchGlob();
   }
 
@@ -134,11 +146,14 @@ class Context extends EventEmitter {
       })
       .on("add", async (route) => {
         this._addRoute(route);
-        this._invalidate();
+        this.emit(CHANGES_ROUTE);
+
+        // this._invalidate();
       })
       .on("unlink", async (route) => {
         this._removeRoute(route);
-        this._invalidate();
+        // this._invalidate();
+        this.emit(CHANGES_ROUTE);
       });
 
     return watcher;
@@ -197,7 +212,6 @@ abstract class RouteResolver {
     const routes = this.prepareRoutes(fsRoutes);
     const normalizedRoutes = this.normalizeRoutes(routes);
     const code = this.generateCode(normalizedRoutes);
-    console.log({ code });
     return code;
   }
 

@@ -1,5 +1,6 @@
 import { AppComponentType } from "ordijs/core";
 import loadable from "ordijs/lazy";
+import { Link } from "ordijs/route";
 
 import "./index.css";
 import testStyles from "./test.module.css";
@@ -45,6 +46,7 @@ const Home: AppComponentType = () => {
 
       <img src={downloadPng} alt="" style={{ width: "100%" }} />
       <p>{process.env.ORDI_PUBLIC_ASSET_PREFIX}</p>
+      <Link to={{ pathname: "/c" }}>to c</Link>
     </div>
   );
 };

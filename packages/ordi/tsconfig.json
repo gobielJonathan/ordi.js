@@ -44,7 +44,6 @@
     "baseUrl": ".",
     "jsx": "react-jsx",
     "paths": {
-      // "@BUILD_ROUTE": ["src/client/routes/index.ts"],
       "@BUILD_404": ["src/client/error/_404.tsx"],
       "@BUILD_500": ["src/client/error/_500.tsx"],
       "@DOCUMENT": ["src/client/_document.tsx"],

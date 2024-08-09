@@ -28,7 +28,7 @@ export default function rendererMiddleware(
           .send(renderToString(<_404 />));
         return;
       }
-      console.log("component ", component);
+
       let isSSG = !!component?.getStaticProps;
       let htmlCache;
 
@@ -60,7 +60,6 @@ export default function rendererMiddleware(
 
       const { status, html, redirect } = await render({ req, routerProps });
 
-      console.log({ status, html });
       if (status === 301) {
         reply.redirect(redirect, 301);
         return;
@@ -84,11 +83,7 @@ export default function rendererMiddleware(
         .send(
           renderToString(
             <_500
-              message={
-                process.env.NODE_ENV !== "production"
-                  ? String(errorMsg)
-                  : "Internal Server Error"
-              }
+              message={__PROD__ ? String(errorMsg) : "Internal Server Error"}
             />
           )
         );

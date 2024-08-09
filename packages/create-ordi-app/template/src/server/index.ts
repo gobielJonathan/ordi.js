@@ -11,3 +11,11 @@ app
   .catch((err) => {
     error(err);
   });
+
+if (module.hot) {
+  module.hot.accept(["./app"], async () => {
+    await app.close();
+    app = require("./app").default;
+    app.start();
+  });
+}

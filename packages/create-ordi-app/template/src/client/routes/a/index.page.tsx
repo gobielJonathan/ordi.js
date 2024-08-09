@@ -1,7 +1,7 @@
 import { AppComponentType } from "ordijs/core";
 
 const Test: AppComponentType = () => {
-  return <div>test</div>;
+  return <div>budy</div>;
 };
 
 export default Test;
