@@ -33,6 +33,7 @@ export const serverLoader = {
   use: {
     loader: "babel-loader",
     options: {
+      plugins: ["@babel/plugin-transform-runtime", "@loadable/babel-plugin"],
       presets: [
         "@babel/preset-typescript",
         ["@babel/preset-react", { runtime: "automatic", useBuiltIns: true }],

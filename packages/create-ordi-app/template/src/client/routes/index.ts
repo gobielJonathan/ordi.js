@@ -1,11 +1,11 @@
 import { RouteEntry } from "ordijs/route";
 
-import Person from "./home";
+import Home from "./home";
 
 const ROUTES: RouteEntry[] = [
   {
     type: "route",
-    component: Person,
+    component: Home,
     name: "home",
     path: "/",
     exact: true,

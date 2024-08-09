@@ -1,19 +1,21 @@
 import { AppComponentType } from "ordijs/core";
-import "./index.css";
-import testStyles from "./test.module.css";
 
-const Person: AppComponentType = () => {
+import Examples from "./components/Examples";
+
+import "./index.css";
+
+const Home: AppComponentType = () => {
   return (
     <div className="container">
       <h1 className="headline">
-        Welcome to{" "}
+        Welcome to
         <a className="link" href="https://ordijs.vercel.app/">
-          Ordi.js!
+          Ordi.js
         </a>
       </h1>
       <p style={{ textAlign: "center", fontSize: "1.3rem" }}>
-        Get started by editing{" "}
-        <code className={testStyles.test}>
+        <span>Get started by editing</span>{" "}
+        <code>
           <b>routes/home/index.tsx</b>
         </code>
       </p>
@@ -25,15 +27,7 @@ const Person: AppComponentType = () => {
             <p>Find in-depth information about Ordi.js features and API.</p>
           </div>
         </a>
-        <a
-          target="_blank"
-          href="https://github.com/gobielJonathan/ordi.js/tree/main/examples"
-        >
-          <div className="card">
-            <h5>Examples</h5>
-            <p>Discover and deploy boilerplate example Ordi.js projects.</p>
-          </div>
-        </a>
+        <Examples />
         <a target="_blank" href="https://vercel.com/">
           <div className="card">
             <h5>Deploy</h5>
@@ -47,4 +41,4 @@ const Person: AppComponentType = () => {
   );
 };
 
-export default Person;
+export default Home;

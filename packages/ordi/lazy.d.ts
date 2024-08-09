@@ -1,5 +1,5 @@
-import lazy, { LoadableComponent } from "@loadable/component";
+import loadable, { LoadableComponent } from "@loadable/component";
 
-export { type LoadableComponent as LazyComponent };
+export { LoadableComponent };
 
-export default lazy;
+export default loadable;

@@ -13,6 +13,10 @@ export default function App({ children }: Props) {
       <Helmet>
         <html lang="id" />
         <title>Welcome to ordi framework</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
       </Helmet>
       {children}
     </>

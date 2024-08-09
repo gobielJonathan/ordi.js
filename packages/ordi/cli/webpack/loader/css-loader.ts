@@ -1,51 +1,76 @@
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ifProd from "../../../utils/ifProd";
 import ifDev from "../../../utils/ifDev";
+import ifElse from "../../../utils/ifElse";
 
-export const cssLoader = {
-  test: /\.css$/,
-  exclude: /\.module\.css$/,
-  use: [
-    ifProd({
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        publicPath: process.env.HOST_CLIENT,
-      },
-    }),
-    ifDev({
-      loader: require.resolve("style-loader"),
-    }),
-    {
-      loader: require.resolve("css-loader"),
-      options: {
-        importLoaders: 2,
-        esModule: false,
-      },
-    },
-  ].filter(Boolean),
-};
+interface CssLoaderContext {
+  isServer?: boolean;
+}
 
-export const cssModulesLoader = {
-  test: /\.module\.css$/,
-  use: [
-    ifProd({
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        publicPath: process.env.HOST_CLIENT,
-      },
-    }),
-    ifDev({
-      loader: require.resolve("style-loader"),
-    }),
+export const cssLoader = (ctx: CssLoaderContext) => {
+  const ifClient = ifElse(!ctx.isServer);
+
+  return [
     {
-      loader: require.resolve("css-loader"),
-      options: {
-        importLoaders: 2,
-        esModule: false,
-        modules: {
-          localIdentName: ifDev("[local]--[hash:base64:5]", "[hash:base64:5]"),
+      test: /\.css$/,
+      exclude: /\.module\.css$/,
+      use: [
+        ifClient(
+          ifProd({
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: process.env.HOST_CLIENT,
+            },
+          })
+        ),
+        ifDev({
+          loader: require.resolve("style-loader"),
+        }),
+        {
+          loader: require.resolve("css-loader"),
+          options: {
+            importLoaders: 2,
+            esModule: false,
+          },
         },
-      },
+        {
+          loader: require.resolve("postcss-loader"),
+        },
+      ].filter(Boolean),
     },
-  ].filter(Boolean),
+
+    {
+      test: /\.module\.css$/,
+      use: [
+        ifClient(
+          ifProd({
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: process.env.HOST_CLIENT,
+            },
+          })
+        ),
+        ifDev({
+          loader: require.resolve("style-loader"),
+        }),
+        {
+          loader: require.resolve("css-loader"),
+          options: {
+            importLoaders: 2,
+            esModule: false,
+            modules: {
+              exportOnlyLocals: ifDev(false, true),
+              localIdentName: ifDev(
+                "[local]--[hash:base64:5]",
+                "[hash:base64:5]"
+              ),
+            },
+          },
+        },
+        {
+          loader: require.resolve("postcss-loader"),
+        },
+      ].filter(Boolean),
+    },
+  ];
 };
