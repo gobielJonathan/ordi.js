@@ -1,5 +1,5 @@
-const registerClient =  () => {
-  require("./bootstrap")
+const registerClient = () => {
+  require("./bootstrap");
 };
 
 export default registerClient;
