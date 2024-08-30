@@ -8,15 +8,15 @@ import { FetchProvider } from "../shared/context/fetch";
 import App from "./_app";
 
 const app = (
-  <BrowserRouter>
-    <ContextProvider>
-      <FetchProvider>
+  <FetchProvider>
+    <BrowserRouter>
+      <ContextProvider>
         <App>
           <Routes />
         </App>
-      </FetchProvider>
-    </ContextProvider>
-  </BrowserRouter>
+      </ContextProvider>
+    </BrowserRouter>
+  </FetchProvider>
 );
 
 const renderer = (id: HTMLElement | null) =>

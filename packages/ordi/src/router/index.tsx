@@ -1,13 +1,11 @@
 import { Switch, Route } from "react-router-dom";
-import type { VFC } from "react";
 
 import _404 from "@BUILD_404";
 import ROUTES from "@BUILD_ROUTE";
 
 import type { Route as OrdiRoute } from "../shared/model/route";
 
-const CreateRoute: VFC<OrdiRoute> = (props) => {
-
+const CreateRoute = (props: OrdiRoute) => {
   switch (props.type) {
     case "route":
       const { component: Component } = props;
