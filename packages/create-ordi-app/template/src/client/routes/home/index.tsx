@@ -1,6 +1,8 @@
 import { AppComponentType } from "ordijs/core";
 
-import Examples from "./components/Examples";
+import loadable from "ordijs/lazy";
+
+const Examples = loadable(() => import("./components/Examples"));
 
 import "./index.css";
 

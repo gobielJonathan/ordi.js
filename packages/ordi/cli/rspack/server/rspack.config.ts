@@ -1,15 +1,12 @@
-import webpack from "webpack";
-import WebpackBar from "webpackbar";
-import { type Configuration } from "webpack";
-
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
-import shared from "../webpack.shared";
+import shared from "../rspack.shared";
 import resolveCwd from "../../../utils/resolve";
 import { serverLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
 
 import { serverVars } from "../plugins/DefinePlugin";
+import { Configuration, rspack } from "@rspack/core";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -28,11 +25,11 @@ export default mergeWithCustomize<Configuration>({
     libraryTarget: "commonjs",
   },
   plugins: [
-    new webpack.DefinePlugin(serverVars),
-    new WebpackBar({ name: "server", color: "#FFBD35" }),
+    new rspack.DefinePlugin(serverVars),
+    new rspack.ProgressPlugin({ prefix: "server" }),
   ],
 
   module: {
-    rules: [serverLoader, ...cssLoader({ isServer: true })],
+    rules: [...serverLoader, ...cssLoader({ isServer: true })],
   },
 });

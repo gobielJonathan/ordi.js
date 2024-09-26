@@ -1,19 +1,16 @@
-import Webpack from "webpack";
-import WDS from "webpack-dev-server";
+import { rspack } from "@rspack/core";
+import { RspackDevServer as DS } from "@rspack/dev-server";
 
-import devServerConfig from "../webpack/dev-server";
-
-import { withOrdiConfig } from "../../utils/load-config";
 import { checkPort } from "../../utils/port";
 
 const getServerCompiler = () => {
-  const webpackServer = require("../webpack/server/webpack.dev").default;
-  return Webpack(withOrdiConfig(webpackServer, { isServer: true }));
+  const { default: serverConfig } = require("../rspack/server/rspack.dev");
+  return rspack(serverConfig);
 };
 
 const getClientCompiler = () => {
-  const webpackClient = require("../webpack/client/webpack.dev").default;
-  return Webpack(withOrdiConfig(webpackClient, {}));
+  const { default: clientConfig } = require("../rspack/client/rspack.dev");
+  return rspack(clientConfig);
 };
 
 const WATCH_OPTIONS = {
@@ -38,14 +35,32 @@ const start = async () => {
     const client = getClientCompiler();
     const server = getServerCompiler();
 
-    const webpackDevServer = new WDS(
-      devServerConfig(
-        new URL(process.env.HOST_NAME ?? "http://localhost").hostname,
-        portClient
-      ),
+    const hostname = new URL(process.env.HOST_NAME ?? "http://localhost")
+      .hostname;
+
+    const ds = new DS(
+      {
+        port: portClient,
+        compress: true,
+        devMiddleware: { serverSideRender: true },
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods":
+            "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers":
+            "X-Requested-With, content-type, Authorization",
+        },
+        client: {
+          webSocketURL: {
+            hostname: hostname,
+            port: portClient, // The WebSocket port for HMR
+          },
+        },
+      },
       client
     );
-    webpackDevServer.start();
+
+    ds.start();
 
     server.watch(WATCH_OPTIONS, (err) => {
       if (err) throw err;

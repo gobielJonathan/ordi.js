@@ -1,4 +1,5 @@
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { rspack } from "@rspack/core";
+
 import ifProd from "../../../utils/ifProd";
 import ifDev from "../../../utils/ifDev";
 import ifElse from "../../../utils/ifElse";
@@ -14,10 +15,11 @@ export const cssLoader = (ctx: CssLoaderContext) => {
     {
       test: /\.css$/,
       exclude: /\.module\.css$/,
+      type: "javascript/auto",
       use: [
         ifClient(
           ifProd({
-            loader: MiniCssExtractPlugin.loader,
+            loader: rspack.CssExtractRspackPlugin.loader,
             options: {
               publicPath: process.env.HOST_CLIENT,
             },
@@ -41,10 +43,11 @@ export const cssLoader = (ctx: CssLoaderContext) => {
 
     {
       test: /\.module\.css$/,
+      type: "javascript/auto",
       use: [
         ifClient(
           ifProd({
-            loader: MiniCssExtractPlugin.loader,
+            loader: rspack.CssExtractRspackPlugin.loader,
             options: {
               publicPath: process.env.HOST_CLIENT,
             },

@@ -5,7 +5,7 @@
   "description": "React Framework with Painless Configuration",
   "scripts": {
     "postinstall": "husky install",
-    "bs" : "pnpm i -r"
+    "bs": "pnpm i -r"
   },
   "repository": {
     "url": "https://github.com/gobielJonathan/beyond"
