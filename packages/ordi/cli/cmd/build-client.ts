@@ -1,8 +1,9 @@
-import Webpack from "webpack";
-import webpackConfig from "../webpack/client/webpack.prod";
+import { rspack } from "@rspack/core";
+
+import config from "../rspack/client/rspack.prod";
 
 const getClientCompiler = () => {
-  return Webpack(webpackConfig);
+  return rspack(config);
 };
 
 const buildClient = async () => {

@@ -1,8 +1,7 @@
-import { type Configuration } from "webpack";
-import WebpackBar from "webpackbar";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
+import { Configuration, rspack } from "@rspack/core";
 
-import common from "./webpack.config";
+import common from "./rspack.config";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -10,5 +9,5 @@ export default mergeWithCustomize<Configuration>({
   }),
 })(common, {
   mode: "production",
-  plugins: [new WebpackBar({ name: "server", color: "#FFBD35" })],
+  plugins: [new rspack.ProgressPlugin({ prefix: "server" })],
 });

@@ -1,8 +1,8 @@
+import { Configuration } from "@rspack/core";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
-import { type Configuration } from "webpack";
 import { RunScriptWebpackPlugin } from "run-script-webpack-plugin";
 
-import common from "./webpack.config";
+import common from "./rspack.config";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
