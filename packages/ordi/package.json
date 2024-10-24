@@ -2,22 +2,22 @@
   "name": "ordijs",
   "private": false,
   "version": "0.3.4-beta-2",
-  "description": "Main Code in Beyond Framework",
+  "description": "Main Code in Ordijs Framework",
   "main": "./build/server/main.js",
   "scripts": {
     "start": "node ./src/cli serve",
     "build": "rm -rf build && npm-run-all --parallel build:ts build:js",
-    "build:ts": "pnpm tsc --skipLibCheck -d --emitDeclarationOnly --declarationMap --declarationDir build",
-    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\""
+    "build:js": "swc src -d build --strip-leading-paths --source-maps --copy-files",
+    "build:ts": "tsc --emitDeclarationOnly"
   },
   "bin": {
     "ordi": "./cli/index.js"
   },
   "repository": {
-    "url": "https://github.com/gobielJonathan/beyond"
+    "url": "https://github.com/gobielJonathan/ordi.js"
   },
   "bugs": {
-    "url": "https://github.com/gobielJonathan/beyond/issues"
+    "url": "https://github.com/gobielJonathan/ordi.js/issues"
   },
   "author": "Gobiel",
   "files": [
@@ -53,7 +53,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.24.7",
     "@types/dotenv-safe": "^8.1.6",
     "@types/jest": "^27.5.2",
     "@types/loadable__component": "^5.13.9",
@@ -74,48 +73,32 @@
     "typescript-transform-paths": "^3.4.7"
   },
   "dependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/node": "^7.24.7",
-    "@babel/plugin-syntax-jsx": "^7.24.7",
-    "@babel/plugin-transform-runtime": "^7.24.7",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@babel/runtime": "^7.24.7",
-    "@fastify/static": "^7.0.4",
-    "@loadable/babel-plugin": "^5.16.1",
+    "@fastify/static": "^8.0.2",
     "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
     "@loadable/webpack-plugin": "^5.15.2",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
-    "@swc/core": "^1.7.0",
+    "@rspack/cli": "^1.0.14",
+    "@rspack/core": "^1.0.14",
+    "@rspack/dev-server": "^1.0.9",
+    "@rspack/plugin-react-refresh": "^1.0.0",
+    "@swc/cli": "0.4.1-nightly.20240914",
+    "@swc/core": "^1.7.39",
+    "@swc/helpers": "^0.5.13",
     "@types/react-router-dom": "^5.3.3",
-    "babel-loader": "^9.1.3",
     "chalk": "^5.3.0",
     "core-js": "^3.37.1",
     "css-loader": "^7.1.2",
-    "css-minimizer-webpack-plugin": "^7.0.0",
     "dotenv-safe": "^8.2.0",
-    "fastify": "^4.28.1",
-    "fastify-plugin": "^4.5.1",
-    "file-loader": "^6.2.0",
-    "long": "^5.2.3",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.1",
     "lru-cache": "^6.0.0",
-    "mini-css-extract-plugin": "^2.9.0",
-    "pino-pretty": "^11.2.1",
     "react-helmet-async": "^2.0.5",
     "react-refresh": "^0.14.2",
     "react-router-dom": "5",
     "run-script-webpack-plugin": "^0.2.0",
     "style-loader": "^4.0.0",
     "ts-node": "^10.9.2",
-    "webpack": "^5.92.1",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-middleware": "^5.3.4",
-    "webpack-dev-server": "^4.15.2",
-    "webpack-merge": "^5.10.0",
-    "webpackbar": "^6.0.1",
+    "webpack-merge": "^6.0.1",
     "yargs": "^17.7.2"
   },
   "peerDependencies": {

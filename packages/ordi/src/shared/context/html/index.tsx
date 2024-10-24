@@ -15,17 +15,9 @@ export const HtmlContext = createContext<HtmlContextType | undefined>(
   undefined
 );
 
-export const HtmlProvider= (
-  props: PropsWithChildren<HtmlContextType>
-) => {
-  const { helmet, extractor, html, routerProps, children, fetchProps } = props;
-
+export const HtmlProvider = (props: PropsWithChildren<HtmlContextType>) => {
   return (
-    <HtmlContext.Provider
-      value={{ helmet: helmet, extractor, html, routerProps, fetchProps }}
-    >
-      {children}
-    </HtmlContext.Provider>
+    <HtmlContext.Provider value={props}>{props.children}</HtmlContext.Provider>
   );
 };
 

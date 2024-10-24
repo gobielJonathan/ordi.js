@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ordi serve",
-    "build": "pnpm build:client && pnpm build:server",
-    "build:server": "ordi build:server",
-    "build:client": "ordi build:client",
+    "build": "ordi build",
     "serve": "node ./build/server/main.js"
   },
   "author": "",
@@ -20,8 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.19.38",
-    "@types/react": "^17.0.80",
-    "babel-loader": "^9.1.3"
+    "@types/react": "^17.0.80"
   },
   "engines": {
     "node": ">=18.17 <19",

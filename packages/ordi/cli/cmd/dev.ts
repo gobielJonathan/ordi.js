@@ -1,52 +1,61 @@
-import Webpack from "webpack";
-import WDS from "webpack-dev-server";
+import { rspack } from "@rspack/core";
+import { RspackDevServer as DS } from "@rspack/dev-server";
 
-import devServerConfig from "../webpack/dev-server";
-
+import generateDevHost from "../../utils/dev-host";
 import { withOrdiConfig } from "../../utils/load-config";
-import { checkPort } from "../../utils/port";
 
 const getServerCompiler = () => {
-  const webpackServer = require("../webpack/server/webpack.dev").default;
-  return Webpack(withOrdiConfig(webpackServer, { isServer: true }));
+  const { default: serverConfig } = require("../rspack/server/rspack.dev");
+  const config = withOrdiConfig(serverConfig, { isServer: true });
+  return rspack(config);
 };
 
 const getClientCompiler = () => {
-  const webpackClient = require("../webpack/client/webpack.dev").default;
-  return Webpack(withOrdiConfig(webpackClient, {}));
-};
-
-const WATCH_OPTIONS = {
-  aggregateTimeout: 300,
-  poll: 1000,
+  const { default: clientConfig } = require("../rspack/client/rspack.dev");
+  const config = withOrdiConfig(clientConfig, { isServer: false });
+  return rspack(config);
 };
 
 const start = async () => {
   try {
-    //check server port, if port used, increment the port
-    const portServer = await checkPort(Number(process.env.PORT_SERVER), 3);
-    process.env.PORT_SERVER = String(portServer);
+    const devHostClient = await generateDevHost();
+    process.env.PORT_SERVER = devHostClient.portServer;
 
-    //check client port, if port used, increment the port
-    const portClient = await checkPort(Number(portServer + 1), 3);
-    /**
-     * @note why we need port client, because we still use webpack to serve our static file
-     */
-    process.env.PORT_CLIENT = String(portClient);
-    process.env.HOST_CLIENT = `${process.env.HOST_NAME}:${portClient}`;
+    process.env.PORT_CLIENT = devHostClient.portClient;
+    process.env.HOST_CLIENT = devHostClient.hostClient;
 
     const client = getClientCompiler();
     const server = getServerCompiler();
 
-    const webpackDevServer = new WDS(
-      devServerConfig(
-        new URL(process.env.HOST_NAME ?? "http://localhost").hostname,
-        portClient
-      ),
+    const { hostname } = new URL(String(process.env.HOST_NAME));
+
+    const ds = new DS(
+      {
+        port: process.env.PORT_CLIENT,
+        compress: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods":
+            "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers":
+            "X-Requested-With, content-type, Authorization",
+        },
+        client: {
+          webSocketURL: {
+            hostname: hostname,
+            port: process.env.PORT_CLIENT, // The WebSocket port for HMR
+          },
+        },
+      },
       client
     );
-    webpackDevServer.start();
 
+    ds.start();
+
+    const WATCH_OPTIONS = {
+      aggregateTimeout: 300,
+      poll: 1000,
+    };
     server.watch(WATCH_OPTIONS, (err) => {
       if (err) throw err;
     });

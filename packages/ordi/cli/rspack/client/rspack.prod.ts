@@ -1,8 +1,7 @@
-import { type Configuration } from "webpack";
+import { Configuration, rspack } from "@rspack/core";
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
-import WebpackBar from "webpackbar";
 
-import common from "./webpack.config";
+import common from "./rspack.config";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -14,5 +13,5 @@ export default mergeWithCustomize<Configuration>({
     filename: "[name].[contenthash].js",
     publicPath: process.env.ASSET_PREFIX,
   },
-  plugins: [new WebpackBar({ name: "client" })],
+  plugins: [new rspack.ProgressPlugin({ prefix: "client" })],
 });
