@@ -1,8 +1,5 @@
 import { Configuration, rspack } from "@rspack/core";
-
 import resolver from "./resolve";
-
-import ifProd from "../../utils/ifProd";
 
 const shared: Configuration = {
   resolve: {
@@ -18,14 +15,9 @@ const shared: Configuration = {
   },
 
   plugins: [
-    ifProd(
-      new rspack.CssExtractRspackPlugin({
-        runtime: true,
-        filename: "[name].[contenthash].css",
-        chunkFilename: "[id].[contenthash].css",
-        ignoreOrder: true,
-      })
-    ),
+    new rspack.CssExtractRspackPlugin({
+      ignoreOrder: true,
+    }),
   ].filter(Boolean),
 
   module: {

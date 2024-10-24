@@ -1,3 +1,5 @@
+import { Configuration, rspack } from "@rspack/core";
+
 import { mergeWithCustomize, customizeObject } from "webpack-merge";
 
 import shared from "../rspack.shared";
@@ -6,7 +8,6 @@ import { serverLoader } from "../loader/ts-loader";
 import { cssLoader } from "../loader/css-loader";
 
 import { serverVars } from "../plugins/DefinePlugin";
-import { Configuration, rspack } from "@rspack/core";
 
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
@@ -16,10 +17,8 @@ export default mergeWithCustomize<Configuration>({
   }),
 })(shared, {
   target: "node",
-  entry: [resolveCwd("src/server/index.ts")],
-  optimization: {
-    minimize: false,
-  },
+  entry: resolveCwd("src/server/index.ts"),
+
   output: {
     path: resolveCwd("build/server"),
     libraryTarget: "commonjs",
@@ -30,6 +29,6 @@ export default mergeWithCustomize<Configuration>({
   ],
 
   module: {
-    rules: [...serverLoader, ...cssLoader({ isServer: true })],
+    rules: [...serverLoader, ...cssLoader()],
   },
 });

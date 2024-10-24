@@ -53,6 +53,8 @@ export const serverLoader = [
     type: "javascript/auto",
     options: {
       jsc: {
+        externalHelpers: true,
+        preserveAllComments: false,
         parser: {
           syntax: "typescript",
         },
@@ -60,6 +62,8 @@ export const serverLoader = [
           react: {
             runtime: "automatic",
             development: ifDev(true, false),
+            throwIfNamespace: true,
+            useBuiltins: false,
           },
         },
       },
@@ -72,6 +76,8 @@ export const serverLoader = [
     exclude: [/[\\/]node_modules[\\/]/],
     options: {
       jsc: {
+        externalHelpers: true,
+        preserveAllComments: false,
         parser: {
           syntax: "typescript",
           tsx: true,
@@ -80,6 +86,8 @@ export const serverLoader = [
           react: {
             runtime: "automatic",
             development: ifDev(true, false),
+            throwIfNamespace: true,
+            useBuiltins: false,
           },
         },
       },

@@ -2,7 +2,7 @@
   "name": "ordijs",
   "private": false,
   "version": "0.3.4-beta-2",
-  "description": "Main Code in Beyond Framework",
+  "description": "Main Code in Ordijs Framework",
   "main": "./build/server/main.js",
   "scripts": {
     "start": "node ./src/cli serve",
@@ -14,10 +14,10 @@
     "ordi": "./cli/index.js"
   },
   "repository": {
-    "url": "https://github.com/gobielJonathan/beyond"
+    "url": "https://github.com/gobielJonathan/ordi.js"
   },
   "bugs": {
-    "url": "https://github.com/gobielJonathan/beyond/issues"
+    "url": "https://github.com/gobielJonathan/ordi.js/issues"
   },
   "author": "Gobiel",
   "files": [
@@ -53,9 +53,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.24.7",
-    "@rspack/cli": "^1.0.5",
-    "@rspack/core": "^1.0.5",
     "@types/dotenv-safe": "^8.1.6",
     "@types/jest": "^27.5.2",
     "@types/loadable__component": "^5.13.9",
@@ -76,23 +73,24 @@
     "typescript-transform-paths": "^3.4.7"
   },
   "dependencies": {
-    "@loadable/babel-plugin": "^5.16.1",
+    "@fastify/static": "^8.0.2",
     "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
     "@loadable/webpack-plugin": "^5.15.2",
-    "@rspack/dev-server": "^1.0.5",
+    "@rspack/cli": "^1.0.14",
+    "@rspack/core": "^1.0.14",
+    "@rspack/dev-server": "^1.0.9",
     "@rspack/plugin-react-refresh": "^1.0.0",
     "@swc/cli": "0.4.1-nightly.20240914",
-    "@swc/core": "^1.7.0",
+    "@swc/core": "^1.7.39",
     "@swc/helpers": "^0.5.13",
     "@types/react-router-dom": "^5.3.3",
     "chalk": "^5.3.0",
     "core-js": "^3.37.1",
     "css-loader": "^7.1.2",
     "dotenv-safe": "^8.2.0",
-    "fastify": "^4.28.1",
-    "fastify-plugin": "^4.5.1",
-    "long": "^5.2.3",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.1",
     "lru-cache": "^6.0.0",
     "react-helmet-async": "^2.0.5",
     "react-refresh": "^0.14.2",

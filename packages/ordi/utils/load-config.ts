@@ -1,15 +1,16 @@
+import { Configuration } from "@rspack/core";
 import path from "path";
-import type { Configuration } from "webpack";
+import crypto from "node:crypto";
 
 export interface OrdiConfig {
   basePath?: string;
   assetPrefix?: string;
-  generateBuildId?: () => Promise<string>;
+  generateBuildId?: () => string;
   logging?: boolean;
   poweredByHeader?: boolean;
-  webpack?: (props: {
-    webpack: Configuration;
-    isServer?: boolean;
+  compiler?: (props: {
+    instance: Configuration;
+    isServer: boolean;
   }) => Configuration;
 
   devServer?: {
@@ -20,9 +21,7 @@ export interface OrdiConfig {
 
 const ROOT_PATH = process.cwd();
 
-const resolveCwd = (_path: string = "") => {
-  return path.resolve(ROOT_PATH, _path);
-};
+const resolveCwd = (_path: string = "") => path.resolve(ROOT_PATH, _path);
 
 export default function loadConfig() {
   const configPath = resolveCwd("ordi.config.js");
@@ -33,8 +32,8 @@ export default function loadConfig() {
     logging = true,
     poweredByHeader = true,
     devServer = { hostname: "http://localhost", port: 4000 },
-    webpack,
-    generateBuildId,
+    compiler,
+    generateBuildId = () => crypto.randomBytes(16).toString("hex"),
   } = config;
 
   return {
@@ -43,7 +42,7 @@ export default function loadConfig() {
     logging,
     poweredByHeader,
     devServer,
-    webpack,
+    compiler,
     generateBuildId,
   };
 }
@@ -51,10 +50,11 @@ export default function loadConfig() {
 export const withOrdiConfig = (
   config: Configuration,
   context: {
-    isServer?: boolean;
+    isServer: boolean;
   }
 ) => {
-  const { webpack } = loadConfig();
-  if (webpack) return webpack({ webpack: config, isServer: context.isServer });
+  const { compiler } = loadConfig();
+  if (compiler)
+    return compiler({ instance: config, isServer: context.isServer });
   return config;
 };

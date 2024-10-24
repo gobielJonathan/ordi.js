@@ -37,13 +37,11 @@ yargs
   .middleware(() => {
     const { default: loadConfig } = require("../utils/load-config");
 
-    const { assetPrefix, basePath, logging, poweredByHeader, devServer } =
-      loadConfig();
+    const { assetPrefix, basePath, devServer } = loadConfig();
 
     process.env.ASSET_PREFIX = assetPrefix;
     process.env.BASE_PATH = basePath;
-    process.env.IS_USE_LOGGING = logging;
-    process.env.POWERED_BY = poweredByHeader;
+
     process.env.HOST_NAME = devServer.hostname;
     process.env.PORT_SERVER = devServer.port;
   })
@@ -52,12 +50,8 @@ yargs
     require("./cmd/dev").default();
   })
 
-  .command("build:server", "build the server", noop, () => {
-    require("./cmd/build-server").default();
-  })
-
-  .command("build:client", "build the client", noop, () => {
-    require("./cmd/build-client").default();
+  .command("build", "build the server", noop, () => {
+    require("./cmd/build").default();
   })
 
   .parse();

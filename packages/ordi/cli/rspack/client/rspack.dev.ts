@@ -14,5 +14,4 @@ export default mergeWithCustomize<Configuration>({
   devtool: "eval-source-map",
   plugins: [new ReactRefreshPlugin()],
   stats: "errors-only",
-  optimization: { minimize: false },
 });

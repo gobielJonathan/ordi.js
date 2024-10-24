@@ -30,6 +30,7 @@ export const Scripts = () => {
           __html: `
           window.__ORDI_DATA__=${JSON.stringify(routerProps)}
           window.__ORDI_FETCH__=${JSON.stringify(fetchProps)}
+          window.BUILD_ID=${JSON.stringify(process.env.BUILD_ID)}
         `,
         }}
       ></script>

@@ -13,7 +13,7 @@ import { clientVars } from "../plugins/DefinePlugin";
 
 const WEBPACK_OPTIMIZATION_REGEX_FRAMEWORK_CORE =
   /[\\/]node_modules.*(react|react-dom|react-router|react-router-dom|react-helmet-async|@loadable)[\\/]/;
-console.log("process.env ", process.env);
+
 export default mergeWithCustomize<Configuration>({
   customizeObject: customizeObject({
     "module.rules": "prepend",
@@ -34,7 +34,7 @@ export default mergeWithCustomize<Configuration>({
   ],
 
   module: {
-    rules: [...clientLoader, ...cssLoader({})],
+    rules: [...clientLoader, ...cssLoader()],
   },
 
   optimization: {
@@ -69,8 +69,5 @@ export default mergeWithCustomize<Configuration>({
         },
       },
     },
-
-    minimize: true,
-    minimizer: [new rspack.CssExtractRspackPlugin()],
   },
 });

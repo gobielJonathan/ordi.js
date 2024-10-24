@@ -1,6 +1,7 @@
 interface Window {
   __ORDI_DATA__: Record<string, unknown>;
   __ORDI_FETCH__: Record<string, unknown>;
+  BUILD_ID: string;
 }
 
 interface NodeModule {

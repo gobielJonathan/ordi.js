@@ -23,7 +23,7 @@ const createServerChecker = (port: number) =>
     server.listen(port);
   });
 
-export const checkPort = async (port: number, retry = 1) => {
+export const reservePort = async (port: number, retry = 1) => {
   let _retry = 1;
 
   while (true) {

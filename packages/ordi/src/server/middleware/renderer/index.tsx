@@ -61,7 +61,7 @@ export default function rendererMiddleware(
       const { status, html, redirect } = await render({ req, routerProps });
 
       if (status === 301) {
-        reply.redirect(301, redirect);
+        reply.redirect(redirect, 301);
         return;
       }
 

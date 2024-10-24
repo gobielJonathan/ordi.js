@@ -1,11 +1,11 @@
-import path from "path";
 import dotenv from "dotenv-safe";
+import loadConfig from "../../../utils/load-config";
+import ifProd from "../../../utils/ifProd";
 
 const PUBLIC_VAR_PREFIX = "ORDI_PUBLIC";
 
 const { parsed = {} } = dotenv.config({
   allowEmptyValues: true,
-  example: path.resolve(process.cwd(), ".env"),
 });
 
 const tupleEnv = Object.entries(parsed);
@@ -38,7 +38,18 @@ export const clientVars = {
   ..._clientVars,
 };
 
+const { generateBuildId, devServer, poweredByHeader, logging, assetPrefix } =
+  loadConfig();
+
+const buildID = ifProd(generateBuildId(), "");
+
 export const serverVars = {
   ...baseVars,
   ..._serverVars,
+  "process.env.BUILD_ID": JSON.stringify(buildID),
+  "process.env.HOST_NAME": JSON.stringify(devServer.hostname),
+  "process.env.PORT_SERVER": devServer.port,
+  "process.env.POWERED_BY": poweredByHeader,
+  "process.env.IS_USE_LOGGING": logging,
+  "process.env.ASSET_PREFIX": JSON.stringify(assetPrefix),
 };

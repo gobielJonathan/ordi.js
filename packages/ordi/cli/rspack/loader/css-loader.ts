@@ -1,33 +1,20 @@
 import { rspack } from "@rspack/core";
 
-import ifProd from "../../../utils/ifProd";
 import ifDev from "../../../utils/ifDev";
-import ifElse from "../../../utils/ifElse";
 
-interface CssLoaderContext {
-  isServer?: boolean;
-}
-
-export const cssLoader = (ctx: CssLoaderContext) => {
-  const ifClient = ifElse(!ctx.isServer);
-
+export const cssLoader = () => {
   return [
     {
       test: /\.css$/,
       exclude: /\.module\.css$/,
       type: "javascript/auto",
       use: [
-        ifClient(
-          ifProd({
-            loader: rspack.CssExtractRspackPlugin.loader,
-            options: {
-              publicPath: process.env.HOST_CLIENT,
-            },
-          })
-        ),
-        ifDev({
-          loader: require.resolve("style-loader"),
-        }),
+        {
+          loader: rspack.CssExtractRspackPlugin.loader,
+          options: {
+            publicPath: process.env.HOST_CLIENT,
+          },
+        },
         {
           loader: require.resolve("css-loader"),
           options: {
@@ -45,24 +32,18 @@ export const cssLoader = (ctx: CssLoaderContext) => {
       test: /\.module\.css$/,
       type: "javascript/auto",
       use: [
-        ifClient(
-          ifProd({
-            loader: rspack.CssExtractRspackPlugin.loader,
-            options: {
-              publicPath: process.env.HOST_CLIENT,
-            },
-          })
-        ),
-        ifDev({
-          loader: require.resolve("style-loader"),
-        }),
+        {
+          loader: rspack.CssExtractRspackPlugin.loader,
+          options: {
+            publicPath: process.env.HOST_CLIENT,
+          },
+        },
         {
           loader: require.resolve("css-loader"),
           options: {
             importLoaders: 2,
             esModule: false,
             modules: {
-              exportOnlyLocals: ifDev(false, true),
               localIdentName: ifDev(
                 "[local]--[hash:base64:5]",
                 "[hash:base64:5]"
