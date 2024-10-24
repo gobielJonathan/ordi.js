@@ -1,7 +1,7 @@
 {
   "name": "ordijs",
   "private": false,
-  "version": "0.3.4-beta-2",
+  "version": "0.5.0-beta-2",
   "description": "Main Code in Ordijs Framework",
   "main": "./build/server/main.js",
   "scripts": {
@@ -23,6 +23,7 @@
   "files": [
     "build",
     "cli",
+    "utils",
     "client.js",
     "client.d.ts",
     "core.js",
